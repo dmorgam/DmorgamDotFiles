@@ -41,4 +41,3 @@ let g:NERDTreeWinPos = "right"
 
 " [ Open new window settings ]
 autocmd VimEnter * NERDTree | wincmd p
-autocmd BufWinEnter * NERDTreeMirror
