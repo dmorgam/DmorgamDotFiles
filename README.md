@@ -24,3 +24,10 @@ Para instalar la config, ejecutar el script [install.sh --nvim](install.sh).
 ```shell
 $install.sh --nvim
 ```
+
+Dependencias:
++ Python3: 
+  ```
+  $ pip3 install --user pynvim
+  ```
+
