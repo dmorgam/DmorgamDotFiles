@@ -29,6 +29,7 @@ set number
 " [ Vim airline config ]
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " [ Deoplete config ]
 let g:deoplete#enable_at_startup = 1
@@ -38,6 +39,9 @@ colorscheme gruvbox
 
 " [ Nerdtree config ]
 let g:NERDTreeWinPos = "right"
+let NERDTreeMinimalUI = 1
 
 " [ Open new window settings ]
 autocmd VimEnter * NERDTree | wincmd p
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
