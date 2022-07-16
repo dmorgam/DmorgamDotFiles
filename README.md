@@ -4,6 +4,7 @@ Mis dotfiles con mi config de nvim y varios.
 
 ## Nvim
 
+**Versión de Neovim: 7.x o superior.**
 El plugin manager que uso es [vim-plug](https://github.com/junegunn/vim-plug).
 Para su instalación  se copia [plug.vim](https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim)
 al directorio de autoload de nvim en _~/.local/share/nvim/site/autoload/_.
@@ -24,10 +25,4 @@ Para instalar la config, ejecutar el script [install.sh --nvim](install.sh).
 ```shell
 $install.sh --nvim
 ```
-
-Dependencias:
-+ Python3: 
-  ```
-  $ pip3 install --user pynvim
-  ```
 
