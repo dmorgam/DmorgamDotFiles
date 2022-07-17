@@ -31,6 +31,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
+" Indent blankline show
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 call plug#end()
 
@@ -48,7 +50,10 @@ colorscheme gruvbox
 lua << END
 require("bufferline").setup({
   options = {
-    separator_style = "thin"
+    separator_style = "thin",
+    numbers = "buffer_id",
+    show_close_icon = false,
+    show_buffer_close_icons = false,
   } 
 })
 
@@ -78,6 +83,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
+vim.opt.list = true
+vim.opt.listchars:append("eol:↴")
+
+require("indent_blankline").setup ({
+    show_end_of_line = true,
+})
 
 -- CMP Autocomplete config
 local cmp = require("cmp")
