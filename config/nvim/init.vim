@@ -8,7 +8,10 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 
 " Grubvox theme
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+
+" Tokio Night theme
+Plug 'folke/tokyonight.nvim'
         
 " file tree
 Plug 'kyazdani42/nvim-tree.lua'
@@ -34,6 +37,10 @@ Plug 'hrsh7th/vim-vsnip'
 " Indent blankline show
 Plug 'lukas-reineke/indent-blankline.nvim'
 
+" Telescope (fuzzy finder)
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 call plug#end()
 
 "[ Nvim general config ]
@@ -43,14 +50,14 @@ set termguicolors
     
 
 " [ Colorscheme ]
-colorscheme gruvbox
+colorscheme tokyonight-night
 
 
 " --------------- Lua settings ------------------------
 lua << END
 require("bufferline").setup({
   options = {
-    separator_style = "thin",
+    separator_style = 'thick',
     numbers = "buffer_id",
     show_close_icon = false,
     show_buffer_close_icons = false,
@@ -66,7 +73,9 @@ require("nvim-tree").setup({
 
 require('lualine').setup({
   options = {
-    theme = 'gruvbox_dark',
+    theme = 'palenight',
+    component_separators = { left = '\\', right = '/' },
+    section_separators = { left = '', right = '' }
   }
 })
 
