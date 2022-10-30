@@ -11,7 +11,7 @@ installNvim () {
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     echo "Copiando config..."
-    mkdir -p ~/.config/nvim && cp ./config/nvim/init.vim ~/.config/nvim/
+    mkdir -p ~/.config/nvim && cp ./config/nvim/init.lua ~/.config/nvim/
 
     echo "Instalando plugins..."
     nvim +PlugInstall +qall

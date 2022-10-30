@@ -1,31 +1,38 @@
-call plug#begin()
 
-" Web dev icons
+-- My neovim config rewritten in lua
+
+-- ######################### [ VIMPLUG PLUGINS ] #########################################
+
+local Plug = vim.fn['plug#']
+vim.call('plug#begin')
+
+
+-- Web dev icons
 Plug 'kyazdani42/nvim-web-devicons'
 
-" Plugins de status bar
+-- Plugins de status bar
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 
-" Grubvox theme
-" Plug 'morhetz/gruvbox'
+-- Grubvox theme
+-- Plug 'morhetz/gruvbox'
 
-" Tokio Night theme
+-- Tokio Night theme
 Plug 'folke/tokyonight.nvim'
         
-" file tree
+-- file tree
 Plug 'kyazdani42/nvim-tree.lua'
 
-" Git support
+-- Git support
 Plug 'tpope/vim-fugitive'
 
-" Autoclose brackets
+-- Autoclose brackets
 Plug 'windwp/nvim-autopairs'
 
-" Neovim lsp config 
+-- Neovim lsp config 
 Plug 'neovim/nvim-lspconfig'
 
-" Autocomplete
+-- Autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -34,27 +41,35 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
-" Indent blankline show
+-- Indent blankline show
 Plug 'lukas-reineke/indent-blankline.nvim'
 
-" Telescope (fuzzy finder)
+-- Telescope (fuzzy finder)
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-call plug#end()
 
-"[ Nvim general config ]
-set tabstop=2 shiftwidth=2 expandtab
-set number
-set termguicolors
-    
+vim.call('plug#end')
 
-" [ Colorscheme ]
-colorscheme tokyonight-night
+-- ######################### [ Nvim general config ] #########################################
+
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.number = true
+vim.opt.termguicolors = true
+
+vim.opt.list = true
+vim.opt.listchars:append("eol:↴")
+
+-- [ Colorscheme ]
+vim.cmd('colorscheme tokyonight-night')
 
 
-" --------------- Lua settings ------------------------
-lua << END
+
+-- ########################## [ PLUGIN SETUP ] ###############################################
+
+
 require("bufferline").setup({
   options = {
     separator_style = 'thick',
@@ -64,12 +79,14 @@ require("bufferline").setup({
   } 
 })
 
+
 require("nvim-tree").setup({
   open_on_setup = true,
   view = {
     side = "right"
   },
 })
+
 
 require('lualine').setup({
   options = {
@@ -92,12 +109,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
-vim.opt.list = true
-vim.opt.listchars:append("eol:↴")
 
 require("indent_blankline").setup ({
     show_end_of_line = true,
 })
+
 
 -- CMP Autocomplete config
 local cmp = require("cmp")
@@ -121,5 +137,3 @@ cmp.setup({
       { name = "buffer" },
    },
 })
-
-END
