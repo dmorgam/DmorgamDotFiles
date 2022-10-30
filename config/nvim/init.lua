@@ -3,50 +3,49 @@
 
 -- ######################### [ VIMPLUG PLUGINS ] #########################################
 
-local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
 
 -- Web dev icons
-Plug 'kyazdani42/nvim-web-devicons'
+vim.fn['plug#'] 'kyazdani42/nvim-web-devicons'
 
 -- Plugins de status bar
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'akinsho/bufferline.nvim'
+vim.fn['plug#'] 'nvim-lualine/lualine.nvim'
+vim.fn['plug#'] 'akinsho/bufferline.nvim'
 
 -- Grubvox theme
 -- Plug 'morhetz/gruvbox'
 
 -- Tokio Night theme
-Plug 'folke/tokyonight.nvim'
+vim.fn['plug#'] 'folke/tokyonight.nvim'
         
 -- file tree
-Plug 'kyazdani42/nvim-tree.lua'
+vim.fn['plug#'] 'kyazdani42/nvim-tree.lua'
 
 -- Git support
-Plug 'tpope/vim-fugitive'
+vim.fn['plug#'] 'tpope/vim-fugitive'
 
 -- Autoclose brackets
-Plug 'windwp/nvim-autopairs'
+vim.fn['plug#'] 'windwp/nvim-autopairs'
 
 -- Neovim lsp config 
-Plug 'neovim/nvim-lspconfig'
+vim.fn['plug#'] 'neovim/nvim-lspconfig'
 
 -- Autocomplete
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
+vim.fn['plug#'] 'hrsh7th/cmp-nvim-lsp'
+vim.fn['plug#'] 'hrsh7th/cmp-buffer'
+vim.fn['plug#'] 'hrsh7th/cmp-path'
+vim.fn['plug#'] 'hrsh7th/cmp-cmdline'
+vim.fn['plug#'] 'hrsh7th/nvim-cmp'
+vim.fn['plug#'] 'hrsh7th/cmp-vsnip'
+vim.fn['plug#'] 'hrsh7th/vim-vsnip'
 
 -- Indent blankline show
-Plug 'lukas-reineke/indent-blankline.nvim'
+vim.fn['plug#'] 'lukas-reineke/indent-blankline.nvim'
 
 -- Telescope (fuzzy finder)
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+vim.fn['plug#'] 'nvim-lua/plenary.nvim'
+vim.fn['plug#'] 'nvim-telescope/telescope.nvim'
 
 
 vim.call('plug#end')
@@ -65,6 +64,16 @@ vim.opt.listchars:append("eol:↴")
 -- [ Colorscheme ]
 vim.cmd('colorscheme tokyonight-night')
 
+
+-- Snipet autoclose NvimTree ( Buggy when exit on not saved files)
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
+      vim.cmd "quit"
+    end
+  end
+})
 
 
 -- ########################## [ PLUGIN SETUP ] ###############################################
@@ -96,18 +105,8 @@ require('lualine').setup({
   }
 })
 
+
 require("nvim-autopairs").setup()
-
-
--- Snipet autoclose NvimTree ( Buggy when exit on not saved files)
-vim.api.nvim_create_autocmd("BufEnter", {
-  nested = true,
-  callback = function()
-    if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
-      vim.cmd "quit"
-    end
-  end
-})
 
 
 require("indent_blankline").setup ({
@@ -134,6 +133,22 @@ cmp.setup({
    },
    sources = {
       { name = "nvim_lsp" },
+      { name = 'path' },
       { name = "buffer" },
    },
 })
+
+
+-- Set up lspconfig, configure language servers installed.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+local servers = { 'pylsp' }
+
+for _, lsp in ipairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end
+
+

@@ -28,3 +28,14 @@ Para instalar la config, ejecutar el script [install.sh --nvim](install.sh).
 $install.sh --nvim
 ```
 
+### Servidores de lenguaje
+
+Están configurados los siguientes servidores (hay que instalarlos y meterlos en el path):
+
+#### En python con pip
+* [python-lsp-server (pylsp)](https://github.com/python-lsp/python-lsp-server)
+  ```
+  pip install python-lsp-server
+  ```
+
+
