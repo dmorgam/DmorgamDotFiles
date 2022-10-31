@@ -47,6 +47,9 @@ vim.fn['plug#'] 'lukas-reineke/indent-blankline.nvim'
 vim.fn['plug#'] 'nvim-lua/plenary.nvim'
 vim.fn['plug#'] 'nvim-telescope/telescope.nvim'
 
+-- Rest Api testing
+vim.fn['plug#'] 'NTBBloodbath/rest.nvim'
+
 
 vim.call('plug#end')
 
@@ -112,6 +115,12 @@ require("nvim-autopairs").setup()
 require("indent_blankline").setup ({
     show_end_of_line = true,
 })
+
+
+require("rest-nvim").setup()
+vim.cmd[[ command! RestNvim lua require('rest-nvim').run() ]]
+vim.cmd[[ command! RestNvimPreview :lua require('rest-nvim').run(true) ]]
+vim.cmd[[ command! RestNvimLast :lua require('rest-nvim').last() ]]
 
 
 -- CMP Autocomplete config
