@@ -6,7 +6,7 @@ Mis dotfiles con mi config de nvim y varios.
 
 Configuracion en lua, solo compatible con NeoVim
 
-**Versión de Neovim: 7.x o superior.**
+**Versión de Neovim: 0.8.x o superior.**
 El plugin manager que uso es [vim-plug](https://github.com/junegunn/vim-plug).
 Para su instalación  se copia [plug.vim](https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim)
 al directorio de autoload de nvim en _~/.local/share/nvim/site/autoload/_.
@@ -38,4 +38,12 @@ Están configurados los siguientes servidores (hay que instalarlos y meterlos en
   pip install python-lsp-server
   ```
 
+### Treesitter Nvim
+
+Treesitter funciona el neovim 0.8 o superior y necesita las siguientes librerias:
+* libstdc++
+* g++
+
+Para el plugin de rest api necesita:
+* tidy
 

@@ -47,6 +47,9 @@ vim.fn['plug#'] 'lukas-reineke/indent-blankline.nvim'
 vim.fn['plug#'] 'nvim-lua/plenary.nvim'
 vim.fn['plug#'] 'nvim-telescope/telescope.nvim'
 
+-- Treesitter
+vim.fn['plug#']('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn['TSUpdate'] })
+
 -- Rest Api testing
 vim.fn['plug#'] 'NTBBloodbath/rest.nvim'
 
@@ -118,9 +121,20 @@ require("indent_blankline").setup ({
 
 
 require("rest-nvim").setup()
-vim.cmd[[ command! RestNvim lua require('rest-nvim').run() ]]
-vim.cmd[[ command! RestNvimPreview :lua require('rest-nvim').run(true) ]]
-vim.cmd[[ command! RestNvimLast :lua require('rest-nvim').last() ]]
+vim.cmd('command! RestNvim lua require(\'rest-nvim\').run()')
+vim.cmd('command! RestNvimPreview :lua require(\'rest-nvim\').run(true)')
+vim.cmd('command! RestNvimLast :lua require(\'rest-nvim\').last()')
+
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "lua", "python", "http", "json", "yaml", "javascript", "html", "markdown" },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
 
 
 -- CMP Autocomplete config
@@ -142,6 +156,7 @@ cmp.setup({
    },
    sources = {
       { name = "nvim_lsp" },
+      { name = "treesitter" },
       { name = 'path' },
       { name = "buffer" },
    },

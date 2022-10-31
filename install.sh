@@ -15,6 +15,17 @@ installNvim () {
 
     echo "Instalando plugins..."
     nvim +PlugInstall +qall
+
+    echo "Instalando dependencias..."
+    if $(which apt > /dev/null 2>&1)
+    then
+      sudo apt update
+      sudo apt upgrade
+      sudo apt install g++ libstdc++ tidy
+    elif $(which yum > /dev/null 2>&1)
+    then
+      sudo yum install g++ libstdc++ tidy
+    fi
 }
 
 case $1 in
