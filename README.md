@@ -38,6 +38,19 @@ Están configurados los siguientes servidores (hay que instalarlos y meterlos en
   pip install python-lsp-server
   ```
 
+#### En node con npm
+* [typescript-language-server (tsserver) para js y ts](https://github.com/theia-ide/typescript-language-server)
+  ```
+  npm install -g typescript typescript-language-server
+  ```
+
+#### Binario a compilar o precompilado
+* [lua-language-server (sumneko_lua)](https://github.com/sumneko/lua-language-server)
+   ```
+   git clone https://github.com/sumneko/lua-language-server
+   ....
+   ```
+
 ### Treesitter Nvim
 
 Treesitter funciona el neovim 0.8 o superior y necesita las siguientes librerias:

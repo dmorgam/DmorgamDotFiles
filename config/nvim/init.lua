@@ -18,7 +18,7 @@ vim.fn['plug#'] 'akinsho/bufferline.nvim'
 
 -- Tokio Night theme
 vim.fn['plug#'] 'folke/tokyonight.nvim'
-        
+
 -- file tree
 vim.fn['plug#'] 'kyazdani42/nvim-tree.lua'
 
@@ -91,7 +91,7 @@ require("bufferline").setup({
     numbers = "buffer_id",
     show_close_icon = false,
     show_buffer_close_icons = false,
-  } 
+  }
 })
 
 
@@ -120,7 +120,9 @@ require("indent_blankline").setup ({
 })
 
 
-require("rest-nvim").setup()
+require("rest-nvim").setup({
+  skip_ssl_verification = true
+})
 vim.cmd('command! RestNvim lua require(\'rest-nvim\').run()')
 vim.cmd('command! RestNvimPreview :lua require(\'rest-nvim\').run(true)')
 vim.cmd('command! RestNvimLast :lua require(\'rest-nvim\').last()')
@@ -166,11 +168,23 @@ cmp.setup({
 -- Set up lspconfig, configure language servers installed.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = { 'pylsp' }
+-- Lua lsp server config
+require'lspconfig'.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      diagnostics = { globals = {'vim'} },
+      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+      telemetry = { enable = false },
+    },
+  },
+}
+
+-- Servers with standard config
+local servers = { 'pylsp','tsserver' }
 
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
     capabilities = capabilities,
   }
 end
