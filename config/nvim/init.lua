@@ -58,6 +58,8 @@ vim.call('plug#end')
 
 -- ######################### [ Nvim general config ] #########################################
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
@@ -91,6 +93,14 @@ require("bufferline").setup({
     numbers = "buffer_id",
     show_close_icon = false,
     show_buffer_close_icons = false,
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "  File Explorer",
+        text_align = "left",
+        separator = true
+      }
+    },
   }
 })
 
@@ -107,7 +117,8 @@ require('lualine').setup({
   options = {
     theme = 'palenight',
     component_separators = { left = '\\', right = '/' },
-    section_separators = { left = '', right = '' }
+    section_separators = { left = '', right = '' },
+    globalstatus = true
   }
 })
 
