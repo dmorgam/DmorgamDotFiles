@@ -47,6 +47,9 @@ vim.fn['plug#'] 'lukas-reineke/indent-blankline.nvim'
 vim.fn['plug#'] 'nvim-lua/plenary.nvim'
 vim.fn['plug#'] 'nvim-telescope/telescope.nvim'
 
+-- Todo plugin
+vim.fn['plug#'] 'folke/todo-comments.nvim'
+
 -- Treesitter
 vim.fn['plug#']('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn['TSUpdate'] })
 
@@ -137,6 +140,9 @@ require("rest-nvim").setup({
 vim.cmd('command! RestNvim lua require(\'rest-nvim\').run()')
 vim.cmd('command! RestNvimPreview :lua require(\'rest-nvim\').run(true)')
 vim.cmd('command! RestNvimLast :lua require(\'rest-nvim\').last()')
+
+
+require("todo-comments").setup()
 
 
 require'nvim-treesitter.configs'.setup {
