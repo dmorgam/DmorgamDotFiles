@@ -14,10 +14,10 @@ vim.fn['plug#'] 'nvim-lualine/lualine.nvim'
 vim.fn['plug#'] 'akinsho/bufferline.nvim'
 
 -- Grubvox theme
--- Plug 'morhetz/gruvbox'
+vim.fn['plug#'] 'ellisonleao/gruvbox.nvim'
 
 -- Tokio Night theme
-vim.fn['plug#'] 'folke/tokyonight.nvim'
+-- vim.fn['plug#'] 'folke/tokyonight.nvim'
 
 -- file tree
 vim.fn['plug#'] 'kyazdani42/nvim-tree.lua'
@@ -73,7 +73,8 @@ vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
 -- [ Colorscheme ]
-vim.cmd('colorscheme tokyonight-night')
+vim.cmd('colorscheme gruvbox')
+
 
 
 -- Snipet autoclose NvimTree ( Buggy when exit on not saved files)
@@ -88,7 +89,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 
 -- ########################## [ PLUGIN SETUP ] ###############################################
-
 
 require("bufferline").setup({
   options = {
@@ -118,7 +118,7 @@ require("nvim-tree").setup({
 
 require('lualine').setup({
   options = {
-    theme = 'palenight',
+    theme = 'gruvbox',
     component_separators = { left = '\\', right = '/' },
     section_separators = { left = '', right = '' },
     globalstatus = true
@@ -158,28 +158,30 @@ require'nvim-treesitter.configs'.setup {
 
 -- CMP Autocomplete config
 local cmp = require("cmp")
-cmp.setup({
-   mapping = {
-      ["<C-p>"] = cmp.mapping.select_prev_item(),
-      ["<C-n>"] = cmp.mapping.select_next_item(),
-      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm({
-         behavior = cmp.ConfirmBehavior.Replace,
-         select = true,
-      }),
-      ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
-   },
-   sources = {
-      { name = "nvim_lsp" },
-      { name = "treesitter" },
-      { name = 'path' },
-      { name = "buffer" },
-   },
-})
+if cmp ~= nil then
+  cmp.setup({
+     mapping = {
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.close(),
+        ["<CR>"] = cmp.mapping.confirm({
+           behavior = cmp.ConfirmBehavior.Replace,
+           select = true,
+        }),
+        ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+     },
+     sources = {
+        { name = "nvim_lsp" },
+        { name = "treesitter" },
+        { name = 'path' },
+        { name = "buffer" },
+     },
+  })
+end
 
 
 -- Set up lspconfig, configure language servers installed.
