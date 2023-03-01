@@ -13,10 +13,13 @@ vim.fn['plug#'] 'kyazdani42/nvim-web-devicons'
 vim.fn['plug#'] 'nvim-lualine/lualine.nvim'
 vim.fn['plug#'] 'akinsho/bufferline.nvim'
 
--- Grubvox theme
-vim.fn['plug#'] 'ellisonleao/gruvbox.nvim'
+-- Monokai theme
+vim.fn['plug#'] 'tanvirtin/monokai.nvim'
 
--- Tokio Night theme
+-- Grubvox theme
+-- vim.fn['plug#'] 'ellisonleao/gruvbox.nvim'
+
+-- Tokyo Night theme
 -- vim.fn['plug#'] 'folke/tokyonight.nvim'
 
 -- file tree
@@ -73,7 +76,7 @@ vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
 -- [ Colorscheme ]
-vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme monokai')
 
 
 
@@ -118,7 +121,7 @@ require("nvim-tree").setup({
 
 require('lualine').setup({
   options = {
-    theme = 'gruvbox',
+    theme = 'powerline',
     component_separators = { left = '\\', right = '/' },
     section_separators = { left = '', right = '' },
     globalstatus = true
