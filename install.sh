@@ -10,14 +10,8 @@ showHelp () {
 }
 
 installNvim () {
-    echo "Instalando Vim Plug..."
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
     echo "Copiando config..."
     mkdir -p ~/.config/nvim && cp ./config/nvim/init.lua ~/.config/nvim/
-
-    echo "Instalando plugins..."
-    nvim +PlugInstall +qall
 
     echo "Instalando dependencias..."
     if $(which apt > /dev/null 2>&1)
@@ -27,6 +21,9 @@ installNvim () {
     elif $(which yum > /dev/null 2>&1)
     then
       sudo yum install g++ libstdc++ tidy
+    elif $(which zypper > /dev/null 2>&1)
+    then
+      sudo zypper install gcc-c++ libstdc++6 tidy
     fi
 }
 

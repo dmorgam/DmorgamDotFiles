@@ -1,66 +1,76 @@
 
 -- My neovim config rewritten in lua
 
--- ######################### [ VIMPLUG PLUGINS ] #########################################
+-- ######################### [ LAZY.NVIM PLUGINS ] #########################################
 
-vim.call('plug#begin')
-
-
--- Web dev icons
-vim.fn['plug#'] 'kyazdani42/nvim-web-devicons'
-
--- Plugins de status bar
-vim.fn['plug#'] 'nvim-lualine/lualine.nvim'
-vim.fn['plug#'] 'akinsho/bufferline.nvim'
-
--- Monokai theme
-vim.fn['plug#'] 'tanvirtin/monokai.nvim'
-
--- Grubvox theme
--- vim.fn['plug#'] 'ellisonleao/gruvbox.nvim'
-
--- Tokyo Night theme
--- vim.fn['plug#'] 'folke/tokyonight.nvim'
-
--- file tree
-vim.fn['plug#'] 'kyazdani42/nvim-tree.lua'
-
--- Git support
-vim.fn['plug#'] 'tpope/vim-fugitive'
-
--- Autoclose brackets
-vim.fn['plug#'] 'windwp/nvim-autopairs'
-
--- Neovim lsp config 
-vim.fn['plug#'] 'neovim/nvim-lspconfig'
-
--- Autocomplete
-vim.fn['plug#'] 'hrsh7th/cmp-nvim-lsp'
-vim.fn['plug#'] 'hrsh7th/cmp-buffer'
-vim.fn['plug#'] 'hrsh7th/cmp-path'
-vim.fn['plug#'] 'hrsh7th/cmp-cmdline'
-vim.fn['plug#'] 'hrsh7th/nvim-cmp'
-vim.fn['plug#'] 'hrsh7th/cmp-vsnip'
-vim.fn['plug#'] 'hrsh7th/vim-vsnip'
-
--- Indent blankline show
-vim.fn['plug#'] 'lukas-reineke/indent-blankline.nvim'
-
--- Telescope (fuzzy finder)
-vim.fn['plug#'] 'nvim-lua/plenary.nvim'
-vim.fn['plug#'] 'nvim-telescope/telescope.nvim'
-
--- Todo plugin
-vim.fn['plug#'] 'folke/todo-comments.nvim'
-
--- Treesitter
-vim.fn['plug#']('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn['TSUpdate'] })
-
--- Rest Api testing
-vim.fn['plug#'] 'NTBBloodbath/rest.nvim'
+-- Install lazy.nvim if not exists
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
 
-vim.call('plug#end')
+-- Load lazy.nvim plugins
+require("lazy").setup({
+
+  -- Web dev icons
+  {'kyazdani42/nvim-web-devicons'},
+
+  -- Plugins de status bar
+  {'nvim-lualine/lualine.nvim'},
+  {'akinsho/bufferline.nvim'},
+
+  -- Monokai theme
+  {'tanvirtin/monokai.nvim'},
+
+  -- Grubvox theme
+  -- {'ellisonleao/gruvbox.nvim'},
+
+  -- Tokyo Night theme
+  -- {'folke/tokyonight.nvim'},
+
+  -- file tree
+  {'kyazdani42/nvim-tree.lua'},
+
+  -- Git support
+  {'tpope/vim-fugitive'},
+
+  -- Autoclose brackets
+  {'windwp/nvim-autopairs'},
+
+  -- Neovim lsp config 
+  {'neovim/nvim-lspconfig'},
+
+  -- Autocomplete
+  {'hrsh7th/cmp-nvim-lsp'},
+  {'hrsh7th/cmp-buffer'},
+  {'hrsh7th/cmp-path'},
+  {'hrsh7th/cmp-cmdline'},
+  {'hrsh7th/nvim-cmp'},
+  {'hrsh7th/cmp-vsnip'},
+  {'hrsh7th/vim-vsnip'},
+
+  -- Indent blankline show
+  {'lukas-reineke/indent-blankline.nvim'},
+
+  -- Telescope (fuzzy finder)
+  {'nvim-lua/plenary.nvim'},
+  {'nvim-telescope/telescope.nvim'},
+
+  -- Todo plugin
+  {'folke/todo-comments.nvim'},
+
+  -- Treesitter
+  {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
+
+  -- Rest Api testing
+  {'NTBBloodbath/rest.nvim'},
+
+})
+
 
 -- ######################### [ Nvim general config ] #########################################
 
@@ -112,11 +122,12 @@ require("bufferline").setup({
 
 
 require("nvim-tree").setup({
-  open_on_setup = true,
   view = {
     side = "right"
   },
 })
+
+require("nvim-tree.api").tree.open()
 
 
 require('lualine').setup({
@@ -188,10 +199,10 @@ end
 
 
 -- Set up lspconfig, configure language servers installed.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Lua lsp server config
-require'lspconfig'.sumneko_lua.setup {
+require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT' },
