@@ -32,6 +32,9 @@ require("lazy").setup({
   -- Tokyo Night theme
   -- {'folke/tokyonight.nvim'},
 
+  -- Startup screen
+  {'goolord/alpha-nvim'},
+
   -- file tree
   {'kyazdani42/nvim-tree.lua'},
 
@@ -102,6 +105,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 
 -- ########################## [ PLUGIN SETUP ] ###############################################
+
+
+require("alpha").setup(require'alpha.themes.startify'.config)
+
 
 require("bufferline").setup({
   options = {

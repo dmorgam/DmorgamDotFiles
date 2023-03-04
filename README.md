@@ -7,20 +7,13 @@ Mis dotfiles con mi config de nvim y varios.
 Configuracion en lua, solo compatible con NeoVim
 
 **Versión de Neovim: 0.8.x o superior.**
-El plugin manager que uso es [vim-plug](https://github.com/junegunn/vim-plug).
-Para su instalación  se copia [plug.vim](https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim)
-al directorio de autoload de nvim en _~/.local/share/nvim/site/autoload/_.
+El plugin manager que uso es [lazy.nvim](https://github.com/folke/lazy.nvim).
 
-Vim plug install NeoVim:
-```shell
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
 
 Archivo de config _config/nvim/init.lua_ se debe copiar a _~/.config/nvim/init.lua_.
 Y finalmente dentro de Nvim instalar los plugins:
 ```vim
-:PlugInstall
+:Lazy update
 ```
 
 Para instalar la config, ejecutar el script [install.sh --nvim](install.sh).
