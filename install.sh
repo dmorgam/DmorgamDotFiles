@@ -35,23 +35,11 @@ installZsh () {
     rm ~/.zshrc
   fi
 
-  read -p "¿Instalar oh my zsh? (s/n): " RESP
-  if test $RESP = 's'
-  then
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  fi
-
   cp $BASEDIR/zshrc ~/.zshrc
 
-  echo "Instalando dependencias..."
-  if $(which apt > /dev/null 2>&1)
-  then
-    sudo apt update
-    sudo apt install neofetch
-  elif $(which yum > /dev/null 2>&1)
-  then
-    sudo yum install neofetch
-  fi
+  echo "Instalando Antigen package manager ..." 
+  mkdir -p ~/.zsh/
+  curl -L git.io/antigen > ~/.zsh/antigen.zsh
 }
 
 case $1 in
