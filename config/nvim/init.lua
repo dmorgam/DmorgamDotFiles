@@ -22,6 +22,7 @@ require("lazy").setup({
   -- Plugins de status bar
   {'nvim-lualine/lualine.nvim'},
   {'akinsho/bufferline.nvim'},
+  {'tiagovla/scope.nvim'},
 
   -- Monokai theme
   {'tanvirtin/monokai.nvim'},
@@ -92,16 +93,22 @@ vim.opt.listchars:append("eol:↴")
 vim.cmd('colorscheme monokai')
 
 
+-- [ Custom mappings ]
+-- Leader key
+vim.g.mapleader = " "
 
--- Snipet autoclose NvimTree ( Buggy when exit on not saved files)
-vim.api.nvim_create_autocmd("BufEnter", {
-  nested = true,
-  callback = function()
-    if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
-      vim.cmd "quit"
-    end
-  end
-})
+-- Fast buffer movement
+vim.api.nvim_set_keymap('n','<leader>j',':bnext<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>k',':bprev<CR>',{ noremap = true })
+
+-- Wipe buffer and switch to another one
+vim.api.nvim_set_keymap('n','<leader>d',':bn|bw #<CR>',{ noremap = true })
+
+-- Telescope mappings
+vim.api.nvim_set_keymap('n','<leader>tf',':Telescope find_files<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = true })
+
+
 
 
 -- ########################## [ PLUGIN SETUP ] ###############################################
@@ -109,6 +116,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 require("alpha").setup(require'alpha.themes.startify'.config)
 
+
+require("scope").setup()
 
 require("bufferline").setup({
   options = {
@@ -154,6 +163,13 @@ require("indent_blankline").setup ({
     show_end_of_line = true,
 })
 
+require("telescope").setup {
+  extensions = {
+    live_grep_args = {
+      auto_quoting = true
+    }
+  }
+}
 
 require("rest-nvim").setup({
   skip_ssl_verification = true

@@ -17,13 +17,13 @@ installNvim () {
     if $(which apt > /dev/null 2>&1)
     then
       sudo apt update
-      sudo apt install g++ libstdc++ tidy
+      sudo apt install g++ libstdc++ tidy ripgrep
     elif $(which yum > /dev/null 2>&1)
     then
-      sudo yum install g++ libstdc++ tidy
+      sudo yum install g++ libstdc++ tidy ripgrep
     elif $(which zypper > /dev/null 2>&1)
     then
-      sudo zypper install gcc-c++ libstdc++6 tidy
+      sudo zypper install gcc-c++ libstdc++6 tidy ripgrep
     fi
 }
 
