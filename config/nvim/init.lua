@@ -155,8 +155,9 @@ require("bufferline").setup({
       {
         filetype = "NvimTree",
         text = "  File Explorer",
-        text_align = "left",
-        separator = true
+        text_align = "center",
+        separator = true,
+        highlight = "ModeMsg",
       }
     },
   }
@@ -241,7 +242,7 @@ if cmp ~= nil then
         { name = "nvim_lsp" },
         { name = "treesitter" },
         { name = 'path' },
-        { name = "buffer" },
+        { name = 'buffer', option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } }
      },
   })
 end
