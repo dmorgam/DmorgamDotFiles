@@ -98,8 +98,8 @@ vim.cmd('colorscheme monokai')
 vim.g.mapleader = " "
 
 -- Fast buffer movement
-vim.api.nvim_set_keymap('n','<leader>j',':bnext<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>k',':bprev<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',{ noremap = true })
 
 -- Wipe buffer and switch to another one
 vim.api.nvim_set_keymap('n','<leader>d',':bn|bw #<CR>',{ noremap = true })
@@ -114,7 +114,33 @@ vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = 
 -- ########################## [ PLUGIN SETUP ] ###############################################
 
 
-require("alpha").setup(require'alpha.themes.startify'.config)
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+
+dashboard.section.header.val = {
+  [[  _______             ____   ____.__          ]],
+  [[  \      \   ____  ___\   \ /   /|__| _____   ]],
+  [[  /   |   \_/ __ \/  _ \   Y   / |  |/     \  ]],
+  [[ /    |    \  ___(  <_> )     /  |  |  Y Y  \ ]],
+  [[ \____|__  /\___  >____/ \___/   |__|__|_|  / ]],
+  [[         \/     \/                        \/  ]]
+}
+
+dashboard.section.header.opts = {
+  hl = "QuickFixLine",
+  position = "center",
+}
+
+dashboard.section.buttons.val = {
+  dashboard.button( "e", "  - New file"      , ":ene <BAR> startinsert <CR>"),
+  dashboard.button( "f", "  - Find file"     , ":Telescope find_files<CR>"),
+  dashboard.button( "r", "  - Recent"        , ":Telescope oldfiles<CR>"),
+  dashboard.button( "l", "  - Lazy Packages" , ":Lazy<CR>"),
+  dashboard.button( "q", "  - Quit NeoVim"   , ":qa<CR>"),
+}
+
+
+alpha.setup(dashboard.opts)
 
 
 require("scope").setup()
