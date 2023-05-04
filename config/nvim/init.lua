@@ -109,7 +109,12 @@ vim.api.nvim_set_keymap('n','<leader>tf',':Telescope find_files<CR>',{ noremap =
 vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = true })
 
 
-
+-- ########################## [ Graphical clients config ] ###################################
+if vim.g.neovide then
+  vim.o.guifont = "DejaVu Sans Mono for Powerline:h10"
+  vim.opt.autochdir = true
+  vim.g.neovide_fullscreen = false
+end
 
 -- ########################## [ PLUGIN SETUP ] ###############################################
 
@@ -127,7 +132,7 @@ dashboard.section.header.val = {
 }
 
 dashboard.section.header.opts = {
-  hl = "QuickFixLine",
+  hl = "Title",
   position = "center",
 }
 
