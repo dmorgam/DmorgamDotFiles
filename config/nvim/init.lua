@@ -24,14 +24,14 @@ require("lazy").setup({
   {'akinsho/bufferline.nvim'},
   {'tiagovla/scope.nvim'},
 
+  -- Onedark theme
+  {'navarasu/onedark.nvim'},
+
   -- Monokai theme
-  {'tanvirtin/monokai.nvim'},
+  -- {'tanvirtin/monokai.nvim'},
 
   -- Grubvox theme
   -- {'ellisonleao/gruvbox.nvim'},
-
-  -- Tokyo Night theme
-  -- {'folke/tokyonight.nvim'},
 
   -- Startup screen
   {'goolord/alpha-nvim'},
@@ -89,8 +89,9 @@ vim.opt.termguicolors = true
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
+
 -- [ Colorscheme ]
-vim.cmd('colorscheme monokai')
+vim.cmd('colorscheme onedark')
 
 
 -- [ Custom mappings ]
@@ -152,7 +153,7 @@ require("scope").setup()
 
 require("bufferline").setup({
   options = {
-    separator_style = 'thick',
+    separator_style = { '', '' },
     numbers = "buffer_id",
     show_close_icon = false,
     show_buffer_close_icons = false,
@@ -161,7 +162,8 @@ require("bufferline").setup({
         filetype = "NvimTree",
         text = "  File Explorer",
         text_align = "center",
-        separator = true,
+        separator = '',
+        padding = 1,
         highlight = "ModeMsg",
       }
     },
@@ -180,9 +182,9 @@ require("nvim-tree.api").tree.open()
 
 require('lualine').setup({
   options = {
-    theme = 'powerline',
-    component_separators = { left = '\\', right = '/' },
-    section_separators = { left = '', right = '' },
+    theme = 'onedark',
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     globalstatus = true
   }
 })
