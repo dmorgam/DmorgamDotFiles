@@ -1,29 +1,40 @@
 # My zsh config
 
-# -- Antigen plugins --------------------------------------
-#
-# Source antigen package manager
-source ~/.zsh/antigen.zsh
+# -- Antidote plugins --------------------------------------
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+# Download antidote if needed
+[[ -e ${ZDOTDIR:-~}/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+
+
+# Source antidote package manager
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+
+# Dinamic load mode
+source <(antidote init)
+
+# Load the oh-my-zsh library.
+antidote bundle ohmyzsh/ohmyzsh path:lib
 
 # Load standard oh my zsh plugins
-antigen bundle git 
-antigen bundle vi-mode
+antidote bundle ohmyzsh/ohmyzsh path:plugins/git
+antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
+antidote bundle ohmyzsh/ohmyzsh path:themes/robbyrussell.zsh-theme
 
 # Load other plugins
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-# Load the theme.
-antigen theme robbyrussell 
-
-# apply antigen changes.
-antigen apply
+antidote bundle zsh-users/zsh-autosuggestions
+antidote bundle zsh-users/zsh-syntax-highlighting
 
 
 # -- User configuration -----------------------------------
+
+# Kubectl configuration
+if type kubectl &> /dev/null
+then
+  source <(kubectl completion zsh)
+  alias k=kubectl
+fi
+
 
 # Enable vi mode
 bindkey -v

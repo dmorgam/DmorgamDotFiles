@@ -36,10 +36,6 @@ installZsh () {
   fi
 
   cp $BASEDIR/zshrc ~/.zshrc
-
-  echo "Instalando Antigen package manager ..." 
-  mkdir -p ~/.zsh/
-  curl -L git.io/antigen > ~/.zsh/antigen.zsh
 }
 
 case $1 in
