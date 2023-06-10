@@ -105,6 +105,9 @@ vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',{ noremap = true })
 -- Wipe buffer and switch to another one
 vim.api.nvim_set_keymap('n','<leader>d',':bn|bw #<CR>',{ noremap = true })
 
+-- Toggle NvimTree
+vim.api.nvim_set_keymap('n','<leader>f',':NvimTreeToggle<CR>',{ noremap = true })
+
 -- Telescope mappings
 vim.api.nvim_set_keymap('n','<leader>tf',':Telescope find_files<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = true })
@@ -177,7 +180,7 @@ require("nvim-tree").setup({
   },
 })
 
-require("nvim-tree.api").tree.open()
+-- require("nvim-tree.api").tree.open()
 
 
 require('lualine').setup({
