@@ -35,6 +35,12 @@ then
   alias k=kubectl
 fi
 
+# Aws cli autocomplete
+if type aws_completer &> /dev/null
+then
+  complete -C '~/.local/bin/aws_completer' aws
+fi
+
 
 # Enable vi mode
 bindkey -v
@@ -46,4 +52,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # Aliases
 alias vim=nvim
+
+# Banner
+cat /etc/hostname | figlet -f smslant | lolcat
+echo ""
 
