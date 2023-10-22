@@ -58,7 +58,7 @@ require("lazy").setup({
   {'hrsh7th/vim-vsnip'},
 
   -- Indent blankline show
-  {'lukas-reineke/indent-blankline.nvim'},
+  {'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
 
   -- Telescope (fuzzy finder)
   {'nvim-lua/plenary.nvim'},
@@ -196,9 +196,8 @@ require('lualine').setup({
 require("nvim-autopairs").setup()
 
 
-require("indent_blankline").setup ({
-    show_end_of_line = true,
-})
+require("ibl").setup ()
+
 
 require("telescope").setup {
   extensions = {
