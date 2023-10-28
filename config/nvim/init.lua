@@ -27,12 +27,6 @@ require("lazy").setup({
   -- Onedark theme
   {'navarasu/onedark.nvim'},
 
-  -- Monokai theme
-  -- {'tanvirtin/monokai.nvim'},
-
-  -- Grubvox theme
-  -- {'ellisonleao/gruvbox.nvim'},
-
   -- Startup screen
   {'goolord/alpha-nvim'},
 

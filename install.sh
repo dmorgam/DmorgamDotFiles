@@ -35,7 +35,13 @@ installZsh () {
     rm ~/.zshrc
   fi
 
+  if test -f "~/.p10k.zsh"
+  then
+    rm ~/.p10k.zsh
+  fi
+
   cp $BASEDIR/zshrc ~/.zshrc
+  cp $BASEDIR/p10k.zsh ~/.p10k.zsh
 }
 
 case $1 in
