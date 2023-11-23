@@ -35,6 +35,12 @@ then
   alias k=kubectl
 fi
 
+if type kubecolor &> /dev/null
+then
+  compdef kubecolor=kubectl
+  alias k=kubecolor
+fi
+
 # Aws cli autocomplete
 if type aws_completer &> /dev/null
 then
@@ -63,6 +69,7 @@ alias man="LESS_TERMCAP_mb=$'\e[1;31m' \
            LESS_TERMCAP_ue=$'\e[0m' \
            GROFF_NO_SGR=1 \
            MANPAGER='less -s -M +Gg' man"
+alias ip="ip --color=auto"
 
 # Banner
 cat /etc/hostname | figlet -f smslant | lolcat
