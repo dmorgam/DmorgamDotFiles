@@ -47,6 +47,13 @@ then
   complete -C '~/.local/bin/aws_completer' aws
 fi
 
+# Terraform
+if type terraform &> /dev/null
+then
+  alias tf=terraform
+  complete -o nospace -C /usr/bin/terraform terraform
+  compdef __start_terraform tf
+fi
 
 # Enable vi mode
 bindkey -v
@@ -77,3 +84,4 @@ echo ""
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
