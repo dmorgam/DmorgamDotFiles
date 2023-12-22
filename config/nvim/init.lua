@@ -24,6 +24,9 @@ require("lazy").setup({
   {'akinsho/bufferline.nvim'},
   {'tiagovla/scope.nvim'},
 
+  -- Kanagawa theme
+  { "rebelot/kanagawa.nvim"},
+
   -- Onedark theme
   {'navarasu/onedark.nvim'},
 
@@ -92,7 +95,7 @@ vim.opt.listchars:append("eol:↴")
 
 
 -- [ Colorscheme ]
-vim.cmd('colorscheme onedark')
+vim.cmd('colorscheme kanagawa')
 
 
 -- [ Custom mappings ]
@@ -193,7 +196,7 @@ require("nvim-tree").setup({
 
 require('lualine').setup({
   options = {
-    theme = 'onedark',
+    theme = 'kanagawa',
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     globalstatus = true
