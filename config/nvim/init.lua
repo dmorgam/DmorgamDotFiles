@@ -66,6 +66,7 @@ require("lazy").setup({
 
   -- Mason nvim
   {'williamboman/mason.nvim'},
+  {'williamboman/mason-lspconfig.nvim'},
 
   -- Rest Api testing
   {'NTBBloodbath/rest.nvim'},
@@ -149,6 +150,7 @@ dashboard.section.buttons.val = {
 alpha.setup(dashboard.opts)
 
 require("mason").setup()
+require("mason-lspconfig").setup()
 
 require("scope").setup()
 
@@ -258,8 +260,11 @@ end
 -- Set up lspconfig, configure language servers installed.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+
+-- LSP LANGUAGES
+
 -- Lua lsp server config
-require'lspconfig'.lua_ls.setup {
+require('lspconfig').lua_ls.setup {
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT' },
@@ -270,13 +275,16 @@ require'lspconfig'.lua_ls.setup {
   },
 }
 
--- Servers with standard config
-local servers = { 'pylsp','tsserver' }
+-- Python
+require('lspconfig').pylsp.setup {}
 
-for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup {
-    capabilities = capabilities,
-  }
-end
+-- Js/Ts
+require('lspconfig').tsserver.setup {}
+
+-- Terraform
+require('lspconfig').terraformls.setup {}
+
+-- Yaml
+require('lspconfig').yamlls.setup {}
 
 
