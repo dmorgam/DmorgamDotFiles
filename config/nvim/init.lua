@@ -64,6 +64,9 @@ require("lazy").setup({
   -- Treesitter
   {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
 
+  -- Mason nvim
+  {'williamboman/mason.nvim'},
+
   -- Rest Api testing
   {'NTBBloodbath/rest.nvim'},
 
@@ -145,6 +148,7 @@ dashboard.section.buttons.val = {
 
 alpha.setup(dashboard.opts)
 
+require("mason").setup()
 
 require("scope").setup()
 
