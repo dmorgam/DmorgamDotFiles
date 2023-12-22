@@ -68,6 +68,9 @@ require("lazy").setup({
   {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
 
+  -- Linter
+  {'mfussenegger/nvim-lint'},
+
   -- Rest Api testing
   {'NTBBloodbath/rest.nvim'},
 
@@ -125,12 +128,16 @@ local alpha = require("alpha")
 local dashboard = require("alpha.themes.dashboard")
 
 dashboard.section.header.val = {
-  [[  _______             ____   ____.__          ]],
-  [[  \      \   ____  ___\   \ /   /|__| _____   ]],
-  [[  /   |   \_/ __ \/  _ \   Y   / |  |/     \  ]],
-  [[ /    |    \  ___(  <_> )     /  |  |  Y Y  \ ]],
-  [[ \____|__  /\___  >____/ \___/   |__|__|_|  / ]],
-  [[         \/     \/                        \/  ]]
+  [[                                                                       ]],
+	[[                                                                     ]],
+	[[       ████ ██████           █████      ██                     ]],
+	[[      ███████████             █████                             ]],
+	[[      █████████ ███████████████████ ███   ███████████   ]],
+	[[     █████████  ███    █████████████ █████ ██████████████   ]],
+	[[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
+	[[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
+	[[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
+	[[                                                                       ]]
 }
 
 dashboard.section.header.opts = {
@@ -139,11 +146,12 @@ dashboard.section.header.opts = {
 }
 
 dashboard.section.buttons.val = {
-  dashboard.button( "e", "  - New file"      , ":ene <BAR> startinsert <CR>"),
-  dashboard.button( "f", "  - Find file"     , ":Telescope find_files<CR>"),
-  dashboard.button( "r", "  - Recent"        , ":Telescope oldfiles<CR>"),
-  dashboard.button( "l", "  - Lazy Packages" , ":Lazy<CR>"),
-  dashboard.button( "q", "  - Quit NeoVim"   , ":qa<CR>"),
+  dashboard.button( "e", "  - New file"       , ":ene <BAR> startinsert <CR>"),
+  dashboard.button( "f", "  - Find file"      , ":Telescope find_files<CR>"),
+  dashboard.button( "r", "  - Recent"         , ":Telescope oldfiles<CR>"),
+  dashboard.button( "l", "  - Lazy Packages"  , ":Lazy<CR>"),
+  dashboard.button( "m", "  - Mason Packages" , ":Mason<CR>"),
+  dashboard.button( "q", "  - Quit NeoVim"    , ":qa<CR>"),
 }
 
 
@@ -287,4 +295,22 @@ require('lspconfig').terraformls.setup {}
 -- Yaml
 require('lspconfig').yamlls.setup {}
 
+-- Json
+require('lspconfig').jsonls.setup {}
+
+
+-- LINTER
+
+require('lint').linters_by_ft = {
+  yaml      = {'yamllint'},
+  python    = {'pylint'},
+  sh        = {'shellcheck'},
+  markdown  = {'markdownlint'},
+}
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 
