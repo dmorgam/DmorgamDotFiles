@@ -28,7 +28,7 @@ require("lazy").setup({
   { "rebelot/kanagawa.nvim"},
 
   -- Onedark theme
-  {'navarasu/onedark.nvim'},
+  -- {'navarasu/onedark.nvim'},
 
   -- Startup screen
   {'goolord/alpha-nvim'},
@@ -119,7 +119,7 @@ vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = 
 
 -- ########################## [ Graphical clients config ] ###################################
 if vim.g.neovide then
-  vim.o.guifont = "DejaVu Sans Mono for Powerline:h10"
+  vim.o.guifont = "SauceCodePro Nerd Font:h10"
   vim.opt.autochdir = true
   vim.g.neovide_fullscreen = false
 end
@@ -152,8 +152,8 @@ dashboard.section.buttons.val = {
   dashboard.button( "e", "  - New file"       , ":ene <BAR> startinsert <CR>"),
   dashboard.button( "f", "  - Find file"      , ":Telescope find_files<CR>"),
   dashboard.button( "r", "  - Recent"         , ":Telescope oldfiles<CR>"),
-  dashboard.button( "l", "  - Lazy Packages"  , ":Lazy<CR>"),
-  dashboard.button( "m", "  - Mason Packages" , ":Mason<CR>"),
+  dashboard.button( "l", "  - Lazy Packages"  , ":Lazy<CR>"),
+  dashboard.button( "m", "  - Mason Packages" , ":Mason<CR>"),
   dashboard.button( "q", "  - Quit NeoVim"    , ":qa<CR>"),
 }
 
@@ -171,13 +171,17 @@ require("bufferline").setup({
     numbers = "buffer_id",
     show_close_icon = false,
     show_buffer_close_icons = false,
+    indicator = {
+      icon  = '▍',
+      style = 'icon'
+    },
     offsets = {
       {
         filetype = "NvimTree",
         text = "  File Explorer",
         text_align = "center",
-        separator = '',
-        padding = 1,
+        separator = '▐',
+        padding = 0,
         highlight = "ModeMsg",
       }
     },

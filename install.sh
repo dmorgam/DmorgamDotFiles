@@ -14,14 +14,14 @@ installNvim () {
     mkdir -p ~/.config/nvim && cp ./config/nvim/init.lua ~/.config/nvim/
 
     echo "Instalando dependencias..."
-    if $(which apt > /dev/null 2>&1)
+    if which apt > /dev/null 2>&1
     then
       sudo apt update
       sudo apt install g++ libstdc++ tidy ripgrep
-    elif $(which yum > /dev/null 2>&1)
+    elif which yum > /dev/null 2>&1
     then
       sudo yum install g++ libstdc++ tidy ripgrep
-    elif $(which zypper > /dev/null 2>&1)
+    elif which zypper > /dev/null 2>&1
     then
       sudo zypper install gcc-c++ libstdc++6 tidy ripgrep
     fi
@@ -30,18 +30,18 @@ installNvim () {
 installZsh () {
   echo "Copiando config..."
 
-  if test -f "~/.zshrc"
+  if test -f "$HOME/.zshrc"
   then
     rm ~/.zshrc
   fi
 
-  if test -f "~/.p10k.zsh"
+  if test -f "$HOME/.p10k.zsh"
   then
     rm ~/.p10k.zsh
   fi
 
-  cp $BASEDIR/zshrc ~/.zshrc
-  cp $BASEDIR/p10k.zsh ~/.p10k.zsh
+  cp "$BASEDIR/zshrc" "$HOME/.zshrc"
+  cp "$BASEDIR/p10k.zsh" "$HOME/.p10k.zsh"
 }
 
 case $1 in
