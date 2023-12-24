@@ -89,6 +89,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.termguicolors = true
+vim.opt.cursorline = true
 
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
@@ -171,6 +172,7 @@ require("bufferline").setup({
     numbers = "buffer_id",
     show_close_icon = false,
     show_buffer_close_icons = false,
+    show_tab_indicators = true,
     indicator = {
       icon  = '▍',
       style = 'icon'
