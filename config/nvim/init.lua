@@ -16,6 +16,12 @@ vim.opt.rtp:prepend(lazypath)
 -- Load lazy.nvim plugins
 require("lazy").setup({
 
+  -- Luarocks
+  {"vhyrro/luarocks.nvim", priority = 1000, config = true},
+
+  -- Nio
+  {"nvim-neotest/nvim-nio"},
+
   -- Web dev icons
   {'kyazdani42/nvim-web-devicons'},
 
@@ -236,7 +242,7 @@ require("todo-comments").setup()
 
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "lua", "python", "http", "json", "yaml", "javascript", "html", "markdown" },
+  ensure_installed = { "lua", "python", "http", "json", "yaml", "javascript", "html", "markdown", "xml", "graphql" },
   sync_install = false,
   auto_install = true,
   highlight = {

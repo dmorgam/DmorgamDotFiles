@@ -23,7 +23,7 @@ installNvim () {
       sudo yum install g++ libstdc++ tidy ripgrep
     elif which zypper > /dev/null 2>&1
     then
-      sudo zypper install gcc-c++ libstdc++6 tidy ripgrep
+      sudo zypper install gcc-c++ libstdc++6 tidy ripgrep lua lua-devel libcurl-devel
     fi
 }
 
