@@ -17,13 +17,13 @@ installNvim () {
     if which apt > /dev/null 2>&1
     then
       sudo apt update
-      sudo apt install g++ libstdc++ tidy ripgrep
+      sudo apt install g++ libstdc++ tidy ripgrep lua51 liblua51 libcurl
     elif which yum > /dev/null 2>&1
     then
-      sudo yum install g++ libstdc++ tidy ripgrep
+      sudo yum install g++ libstdc++ tidy ripgrep lua51 lua51-devel libcurl-devel
     elif which zypper > /dev/null 2>&1
     then
-      sudo zypper install gcc-c++ libstdc++6 tidy ripgrep lua lua-devel libcurl-devel
+      sudo zypper install gcc-c++ libstdc++6 tidy ripgrep lua51 lua51-devel libcurl-devel
     fi
 }
 

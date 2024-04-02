@@ -203,8 +203,6 @@ require("nvim-tree").setup({
   },
 })
 
--- require("nvim-tree.api").tree.open()
-
 
 require('lualine').setup({
   options = {
@@ -231,11 +229,10 @@ require("telescope").setup {
 }
 
 require("rest-nvim").setup({
-  skip_ssl_verification = true
+  default_config = {
+    skip_ssl_verification = true
+  }
 })
-vim.cmd('command! RestNvim lua require(\'rest-nvim\').run()')
-vim.cmd('command! RestNvimPreview :lua require(\'rest-nvim\').run(true)')
-vim.cmd('command! RestNvimLast :lua require(\'rest-nvim\').last()')
 
 
 require("todo-comments").setup()
