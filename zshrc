@@ -80,6 +80,7 @@ alias ip="ip --color=auto"
 
 # Banner
 cat /etc/hostname | figlet -f smslant | lolcat
+fortune ~/.fortune/custom-quotes | lolcat
 echo ""
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

@@ -17,7 +17,7 @@ installNvim () {
     if which apt > /dev/null 2>&1
     then
       sudo apt update
-      sudo apt install g++ libstdc++ tidy ripgrep lua51 liblua51 libcurl
+      sudo apt install g++ libstdc++6 tidy ripgrep lua5.1 liblua5.1-0 libcurl4-openssl-dev
     elif which yum > /dev/null 2>&1
     then
       sudo yum install g++ libstdc++ tidy ripgrep lua51 lua51-devel libcurl-devel
@@ -42,6 +42,11 @@ installZsh () {
 
   cp "$BASEDIR/zshrc" "$HOME/.zshrc"
   cp "$BASEDIR/p10k.zsh" "$HOME/.p10k.zsh"
+
+  # Copy fortunes
+  mkdir -p "$HOME/.fortune"
+  cp -f "$BASEDIR/fortune/custom-quotes" "$HOME/.fortune/custom-quotes"
+  cp -f "$BASEDIR/fortune/custom-quotes.dat" "$HOME/.fortune/custom-quotes.dat"
 }
 
 case $1 in

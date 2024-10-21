@@ -5,11 +5,20 @@
 
 -- Install lazy.nvim if not exists
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 
@@ -96,6 +105,7 @@ vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
+vim.api.nvim_set_option_value("colorcolumn", "80", {})
 
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
@@ -238,15 +248,17 @@ require("rest-nvim").setup({
 require("todo-comments").setup()
 
 
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup ({
   ensure_installed = { "lua", "python", "http", "json", "yaml", "javascript", "html", "markdown", "xml", "graphql" },
+  ignore_install = {},
+  modules = {},
   sync_install = false,
   auto_install = true,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-}
+})
 
 
 -- CMP Autocomplete config
@@ -299,7 +311,7 @@ require('lspconfig').lua_ls.setup {
 require('lspconfig').pylsp.setup {}
 
 -- Js/Ts
-require('lspconfig').tsserver.setup {}
+require('lspconfig').ts_ls.setup {}
 
 -- Terraform
 require('lspconfig').terraformls.setup {}
