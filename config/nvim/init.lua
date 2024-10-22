@@ -66,8 +66,10 @@ require("lazy").setup({
   {'hrsh7th/cmp-path'},
   {'hrsh7th/cmp-cmdline'},
   {'hrsh7th/nvim-cmp'},
-  {'hrsh7th/cmp-vsnip'},
-  {'hrsh7th/vim-vsnip'},
+
+  -- Luasnip snippets
+  {'L3MON4D3/LuaSnip'},
+  {'saadparwaiz1/cmp_luasnip'},
 
   -- Indent blankline show
   {'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
@@ -280,26 +282,32 @@ require('nvim-treesitter.configs').setup ({
 local cmp = require("cmp")
 if cmp ~= nil then
   cmp.setup({
-     mapping = {
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.close(),
-        ["<CR>"] = cmp.mapping.confirm({
-           behavior = cmp.ConfirmBehavior.Replace,
-           select = true,
-        }),
-        ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
-     },
-     sources = {
-        { name = "nvim_lsp" },
-        { name = "treesitter" },
-        { name = 'path' },
-        { name = 'buffer', option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } }
-     },
+    snippet = {
+      expand = function(args)
+        require('luasnip').lsp_expand(args.body)
+      end
+    },
+    mapping = {
+       ["<C-p>"] = cmp.mapping.select_prev_item(),
+       ["<C-n>"] = cmp.mapping.select_next_item(),
+       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+       ["<C-f>"] = cmp.mapping.scroll_docs(4),
+       ["<C-Space>"] = cmp.mapping.complete(),
+       ["<C-e>"] = cmp.mapping.close(),
+       ["<CR>"] = cmp.mapping.confirm({
+         behavior = cmp.ConfirmBehavior.Replace,
+         select = true,
+       }),
+       ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+       ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+    },
+    sources = {
+      { name = "nvim_lsp" },
+      { name = 'luasnip' },
+      { name = "treesitter" },
+      { name = 'path' },
+      { name = 'buffer', option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } }
+    },
   })
 end
 
@@ -337,6 +345,11 @@ require('lspconfig').yamlls.setup {}
 -- Json
 require('lspconfig').jsonls.setup {}
 
+
+-- Snippets
+require("luasnip.loaders.from_lua").load({
+  paths = vim.fn.stdpath("config") .. "/snippets"
+})
 
 -- LINTER
 

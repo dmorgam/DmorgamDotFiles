@@ -13,6 +13,10 @@ installNvim () {
     echo "Copiando config..."
     mkdir -p ~/.config/nvim && cp ./config/nvim/init.lua ~/.config/nvim/
 
+    # Snippets
+    mkdir -p "$HOME/.config/nvim/snippets"
+    cp -rf "$BASEDIR/config/nvim/snippets/"* "$HOME/.config/nvim/snippets/"
+
     echo "Instalando dependencias..."
     if which apt > /dev/null 2>&1
     then
