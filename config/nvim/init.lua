@@ -134,6 +134,21 @@ vim.api.nvim_set_keymap('n','<leader>tf',':Telescope find_files<CR>',{ noremap =
 vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = true })
 
 
+-- Open markdown files on firefox
+vim.api.nvim_create_user_command('MarkdownView', function()
+  local filepath = vim.fn.expand('%:p')
+
+  -- WSL
+  if vim.loop.os_uname().release:find("WSL") then
+    local windows_filepath = vim.fn.system('wslpath -w "' .. filepath .. '"')
+    vim.fn.jobstart({'/mnt/c/Users/dmorenog/AppData/Local/Microsoft/WindowsApps/firefox.exe', windows_filepath}, { detach = true })
+
+  -- Linux
+  elseif vim.loop.os_uname().sysname:find("Linux") then
+    vim.fn.jobstart({'firefox', filepath}, { detach = true })
+  end
+end, {})
+
 -- ########################## [ Graphical clients config ] ###################################
 if vim.g.neovide then
   vim.o.guifont = "SauceCodePro Nerd Font:h10"
