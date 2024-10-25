@@ -36,8 +36,6 @@ require("lazy").setup({
 
   -- Plugins de status bar
   {'nvim-lualine/lualine.nvim'},
-  {'akinsho/bufferline.nvim'},
-  {'tiagovla/scope.nvim'},
 
   -- Kanagawa theme
   { "rebelot/kanagawa.nvim"},
@@ -52,7 +50,14 @@ require("lazy").setup({
   {'kyazdani42/nvim-tree.lua'},
 
   -- Git support
-  {'tpope/vim-fugitive'},
+  {'lewis6991/gitsigns.nvim'},
+  {"NeogitOrg/neogit", 
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    }
+  },
 
   -- Autoclose brackets
   {'windwp/nvim-autopairs'},
@@ -121,6 +126,9 @@ vim.cmd('colorscheme kanagawa')
 -- Leader key
 vim.g.mapleader = " "
 
+-- Toggle NvimTree
+vim.api.nvim_set_keymap('n','<leader>f',':NvimTreeToggle<CR>',{ noremap = true })
+
 -- Fast buffer movement
 vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',{ noremap = true })
@@ -128,12 +136,14 @@ vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',{ noremap = true })
 -- Wipe buffer and switch to another one
 vim.api.nvim_set_keymap('n','<leader>d',':bn|bw #<CR>',{ noremap = true })
 
--- Toggle NvimTree
-vim.api.nvim_set_keymap('n','<leader>f',':NvimTreeToggle<CR>',{ noremap = true })
-
 -- Telescope mappings
 vim.api.nvim_set_keymap('n','<leader>tf',':Telescope find_files<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>b',':Telescope buffers<CR>',{ noremap = true })
+
+-- Neogit mappings
+vim.api.nvim_set_keymap('n','<leader>g',':Neogit<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>gv',':Neogit kind=vsplit<CR>',{ noremap = true })
 
 
 -- Open markdown files on firefox
@@ -197,39 +207,13 @@ alpha.setup(dashboard.opts)
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require("scope").setup()
-
-require("bufferline").setup({
-  options = {
-    separator_style = { '', '' },
-    numbers = "buffer_id",
-    show_close_icon = false,
-    show_buffer_close_icons = false,
-    show_tab_indicators = true,
-    indicator = {
-      icon  = '▍',
-      style = 'icon'
-    },
-    offsets = {
-      {
-        filetype = "NvimTree",
-        text = "  File Explorer",
-        text_align = "center",
-        separator = '▐',
-        padding = 0,
-        highlight = "ModeMsg",
-      }
-    },
-  }
-})
-
-
 require("nvim-tree").setup({
   view = {
     side = "right"
   },
 })
 
+-- Lualine
 
 require('lualine').setup({
   options = {
@@ -237,17 +221,39 @@ require('lualine').setup({
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     globalstatus = true
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {{'filename', path = 1}},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  tabline = {
+    lualine_a = {'tabs'},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {}
   }
 })
 
 
 require("nvim-autopairs").setup()
 
+-- GitSigns
+require('gitsigns').setup()
+
 
 require("ibl").setup ()
 
 
 require("telescope").setup {
+  defaults = {
+    initial_mode = 'normal'
+  },
   extensions = {
     live_grep_args = {
       auto_quoting = true
@@ -264,6 +270,10 @@ require("rest-nvim").setup({
 
 require("todo-comments").setup()
 
+-- Git
+require('neogit').setup({
+  kind = 'split'
+})
 
 require('nvim-treesitter.configs').setup ({
   ensure_installed = { "lua", "python", "http", "json", "yaml", "javascript", "html", "markdown", "xml", "graphql" },

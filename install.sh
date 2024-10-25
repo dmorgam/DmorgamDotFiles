@@ -4,9 +4,10 @@ BASEDIR=$(dirname "$0")
 
 showHelp () {
   echo "Instala la config para el usuario:"
-  echo "    --help  -  Muestra la ayuda."
-  echo "    --nvim  -  Instala la config de nvim."
-  echo "    --zsh   -  Instala la config de zsh."
+  echo "    --help           -  Muestra la ayuda."
+  echo "    --nvim           -  Instala la config de nvim."
+  echo "    --nvim --nodeps  -  Instala la config de nvim, sin dependencias."
+  echo "    --zsh            -  Instala la config de zsh."
 }
 
 installNvim () {
@@ -17,17 +18,20 @@ installNvim () {
     mkdir -p "$HOME/.config/nvim/snippets"
     cp -rf "$BASEDIR/config/nvim/snippets/"* "$HOME/.config/nvim/snippets/"
 
-    echo "Instalando dependencias..."
-    if which apt > /dev/null 2>&1
+    if test "$1" != '--nodeps'
     then
-      sudo apt update
-      sudo apt install g++ libstdc++6 tidy ripgrep lua5.1 liblua5.1-0 libcurl4-openssl-dev
-    elif which yum > /dev/null 2>&1
-    then
-      sudo yum install g++ libstdc++ tidy ripgrep lua51 lua51-devel libcurl-devel
-    elif which zypper > /dev/null 2>&1
-    then
-      sudo zypper install gcc-c++ libstdc++6 tidy ripgrep lua51 lua51-devel libcurl-devel
+      echo "Instalando dependencias..."
+      if which apt > /dev/null 2>&1
+      then
+        sudo apt update
+        sudo apt install g++ libstdc++6 tidy ripgrep lua5.1 liblua5.1-0 libcurl4-openssl-dev
+      elif which yum > /dev/null 2>&1
+      then
+        sudo yum install g++ libstdc++ tidy ripgrep lua51 lua51-devel libcurl-devel
+      elif which zypper > /dev/null 2>&1
+      then
+        sudo zypper install gcc-c++ libstdc++6 tidy ripgrep lua51 lua51-devel libcurl-devel
+      fi
     fi
 }
 
@@ -58,7 +62,7 @@ case $1 in
     showHelp
     ;;
   '--nvim')
-    installNvim
+    installNvim "$2"
     ;;
   '--zsh')
     installZsh
