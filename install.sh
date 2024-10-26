@@ -8,6 +8,7 @@ showHelp () {
   echo "    --nvim           -  Instala la config de nvim."
   echo "    --nvim --nodeps  -  Instala la config de nvim, sin dependencias."
   echo "    --zsh            -  Instala la config de zsh."
+  echo "    --tmux           -  Instala la config de tmux."
 }
 
 installNvim () {
@@ -57,6 +58,11 @@ installZsh () {
   cp -f "$BASEDIR/fortune/custom-quotes.dat" "$HOME/.fortune/custom-quotes.dat"
 }
 
+installTmux () {
+  echo "Copiando config de tmux..."
+  cp -f "$BASEDIR/tmux.conf" "$HOME/.tmux.conf"
+}
+
 case $1 in
   '--help')
     showHelp
@@ -66,6 +72,9 @@ case $1 in
     ;;
   '--zsh')
     installZsh
+    ;;
+  '--tmux')
+    installTmux
     ;;
   *)
     showHelp

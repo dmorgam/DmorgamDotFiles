@@ -117,6 +117,9 @@ vim.api.nvim_set_option_value("colorcolumn", "80", {})
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
+-- Hide tabline, present in lualine bufferline
+vim.opt.showtabline = 0
+
 
 -- [ Colorscheme ]
 vim.cmd('colorscheme kanagawa')
@@ -227,16 +230,8 @@ require('lualine').setup({
     lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {{'filename', path = 1}},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  tabline = {
-    lualine_a = {'tabs'},
-    lualine_b = {},
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {}
+    lualine_y = {'progress','location'},
+    lualine_z = {'tabs'}
   }
 })
 
@@ -272,7 +267,8 @@ require("todo-comments").setup()
 
 -- Git
 require('neogit').setup({
-  kind = 'split'
+  kind = 'split',
+  graph_style = 'unicode'
 })
 
 require('nvim-treesitter.configs').setup ({
