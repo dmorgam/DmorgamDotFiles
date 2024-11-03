@@ -51,7 +51,7 @@ require("lazy").setup({
 
   -- Git support
   {'lewis6991/gitsigns.nvim'},
-  {"NeogitOrg/neogit", 
+  {"NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
@@ -247,7 +247,10 @@ require("ibl").setup ()
 
 require("telescope").setup {
   defaults = {
-    initial_mode = 'normal'
+    initial_mode = 'normal',
+    path_display = {
+      'truncate'
+    }
   },
   extensions = {
     live_grep_args = {
