@@ -47,7 +47,7 @@ require("lazy").setup({
   {'goolord/alpha-nvim'},
 
   -- file tree
-  {'kyazdani42/nvim-tree.lua'},
+  {'stevearc/oil.nvim'},
 
   -- Git support
   {'lewis6991/gitsigns.nvim'},
@@ -129,8 +129,8 @@ vim.cmd('colorscheme kanagawa')
 -- Leader key
 vim.g.mapleader = " "
 
--- Toggle NvimTree
-vim.api.nvim_set_keymap('n','<leader>f',':NvimTreeToggle<CR>',{ noremap = true })
+-- Toggle Oil
+vim.api.nvim_set_keymap('n','<leader>f',':Oil<CR>',{ noremap = true })
 
 -- Fast buffer movement
 vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',{ noremap = true })
@@ -210,10 +210,11 @@ alpha.setup(dashboard.opts)
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require("nvim-tree").setup({
-  view = {
-    side = "right"
-  },
+require("oil").setup({
+  default_file_explorer = true,
+  view_options = {
+    show_hidden = true
+  }
 })
 
 -- Lualine
