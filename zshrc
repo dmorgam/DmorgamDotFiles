@@ -2,29 +2,34 @@
 
 # -- Antidote plugins --------------------------------------
 
-# Download antidote if needed
-[[ -e ${ZDOTDIR:-~}/.antidote ]] ||
-  git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+# Modos de TTY y normales (para el login)
+if [[ "$(tty)" != /dev/tty* ]]
+then
+  # Download antidote if needed
+  [[ -e ${ZDOTDIR:-~}/.antidote ]] ||
+    git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 
 
-# Source antidote package manager
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+  # Source antidote package manager
+  source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
-# Dinamic load mode
-source <(antidote init)
+  # Dinamic load mode
+  source <(antidote init)
 
-# Load the oh-my-zsh library.
-antidote bundle ohmyzsh/ohmyzsh path:lib
+  # Load the oh-my-zsh library.
+  antidote bundle ohmyzsh/ohmyzsh path:lib
 
-# Load standard oh my zsh plugins
-antidote bundle ohmyzsh/ohmyzsh path:plugins/git
-antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
+  # Load standard oh my zsh plugins
+  antidote bundle ohmyzsh/ohmyzsh path:plugins/git
+  antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
 
-# Load other plugins
-antidote bundle romkatv/powerlevel10k
-antidote bundle zsh-users/zsh-autosuggestions
-antidote bundle zsh-users/zsh-syntax-highlighting
-
+  # Load other plugins
+  antidote bundle romkatv/powerlevel10k
+  antidote bundle zsh-users/zsh-autosuggestions
+  antidote bundle zsh-users/zsh-syntax-highlighting
+else
+  export PS1="%B%F{yellow}%n%f%b@%B%F{blue}%m%f%b %F{white}%~%  > "
+fi
 
 # -- User configuration -----------------------------------
 
@@ -79,10 +84,14 @@ alias man="LESS_TERMCAP_mb=$'\e[1;31m' \
 alias ip="ip --color=auto"
 
 # Banner
-cat /etc/hostname | figlet -f smslant | lolcat
-fortune ~/.fortune/custom-quotes | lolcat
-echo ""
+
+# Modos de TTY y normales (para el login)
+if [[ "$(tty)" != /dev/tty* ]]
+then
+  echo "dmorgam-VivoBook" | figlet -f smslant | lolcat
+  fortune ~/.fortune/custom-quotes | lolcat
+  echo ""
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-

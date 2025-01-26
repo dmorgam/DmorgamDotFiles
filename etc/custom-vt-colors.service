@@ -1,0 +1,9 @@
+[Unit]
+Description=Load custom VT color palette
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/setvtrgb /etc/custom-vt-colors.hex
+
+[Install]
+WantedBy=multi-user.target

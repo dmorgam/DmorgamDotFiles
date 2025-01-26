@@ -1,12 +1,12 @@
 # Dotfiles personales
 
-Mis dotfiles con mi config de nvim y varios.
+Mis dotfiles con mi config de nvim, vt y varios.
 
 ## NeoVim
 
 Configuracion en lua, solo compatible con NeoVim
 
-**Versión de Neovim: 0.8.x o superior.**
+**Versión de Neovim: 0.10.x o superior.**
 El plugin manager que uso es [lazy.nvim](https://github.com/folke/lazy.nvim).
 
 Archivo de config _config/nvim/init.lua_ se debe copiar a _~/.config/nvim/init.lua_.
@@ -19,46 +19,33 @@ Y finalmente dentro de Nvim instalar los plugins:
 Para instalar la config, ejecutar el script [install.sh --nvim](install.sh).
 
 ```shell
-$install.sh --nvim
+> install.sh --nvim
 ```
 
 ### Servidores de lenguaje
 
-Están configurados los siguientes servidores (hay que instalarlos y meterlos en el
- path):
+Instalar via Mason
 
-#### En python con pip
+## ZSH
 
-* [python-lsp-server (pylsp)](https://github.com/python-lsp/python-lsp-server)
+Se instala via install.sh
 
-  ```shell
-  pip install python-lsp-server
-  ```
+```shell
+> install.sh --zsh
+```
 
-#### En node con npm
+## Tmux
 
-* [typescript-language-server (tsserver) para js y ts](https://github.com/theia-ide/typescript-language-server)
+Se instala via install.sh
 
-  ```shell
-  npm install -g typescript typescript-language-server
-  ```
+```shell
+> install.sh --tmux
+```
 
-#### Binario a compilar o precompilado
+## Etc
 
-* [lua-language-server (sumneko_lua)](https://github.com/sumneko/lua-language-server)
+En el directorio etc se encuentran archivos para configurar el sistema.
 
-   ```shell
-   git clone https://github.com/sumneko/lua-language-server
-   ....
-   ```
-
-### Treesitter Nvim
-
-Treesitter funciona el neovim 0.8 o superior y necesita las siguientes librerias:
-
-* libstdc++
-* g++
-
-Para el plugin de rest api necesita:
-
-* tidy
+- etc/issue (/etc/issue para personalizar el login de las TTY.)
+- etc/custom-vt-colors.service (para configurar colores custom para las TTY.)
+- etc/install.sh (script que instala todo lo anterior)
