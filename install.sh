@@ -9,6 +9,7 @@ showHelp () {
   echo "    --nvim --nodeps  -  Instala la config de nvim, sin dependencias."
   echo "    --zsh            -  Instala la config de zsh."
   echo "    --tmux           -  Instala la config de tmux."
+  echo "    --hyprland       -  Instala hyprland y su config."
 }
 
 installNvim () {
@@ -32,6 +33,9 @@ installNvim () {
       elif which zypper > /dev/null 2>&1
       then
         sudo zypper install gcc-c++ libstdc++6 tidy ripgrep lua51 lua51-devel libcurl-devel
+      elif which pacman > /dev/null 2>&1
+      then
+        sudo pacman -S --needed gcc gcc-libs tidy ripgrep lua51 libcurl-gnutls luarocks
       fi
     fi
 }
@@ -63,6 +67,11 @@ installTmux () {
   cp -f "$BASEDIR/tmux.conf" "$HOME/.tmux.conf"
 }
 
+installHyprland () {
+  echo "Saltando al instalador de hyprland ..."
+  sh $BASEDIR/hyprland/install.sh
+}
+
 case $1 in
   '--help')
     showHelp
@@ -75,6 +84,9 @@ case $1 in
     ;;
   '--tmux')
     installTmux
+    ;;
+  '--hyprland')
+    installHyprland
     ;;
   *)
     showHelp

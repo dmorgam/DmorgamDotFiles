@@ -1,5 +1,8 @@
 # My zsh config
 
+autoload -Uz compinit
+compinit
+
 # -- Antidote plugins --------------------------------------
 
 # Modos de TTY y normales (para el login)
@@ -88,7 +91,7 @@ alias ip="ip --color=auto"
 # Modos de TTY y normales (para el login)
 if [[ "$(tty)" != /dev/tty* ]]
 then
-  echo "dmorgam-VivoBook" | figlet -f smslant | lolcat
+  echo "dmorgamThinkPad" | figlet -f smslant | lolcat
   fortune ~/.fortune/custom-quotes | lolcat
   echo ""
 fi
