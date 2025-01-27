@@ -2,7 +2,7 @@
 
 * {
   font-family: FantasqueSansMono Nerd Font;
-  font-size: 14px;
+  font-size: 10px;
   min-height: 0;
 }
 
@@ -42,9 +42,11 @@
 #battery,
 #pulseaudio,
 #custom-lock,
+#cpu,
+#memory,
 #custom-power {
   background-color: @surface0;
-  padding: 0.5rem 1rem;
+  padding: 0.1rem 1rem;
   margin: 5px 0;
 }
 
@@ -83,6 +85,16 @@
 #custom-music {
   color: @mauve;
   border-radius: 1rem;
+}
+
+#cpu {
+  color: @mauve;
+  border-radius: 1rem 0px 0px 1rem;
+}
+
+#memory {
+  color: @yellow;
+  border-radius: 0px 1rem 1rem 0px;
 }
 
 #custom-lock {

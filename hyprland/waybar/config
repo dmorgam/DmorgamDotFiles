@@ -1,10 +1,10 @@
 {
     "layer": "top",
     "position": "top",
-    "modules-left": ["wlr/workspaces"],
+    "modules-left": ["hyprland/workspaces"],
     "modules-center": ["custom/music"],
-    "modules-right": ["pulseaudio", "backlight", "battery", "clock", "tray", "custom/lock", "custom/power"],
-    "wlr/workspaces": {
+    "modules-right": ["cpu", "memory", "pulseaudio", "backlight", "battery", "clock", "tray", "custom/lock", "custom/power"],
+    "hyprland/workspaces": {
          "disable-scroll": true,
          "sort-by-name": true,
          "format": " {icon} ",
@@ -13,8 +13,8 @@
          },
      },
     "tray": {
-        "icon-size": 21,
-        "spacing": 10
+        "icon-size": 12,
+        "spacing": 4
     },
     "custom/music": {
         "format": "  {}",
@@ -28,7 +28,7 @@
     "clock": {
         "timezone": "Europe/Madrid",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": " {:%d/%m/%Y}",
+        "format-alt": "📅 {:%d/%m/%Y}",
         "format": " {:%H:%M}"
     },
     "backlight": {
@@ -47,6 +47,15 @@
         "format-alt": "{icon}",
         "format-icons": ["", "",  "", "", "", "", "", "", "", "", "", ""]
     },
+    "cpu": {
+      "interval": 10,
+      "format": "{}% ",
+      "max-length": 10
+    },
+    "memory": {
+      "interval": 30,
+      "format": "{used:0.1f}G/{total:0.1f}G "
+    },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}%",
@@ -58,7 +67,7 @@
     },
     "custom/lock": {
         "tooltip": false,
-        "on-click": "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown",
+        "on-click": "loginctl lock-session",
         "format": "",
     },
     "custom/power": {

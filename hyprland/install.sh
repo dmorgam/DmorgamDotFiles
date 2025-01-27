@@ -26,8 +26,9 @@ fi
 echo " + Instalando paquetes ..."
 if test $DISTRO = "Arch"
 then
-  DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3
-        otf-font-awesome ttf-fantasque-nerd hyprlock hypridle"
+  DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3 gtk4
+        otf-font-awesome ttf-fantasque-nerd hyprlock hypridle pavucontrol
+        xdg-desktop-portal-hyprland nautilus"
   AUR_DEPS="wlogout"
 
   sudo pacman -S --needed $DEPS
