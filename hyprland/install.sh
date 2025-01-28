@@ -9,6 +9,7 @@
 HYPR_BASEDIR=$(dirname "$0")
 
 WAYBAR_THEME="catpuccin-mocha.css"
+ROFI_THEME="catppuccin-mocha.rasi"
 
 echo " -- INSTALADOR HYPRLAND --"
 
@@ -23,35 +24,51 @@ else
   exit 1
 fi
 
-echo " + Instalando paquetes ..."
-if test $DISTRO = "Arch"
+printf "%s" "Instalar paquetes? (s/n): "
+read install_packages
+
+if test "$install_packages" = "s"
 then
-  DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3 gtk4
-        otf-font-awesome ttf-fantasque-nerd hyprlock hypridle pavucontrol
-        xdg-desktop-portal-hyprland nautilus"
-  AUR_DEPS="wlogout"
-
-  sudo pacman -S --needed $DEPS
-
-  if ! which yay > /dev/null 2>&1
+  echo " + Instalando paquetes ..."
+  if test $DISTRO = "Arch"
   then
-    sudo pacman -S --needed git base-devel
-    git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
-    cd .. && rm -rf yay
-  fi
+    DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3 gtk4
+          otf-font-awesome ttf-fantasque-nerd hyprlock hypridle pavucontrol
+          xdg-desktop-portal-hyprland nautilus"
+    AUR_DEPS="wlogout"
 
-  yay -S --needed $AUR_DEPS
+    sudo pacman -S --needed $DEPS
+
+    if ! which yay > /dev/null 2>&1
+    then
+      sudo pacman -S --needed git base-devel
+      git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+      cd .. && rm -rf yay
+    fi
+
+    yay -S --needed $AUR_DEPS
+  fi
 fi
 
 echo " + Copiando config ..."
 
 mkdir -p "${HOME}/.config/hypr/"
 mkdir -p "${HOME}/.config/waybar/"
+mkdir -p "${HOME}/.config/rofi/"
+mkdir -p "${HOME}/.local/share/rofi/themes/"
 
+# Hyprland
 cp -f "$HYPR_BASEDIR/hyprland.conf" "${HOME}/.config/hypr/hyprland.conf"
 cp -f "$HYPR_BASEDIR/hyprpaper.conf" "${HOME}/.config/hypr/hyprpaper.conf"
 cp -f "$HYPR_BASEDIR/hyprlock.conf" "${HOME}/.config/hypr/hyprlock.conf"
 cp -f "$HYPR_BASEDIR/hypridle.conf" "${HOME}/.config/hypr/hypridle.conf"
+cp -f "$HYPR_BASEDIR/theme.conf" "${HOME}/.config/hypr/theme.conf"
+
+# Waybar
 cp -f "$HYPR_BASEDIR/waybar/config" "${HOME}/.config/waybar/config"
 cp -f "$HYPR_BASEDIR/waybar/style.css" "${HOME}/.config/waybar/style.css"
 cp -f "$HYPR_BASEDIR/waybar/$WAYBAR_THEME" "${HOME}/.config/waybar/colorscheme.css"
+
+# Rofi
+cp -f "$HYPR_BASEDIR/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"
+cp -f "$HYPR_BASEDIR/rofi/themes/$ROFI_THEME" "${HOME}/.local/share/rofi/themes/$ROFI_THEME"

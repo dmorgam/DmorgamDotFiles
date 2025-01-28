@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "modules-left": ["hyprland/workspaces"],
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/music"],
     "modules-right": ["cpu", "memory", "pulseaudio", "backlight", "battery", "clock", "tray", "custom/lock", "custom/power"],
     "hyprland/workspaces": {
@@ -9,9 +9,20 @@
          "sort-by-name": true,
          "format": " {icon} ",
          "format-icons": {
-             "default": "",
+             "1": "",
+             "2": "",
+             "3": "",
+             "default": ""
          },
-     },
+         "persistent-workspaces": {
+           "*": 5
+         }
+    },
+    "hyprland/window": {  
+      "format": "{}",
+      "icon": true,
+      "icon-size": 12
+    },
     "tray": {
         "icon-size": 12,
         "spacing": 4

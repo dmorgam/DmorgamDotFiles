@@ -2,7 +2,7 @@
 
 * {
   font-family: FantasqueSansMono Nerd Font;
-  font-size: 10px;
+  font-size: 12px;
   min-height: 0;
 }
 
@@ -16,17 +16,18 @@
   border-radius: 1rem;
   margin: 5px;
   background-color: @surface0;
-  margin-left: 1rem;
+  margin-left: 5px;
+  border: 2px solid @overlay1;
 }
 
 #workspaces button {
-  color: @lavender;
+  color: @overlay1;
   border-radius: 1rem;
   padding: 0.4rem;
 }
 
 #workspaces button.active {
-  color: @sky;
+  color: @lavender;
   border-radius: 1rem;
 }
 
@@ -44,16 +45,19 @@
 #custom-lock,
 #cpu,
 #memory,
+#window,
 #custom-power {
   background-color: @surface0;
   padding: 0.1rem 1rem;
   margin: 5px 0;
+  border: 2px solid @overlay1;
 }
 
 #clock {
   color: @blue;
   border-radius: 0px 1rem 1rem 0px;
   margin-right: 1rem;
+  border-left: 0px;
 }
 
 #battery {
@@ -80,6 +84,7 @@
   color: @maroon;
   border-radius: 1rem 0px 0px 1rem;
   margin-left: 1rem;
+  border-right: 0px;
 }
 
 #custom-music {
@@ -87,25 +92,39 @@
   border-radius: 1rem;
 }
 
+#window {
+  color: @text;
+  border-radius: 1rem 1rem 1rem 1rem;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+  border: 0px;
+}
+
 #cpu {
   color: @mauve;
   border-radius: 1rem 0px 0px 1rem;
+  border-right: 0px;
 }
 
 #memory {
   color: @yellow;
   border-radius: 0px 1rem 1rem 0px;
+  border-left: 0px;
 }
 
 #custom-lock {
-    border-radius: 1rem 0px 0px 1rem;
-    color: @lavender;
+  border-radius: 1rem 0px 0px 1rem;
+  color: @lavender;
+  border-right: 0px;
 }
 
 #custom-power {
-    margin-right: 1rem;
-    border-radius: 0px 1rem 1rem 0px;
-    color: @red;
+  margin-right: 5px;
+  border-radius: 0px 1rem 1rem 0px;
+  color: @red;
+  border-left: 0px;
 }
 
 #tray {
