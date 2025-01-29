@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/music"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "backlight", "battery", "clock", "tray", "custom/lock", "custom/power"],
+    "modules-right": ["cpu", "memory", "pulseaudio", "backlight", "battery","hyprland/language", "clock", "tray", "custom/lock", "custom/power"],
     "hyprland/workspaces": {
          "disable-scroll": true,
          "sort-by-name": true,
@@ -21,10 +21,15 @@
     "hyprland/window": {  
       "format": "{}",
       "icon": true,
-      "icon-size": 12
+      "icon-size": 16
+    },
+    "hyprland/language": {
+      "format": " {}",
+      "format-en": "US",
+      "format-es": "ES",
     },
     "tray": {
-        "icon-size": 12,
+        "icon-size": 14,
         "spacing": 4
     },
     "custom/music": {
@@ -40,7 +45,7 @@
         "timezone": "Europe/Madrid",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "📅 {:%d/%m/%Y}",
-        "format": " {:%H:%M}"
+        "format": "{:%H:%M}"
     },
     "backlight": {
         "device": "intel_backlight",

@@ -8,6 +8,8 @@
 
 HYPR_BASEDIR=$(dirname "$0")
 
+LOCALE="LANG=es_ES.UTF-8"
+
 WAYBAR_THEME="catpuccin-mocha.css"
 ROFI_THEME="catppuccin-mocha.rasi"
 
@@ -52,10 +54,14 @@ fi
 
 echo " + Copiando config ..."
 
+# Locale
+echo "$LOCALE" > "${HOME}/.config/locale.conf"
+
 mkdir -p "${HOME}/.config/hypr/"
 mkdir -p "${HOME}/.config/waybar/"
 mkdir -p "${HOME}/.config/rofi/"
 mkdir -p "${HOME}/.local/share/rofi/themes/"
+mkdir -p "${HOME}/.config/wlogout/"
 
 # Hyprland
 cp -f "$HYPR_BASEDIR/hyprland.conf" "${HOME}/.config/hypr/hyprland.conf"
@@ -72,3 +78,6 @@ cp -f "$HYPR_BASEDIR/waybar/$WAYBAR_THEME" "${HOME}/.config/waybar/colorscheme.c
 # Rofi
 cp -f "$HYPR_BASEDIR/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"
 cp -f "$HYPR_BASEDIR/rofi/themes/$ROFI_THEME" "${HOME}/.local/share/rofi/themes/$ROFI_THEME"
+
+# Wlogout
+cp -f "$HYPR_BASEDIR/wlogout/style.css" "${HOME}/.config/wlogout/style.css"

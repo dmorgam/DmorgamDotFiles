@@ -9,6 +9,7 @@ showHelp () {
   echo "    --nvim --nodeps  -  Instala la config de nvim, sin dependencias."
   echo "    --zsh            -  Instala la config de zsh."
   echo "    --tmux           -  Instala la config de tmux."
+  echo "    --etc            -  Instala la config de etc del sistema."
   echo "    --hyprland       -  Instala hyprland y su config."
 }
 
@@ -67,6 +68,11 @@ installTmux () {
   cp -f "$BASEDIR/tmux.conf" "$HOME/.tmux.conf"
 }
 
+installEtc () {
+  echo "Saltando al instalador de etc ..."
+  sh $BASEDIR/etc/install.sh
+}
+
 installHyprland () {
   echo "Saltando al instalador de hyprland ..."
   sh $BASEDIR/hyprland/install.sh
@@ -84,6 +90,9 @@ case $1 in
     ;;
   '--tmux')
     installTmux
+    ;;
+  '--etc')
+    installEtc
     ;;
   '--hyprland')
     installHyprland

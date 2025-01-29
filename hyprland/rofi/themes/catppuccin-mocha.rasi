@@ -8,8 +8,8 @@
     fg-col2: #f38ba8;
     grey: #6c7086;
 
-    width: 600;
-    font: "JetBrainsMono Nerd Font 10";
+    width: 800;
+    font: "JetBrainsMono Nerd Font 14";
 }
 
 element-text, element-icon , mode-switcher {
@@ -18,7 +18,7 @@ element-text, element-icon , mode-switcher {
 }
 
 window {
-    height: 360px;
+    height: 450px;
     border: 2px;
     border-color: @grey;
     background-color: @bg-col;
