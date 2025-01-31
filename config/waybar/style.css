@@ -1,7 +1,7 @@
 @import "colorscheme.css";
 
 * {
-  font-family: FantasqueSansMono Nerd Font;
+  font-family: DaddyTimeMono Nerd Font; 
   font-size: 16px;
   min-height: 0;
 }
@@ -13,27 +13,28 @@
 }
 
 #workspaces {
-  border-radius: 1rem;
+  border-radius: 2rem;
   margin: 5px;
   background-color: @surface0;
   margin-left: 5px;
   border: 2px solid @overlay1;
+  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
 }
 
 #workspaces button {
   color: @overlay1;
-  border-radius: 1rem;
+  border-radius: 2rem;
   padding: 0.4rem;
 }
 
 #workspaces button.active {
   color: @lavender;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
 
 #workspaces button:hover {
   color: @sapphire;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
 
 #custom-music,
@@ -52,13 +53,15 @@
   padding: 0.1rem 1rem;
   margin: 5px 0;
   border: 2px solid @overlay1;
+  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
 }
 
 #clock {
   color: @blue;
-  border-radius: 0px 1rem 1rem 0px;
+  border-radius: 0px 2rem 2rem 0px;
   margin-right: 1rem;
   border-left: 0px;
+  box-shadow: 2px 0px 3px 0px rgba(26,26,26,0.6);
 }
 
 #battery {
@@ -83,7 +86,7 @@
 
 #pulseaudio {
   color: @maroon;
-  border-radius: 1rem 0px 0px 1rem;
+  border-radius: 2rem 0px 0px 2rem;
   margin-left: 1rem;
   border-right: 0px;
 }
@@ -96,45 +99,50 @@
 
 #custom-music {
   color: @mauve;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
 
 #window {
   color: @text;
-  border-radius: 1rem 1rem 1rem 1rem;
+  border-radius: 2rem;
+  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
 }
 
 window#waybar.empty #window {
   background-color: transparent;
   border: 0px;
+  box-shadow: none;
 }
 
 #cpu {
   color: @mauve;
-  border-radius: 1rem 0px 0px 1rem;
+  border-radius: 2rem 0px 0px 2rem;
   border-right: 0px;
 }
 
 #memory {
   color: @yellow;
-  border-radius: 0px 1rem 1rem 0px;
+  border-radius: 0px 2rem 2rem 0px;
   border-left: 0px;
+  margin-right: 5px;
+  box-shadow: 2px 0px 3px 0px rgba(26,26,26,0.6);
 }
 
 #custom-lock {
-  border-radius: 1rem 0px 0px 1rem;
+  border-radius: 2rem 0px 0px 2rem;
   color: @lavender;
   border-right: 0px;
 }
 
 #custom-power {
   margin-right: 5px;
-  border-radius: 0px 1rem 1rem 0px;
+  border-radius: 0px 2rem 2rem 0px;
   color: @red;
   border-left: 0px;
+  box-shadow: 2px 0px 3px 0px rgba(26,26,26,0.6);
 }
 
 #tray {
   margin-right: 1rem;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }

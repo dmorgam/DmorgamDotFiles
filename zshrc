@@ -70,6 +70,9 @@ VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
+# Default editor
+EDITOR=nvim
+
 # Reverse history search like bash
 bindkey '^R' history-incremental-search-backward
 

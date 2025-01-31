@@ -34,9 +34,11 @@ then
   echo " + Instalando paquetes ..."
   if test $DISTRO = "Arch"
   then
-    DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3 gtk4
+    DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3 gvfs
           otf-font-awesome ttf-fantasque-nerd hyprlock hypridle pavucontrol
-          xdg-desktop-portal-hyprland nautilus"
+          xdg-desktop-portal-hyprland thunar pipewire wireplumber mako
+          libnotify ttf-daddytime-mono-nerd hyprpolkitagent python-pillow
+          highlight ttf-nerd-fonts-symbols wl-clipboard udiskie"
     AUR_DEPS="wlogout"
 
     sudo pacman -S --needed $DEPS
@@ -62,22 +64,35 @@ mkdir -p "${HOME}/.config/waybar/"
 mkdir -p "${HOME}/.config/rofi/"
 mkdir -p "${HOME}/.local/share/rofi/themes/"
 mkdir -p "${HOME}/.config/wlogout/"
+mkdir -p "${HOME}/.config/mako/"
+mkdir -p "${HOME}/.config/ranger/"
 
 # Hyprland
-cp -f "$HYPR_BASEDIR/hyprland.conf" "${HOME}/.config/hypr/hyprland.conf"
-cp -f "$HYPR_BASEDIR/hyprpaper.conf" "${HOME}/.config/hypr/hyprpaper.conf"
-cp -f "$HYPR_BASEDIR/hyprlock.conf" "${HOME}/.config/hypr/hyprlock.conf"
-cp -f "$HYPR_BASEDIR/hypridle.conf" "${HOME}/.config/hypr/hypridle.conf"
-cp -f "$HYPR_BASEDIR/theme.conf" "${HOME}/.config/hypr/theme.conf"
+cp -f "$HYPR_BASEDIR/../config/hypr/hyprland.conf" "${HOME}/.config/hypr/hyprland.conf"
+cp -f "$HYPR_BASEDIR/../config/hypr/hyprpaper.conf" "${HOME}/.config/hypr/hyprpaper.conf"
+cp -f "$HYPR_BASEDIR/../config/hypr/hyprlock.conf" "${HOME}/.config/hypr/hyprlock.conf"
+cp -f "$HYPR_BASEDIR/../config/hypr/hypridle.conf" "${HOME}/.config/hypr/hypridle.conf"
+cp -f "$HYPR_BASEDIR/../config/hypr/theme.conf" "${HOME}/.config/hypr/theme.conf"
 
 # Waybar
-cp -f "$HYPR_BASEDIR/waybar/config" "${HOME}/.config/waybar/config"
-cp -f "$HYPR_BASEDIR/waybar/style.css" "${HOME}/.config/waybar/style.css"
-cp -f "$HYPR_BASEDIR/waybar/$WAYBAR_THEME" "${HOME}/.config/waybar/colorscheme.css"
+cp -f "$HYPR_BASEDIR/../config/waybar/config" "${HOME}/.config/waybar/config"
+cp -f "$HYPR_BASEDIR/../config/waybar/style.css" "${HOME}/.config/waybar/style.css"
+cp -f "$HYPR_BASEDIR/../config/waybar/$WAYBAR_THEME" "${HOME}/.config/waybar/colorscheme.css"
 
 # Rofi
-cp -f "$HYPR_BASEDIR/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"
-cp -f "$HYPR_BASEDIR/rofi/themes/$ROFI_THEME" "${HOME}/.local/share/rofi/themes/$ROFI_THEME"
+cp -f "$HYPR_BASEDIR/../config/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"
+cp -f "$HYPR_BASEDIR/../local/share/rofi/themes/$ROFI_THEME" "${HOME}/.local/share/rofi/themes/$ROFI_THEME"
 
 # Wlogout
-cp -f "$HYPR_BASEDIR/wlogout/style.css" "${HOME}/.config/wlogout/style.css"
+cp -f "$HYPR_BASEDIR/../config/wlogout/style.css" "${HOME}/.config/wlogout/style.css"
+
+# Mako notifications
+cp -f "$HYPR_BASEDIR/../config/mako/config" "${HOME}/.config/mako/config"
+
+# Ranger
+cp -f "$HYPR_BASEDIR/../config/ranger/rc.conf" "${HOME}/.config/ranger/rc.conf"
+
+if ! test -d "${HOME}/.config/ranger/plugins/ranger_devicons"
+then
+  git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+fi
