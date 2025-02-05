@@ -31,7 +31,7 @@
       "format-es": "ES",
     },
     "tray": {
-        "icon-size": 14,
+        "icon-size": 24,
         "spacing": 4
     },
     "custom/music": {
@@ -60,10 +60,10 @@
             "critical": 15
         },
         "format": "{icon}",
-        "format-charging": "",
-        "format-plugged": "",
+        "format-charging": "󰂉",
+        "format-plugged": "󰂅",
         "format-alt": "{icon}",
-        "format-icons": ["", "",  "", "", "", "", "", "", "", "", "", ""]
+        "format-icons": ["󱃍", "󱃍",  "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "cpu": {
       "interval": 10,

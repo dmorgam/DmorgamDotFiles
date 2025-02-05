@@ -7,18 +7,21 @@
 }
 
 #waybar {
-  background: transparent;
+  background-color: transparent;
+}
+
+#waybar > box {
+  background: rgba(30,30,46,0.8);
   color: @text;
-  margin: 5px 5px;
+  border-radius: 2rem;
+  margin: 5px;
+  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
 }
 
 #workspaces {
   border-radius: 2rem;
-  margin: 5px;
   background-color: @surface0;
-  margin-left: 5px;
-  border: 2px solid @overlay1;
-  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
+  margin: 5px;
 }
 
 #workspaces button {
@@ -51,9 +54,7 @@
 #custom-power {
   background-color: @surface0;
   padding: 0.1rem 1rem;
-  margin: 5px 0;
-  border: 2px solid @overlay1;
-  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
+  margin: 5px;
 }
 
 #clock {
@@ -61,11 +62,13 @@
   border-radius: 0px 2rem 2rem 0px;
   margin-right: 1rem;
   border-left: 0px;
-  box-shadow: 2px 0px 3px 0px rgba(26,26,26,0.6);
+  margin-left: 0px;
 }
 
 #battery {
-  color: @green;
+  color: @text;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 #battery.charging {
@@ -78,10 +81,14 @@
 
 #backlight {
   color: @yellow;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 #backlight, #battery {
-    border-radius: 0;
+  border-radius: 0;
+  border-right: 0px;
+  border-left: 0px;
 }
 
 #pulseaudio {
@@ -89,12 +96,15 @@
   border-radius: 2rem 0px 0px 2rem;
   margin-left: 1rem;
   border-right: 0px;
+  margin-right: 0px;
 }
 
 #language {
   border-right: 0px;
   border-left: 0px;
   padding: 0.1rem 0.5rem;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 #custom-music {
@@ -105,12 +115,11 @@
 #window {
   color: @text;
   border-radius: 2rem;
-  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
+  margin-left: 1rem;
 }
 
 window#waybar.empty #window {
   background-color: transparent;
-  border: 0px;
   box-shadow: none;
 }
 
@@ -118,6 +127,7 @@ window#waybar.empty #window {
   color: @mauve;
   border-radius: 2rem 0px 0px 2rem;
   border-right: 0px;
+  margin-right: 0px;
 }
 
 #memory {
@@ -125,21 +135,19 @@ window#waybar.empty #window {
   border-radius: 0px 2rem 2rem 0px;
   border-left: 0px;
   margin-right: 5px;
-  box-shadow: 2px 0px 3px 0px rgba(26,26,26,0.6);
+  margin-left: 0px;
 }
 
 #custom-lock {
   border-radius: 2rem 0px 0px 2rem;
   color: @lavender;
-  border-right: 0px;
+  margin-right: 0px;
 }
 
 #custom-power {
-  margin-right: 5px;
   border-radius: 0px 2rem 2rem 0px;
   color: @red;
-  border-left: 0px;
-  box-shadow: 2px 0px 3px 0px rgba(26,26,26,0.6);
+  margin-left: 0px;
 }
 
 #tray {

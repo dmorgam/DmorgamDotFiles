@@ -16,7 +16,7 @@ ROFI_THEME="catppuccin-mocha.rasi"
 echo " -- INSTALADOR HYPRLAND --"
 
 # Comprobar la distro
-if uname -a | grep archlinux > /dev/null 2>&1
+if uname -a | grep arch > /dev/null 2>&1
 then
   echo " + Arch linux detectado"
   DISTRO="Arch"
