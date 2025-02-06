@@ -96,6 +96,9 @@ require("lazy").setup({
   -- Linter
   {'mfussenegger/nvim-lint'},
 
+  -- Helm
+  {'towolf/vim-helm', ft = 'helm'},
+
   -- Rest Api testing
   {'NTBBloodbath/rest.nvim'},
 

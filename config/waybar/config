@@ -26,7 +26,7 @@
       "icon-size": 16
     },
     "hyprland/language": {
-      "format": "  {}",
+      "format": "󰌓 {}",
       "format-en": "US",
       "format-es": "ES",
     },
@@ -67,19 +67,18 @@
     },
     "cpu": {
       "interval": 10,
-      "format": "{}% ",
+      "format": "{load:0.0f}% ",
       "max-length": 10
     },
     "memory": {
       "interval": 30,
-      "format": "{used:0.1f}G/{total:0.1f}G "
+      "format": "{used:0.1f}/{total:0.0f}G "
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}%",
+        "format": "{icon}",
         "format-muted": "",
         "format-icons": {
-            "default": ["", "", " "]
+            "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
     },

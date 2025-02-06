@@ -36,6 +36,9 @@ fi
 
 # -- User configuration -----------------------------------
 
+# Path
+PATH="$PATH:/$HOME/.local/bin"
+
 # Kubectl configuration
 if type kubectl &> /dev/null
 then
@@ -96,6 +99,18 @@ if [[ "$(tty)" != /dev/tty* ]]
 then
   echo "dmorgamThinkPad" | figlet -f smslant | lolcat
   fortune ~/.fortune/custom-quotes | lolcat
+  echo ""
+else
+  echo ""
+  # Porcentaje de bateria
+  percent=$(cat /sys/class/power_supply/BAT0/capacity)
+  width=30
+  (( blobs = percent * width / 100 ))
+  printf "\rBATTERY:     \e[92m%3d%% [%-${width}s]\e[0m\n" $percent "$( printf "%${blobs}s" | tr " " "=" )"
+  echo "CONNECTIONS:"
+  nmcli con show --active
+  echo ""
+  printf "\rLaunch GUI:  \e[94mHyprland\e[0m\n"
   echo ""
 fi
 
