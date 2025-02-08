@@ -1,0 +1,31 @@
+# User
+set from = "<user>@gmail.com"
+set realname = "Name"
+
+# Para que funcione hay que generar una clave de app de gmail.
+
+# Gmail
+set imap_user="<user>@gmail.com"
+set smtp_url="smtps://<user>@gmail.com@smtp.gmail.com:465/"
+set smtp_authenticators = 'gssapi:login'
+set imap_pass="pass"
+set smtp_pass="pass"
+
+# Ensure TLS is enforced
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+# My mailboxes
+set folder = "imaps://imap.gmail.com:993/[Gmail]"
+set spoolfile = "imaps://<user>@gmail.com@imap.gmail.com:993/INBOX"
+set postponed = "+Drafts"
+set record = "+Sent Mail"
+set trash = "+Trash"
+
+# Where to put the stuff
+set header_cache = "~/.cache/mutt/gmail_headers"
+set message_cachedir = "~/.cache/mutt/gmail_bodies"
+set certificate_file = "~/.cache/mutt/gmail_certificates"
+unset record
+
+set signature = "~/.config/mutt/signature"

@@ -11,6 +11,7 @@ showHelp () {
   echo "    --tmux           -  Instala la config de tmux."
   echo "    --etc            -  Instala la config de etc del sistema."
   echo "    --hyprland       -  Instala hyprland y su config."
+  echo "    --mutt           -  Instala config de mutt."
 }
 
 installNvim () {
@@ -78,6 +79,11 @@ installHyprland () {
   sh $BASEDIR/hyprland/install.sh
 }
 
+installMutt () {
+  echo "Copiando config de mutt..."
+  cp -rf $BASEDIR/config/mutt/*  "$HOME/.config/mutt/"
+}
+
 case $1 in
   '--help')
     showHelp
@@ -96,6 +102,9 @@ case $1 in
     ;;
   '--hyprland')
     installHyprland
+    ;;
+  '--mutt')
+    installMutt
     ;;
   *)
     showHelp

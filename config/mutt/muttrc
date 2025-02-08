@@ -1,0 +1,131 @@
+# Neomutt Configuration -------------------------------------------------------
+#
+# Multiple accounts -----------------------------------------------------------
+
+# Folder hooks
+folder-hook 'gmail' 'source ~/.config/mutt/gmail'
+folder-hook 'olimed' 'source ~/.mutt/olimed'
+
+# Macros for switching accounts
+macro index <f2> '<sync-mailbox><enter-command>source ~/.config/mutt/gmail<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.config/mutt/olimed<enter><change-folder>!<enter>'
+
+# Main Options ----------------------------------------------------------------
+
+set charset = "utf-8"
+set imap_check_subscribed
+set mail_check_stats
+set envelope_from
+set edit_headers
+set fast_reply
+set askcc
+set fcc_attach
+set forward_format = "Fwd: %s"
+set forward_decode
+set attribution = "El %d, %n escribió:"
+set reply_to
+set reverse_name
+set include
+set forward_quote
+set text_flowed
+unset sig_dashes
+unset mime_forward
+set index_format = "%Z %{%d-%m-%Y} %-20.20L (%<l?%4l&%4c>) %s"
+ 
+unset confirmappend
+set quit
+unset mark_old
+set beep_new
+set pipe_decode
+set thorough_search
+set timeout = 0
+ 
+# status bar, date format, finding stuff etc.
+set status_chars = " "
+set status_format = "[ Carpeta: %f ] [%r%m mensajes%?n? (%n nuevos)?%?d? (%d para borrar)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
+set to_chars=""
+ifdef crypt_chars set crypt_chars = " "
+set flag_chars = "      "
+set date_format = "%d.%m.%Y %H:%M"
+set sort = threads
+set uncollapse_jump
+set sort_re
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set send_charset = "utf-8:iso-8859-1:us-ascii"
+set charset = "utf-8"
+set arrow_cursor = "no"
+set vfolder_format = " %N %?n?%3n&   ?  %8m  · %f"
+set attach_format = "%u%D  %T%-75.75d %?T?   ? %5s · %m/%M"
+ 
+set sidebar_visible
+set sidebar_format = "󰛮 %B%<F? [%F]>%* %<N?%N/>%S"
+set sidebar_short_path
+set sidebar_sort_method = 'alpha'
+set sidebar_non_empty_mailbox_only
+set sidebar_divider_char = " "
+ 
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop
+set menu_scroll
+unset markers
+
+bind index j next-entry
+bind index k previous-entry
+bind pager j next-line
+bind pager k previous-line
+
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+bind index,pager \CK sidebar-prev       # Ctrl-Shift-P - Previous Mailbox
+bind index,pager \CJ sidebar-next       # Ctrl-Shift-N - Next Mailbox
+bind index,pager \CO sidebar-open       # Ctrl-Shift-O - Open Highlighted Mailbox
+
+# Mailcap ---------------------------------------------------------------------
+
+set mailcap_path = "~/.config/mutt/mailcap"
+
+# Styling ---------------------------------------------------------------------
+
+color normal      default default         # Text is "Text"
+color index       color2 default ~N       # New Messages are Green
+color index       color1 default ~F       # Flagged messages are Red
+color index       color13 default ~T      # Tagged Messages are Red
+color index       color1 default ~D       # Messages to delete are Red
+color attachment  color5 default          # Attachments are Pink
+color signature   color8 default          # Signatures are Surface 2
+color search      color4 default          # Highlighted results are Blue
+
+color indicator   default color8          # currently highlighted message Surface 2=Background Text=Foreground
+color error       color1 default          # error messages are Red
+color status      color14 default        # status line "Subtext 0"
+color tree        color15 default         # thread tree arrows Subtext 0
+color tilde       color15 default         # blank line padding Subtext 0
+
+color sidebar_divider color236 default
+
+color hdrdefault  color13 default         # default headers Pink
+color header      color13 default "^From:"
+color header      color13 default "^Subject:"
+
+color quoted		  color15 default         # Subtext 0
+color quoted1		  color7 default          # Subtext 1
+color quoted2		  color8 default          # Surface 2
+color quoted3		  color0 default          # Surface 1
+color quoted4		  color0 default
+color quoted5		  color0 default
+
+color body		color2 default		[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+               # email addresses Green
+color body	  color2 default		(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+        # URLs Green
+color body		color4 default		(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$) # *bold* text Blue
+color body		color4 default		(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)     # _underlined_ text Blue
+color body		color4 default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # /italic/ text Blue
+
+color sidebar_flagged   color1 default    # Mailboxes with flagged mails are Red
+color sidebar_new       color10 default   # Mailboxes with new mail are Green

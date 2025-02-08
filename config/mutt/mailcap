@@ -1,0 +1,13 @@
+# Mimetypes
+
+#text/html; w3m -sixel -o auto_image=TRUE -o display_image=1 -T text/html %s; nametemplate=%s.html; copiousoutput; needsterminal
+text/html; firefox --new-window %s
+
+image/png; kitten icat --hold --clear %s
+image/jpeg; kitten icat --hold --clear %s
+image/gif; kitten icat --hold --clear %s
+image/webp; kitten icat --hold --clear %s
+image/bmp; kitten icat --hold --clear %s
+image/tiff; kitten icat --hold --clear %s
+
+application/pdf; evince %s
