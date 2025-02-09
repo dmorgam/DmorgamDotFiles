@@ -4,7 +4,7 @@
 
 # Folder hooks
 folder-hook 'gmail' 'source ~/.config/mutt/gmail'
-folder-hook 'olimed' 'source ~/.mutt/olimed'
+folder-hook 'olimed' 'source ~/.config/mutt/olimed'
 
 # Macros for switching accounts
 macro index <f2> '<sync-mailbox><enter-command>source ~/.config/mutt/gmail<enter><change-folder>!<enter>'

@@ -52,6 +52,12 @@ then
   alias k=kubecolor
 fi
 
+if type oc &> /dev/null
+then
+  source <(oc completion zsh)
+  compdef _oc oc
+fi
+
 # Aws cli autocomplete
 if type aws_completer &> /dev/null
 then
