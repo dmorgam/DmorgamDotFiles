@@ -27,7 +27,6 @@ then
   antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
 
   # Load other plugins
-  antidote bundle romkatv/powerlevel10k
   antidote bundle zsh-users/zsh-autosuggestions
   antidote bundle zsh-users/zsh-syntax-highlighting
 else
@@ -106,6 +105,7 @@ then
   echo "dmorgamThinkPad" | figlet -f smslant | lolcat
   fortune ~/.fortune/custom-quotes | lolcat
   echo ""
+  eval "$(starship init zsh)"
 else
   echo ""
   # Porcentaje de bateria
@@ -119,6 +119,3 @@ else
   printf "\rLaunch GUI:  \e[94mHyprland\e[0m\n"
   echo ""
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

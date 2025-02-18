@@ -43,20 +43,16 @@ installNvim () {
 }
 
 installZsh () {
+  if which pacman > /dev/null 2>&1
+  then
+    echo "Instalando dependencias ..."
+    sudo pacman -S --needed starship
+  fi
+
   echo "Copiando config..."
 
-  if test -f "$HOME/.zshrc"
-  then
-    rm ~/.zshrc
-  fi
-
-  if test -f "$HOME/.p10k.zsh"
-  then
-    rm ~/.p10k.zsh
-  fi
-
-  cp "$BASEDIR/zshrc" "$HOME/.zshrc"
-  cp "$BASEDIR/p10k.zsh" "$HOME/.p10k.zsh"
+  cp -f "$BASEDIR/zshrc" "$HOME/.zshrc"
+  cp -f "$BASEDIR/config/starship.toml" "$HOME/.config/starship.toml"
 
   # Copy fortunes
   mkdir -p "$HOME/.fortune"
