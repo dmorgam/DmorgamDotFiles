@@ -115,7 +115,6 @@ vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
-vim.api.nvim_set_option_value("colorcolumn", "80", {})
 
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")

@@ -46,7 +46,7 @@ installZsh () {
   if which pacman > /dev/null 2>&1
   then
     echo "Instalando dependencias ..."
-    sudo pacman -S --needed starship
+    sudo pacman -S --needed starship eza
   fi
 
   echo "Copiando config..."

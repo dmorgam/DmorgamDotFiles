@@ -5,33 +5,27 @@ compinit
 
 # -- Antidote plugins --------------------------------------
 
-# Modos de TTY y normales (para el login)
-if [[ "$(tty)" != /dev/tty* ]]
-then
-  # Download antidote if needed
-  [[ -e ${ZDOTDIR:-~}/.antidote ]] ||
-    git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+# Download antidote if needed
+[[ -e ${ZDOTDIR:-~}/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 
 
-  # Source antidote package manager
-  source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+# Source antidote package manager
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
-  # Dinamic load mode
-  source <(antidote init)
+# Dinamic load mode
+source <(antidote init)
 
-  # Load the oh-my-zsh library.
-  antidote bundle ohmyzsh/ohmyzsh path:lib
+# Load the oh-my-zsh library.
+antidote bundle ohmyzsh/ohmyzsh path:lib
 
-  # Load standard oh my zsh plugins
-  antidote bundle ohmyzsh/ohmyzsh path:plugins/git
-  antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
+# Load standard oh my zsh plugins
+antidote bundle ohmyzsh/ohmyzsh path:plugins/git
+antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
 
-  # Load other plugins
-  antidote bundle zsh-users/zsh-autosuggestions
-  antidote bundle zsh-users/zsh-syntax-highlighting
-else
-  export PS1="%B%F{yellow}%n%f%b@%B%F{blue}%m%f%b %F{white}%~%  > "
-fi
+# Load other plugins
+antidote bundle zsh-users/zsh-autosuggestions
+antidote bundle zsh-users/zsh-syntax-highlighting
 
 # -- User configuration -----------------------------------
 
@@ -95,19 +89,23 @@ alias man="LESS_TERMCAP_mb=$'\e[1;31m' \
            LESS_TERMCAP_ue=$'\e[0m' \
            GROFF_NO_SGR=1 \
            MANPAGER='less -s -M +Gg' man"
-alias ip="ip --color=auto"
 
-# Banner
+alias ip="ip --color=auto"
+alias ls="eza --icons=always"
+alias ll="eza --icons=always --long --git"
 
 # Modos de TTY y normales (para el login)
 if [[ "$(tty)" != /dev/tty* ]]
 then
-  echo "dmorgamThinkPad" | figlet -f smslant | lolcat
+  echo $(cat /etc/hostname) | figlet -f smslant | lolcat
   fortune ~/.fortune/custom-quotes | lolcat
   echo ""
   eval "$(starship init zsh)"
 else
+  alias ls="eza --icons=never"
+  alias ll="eza --icons=never --long --git"
   echo ""
+
   # Porcentaje de bateria
   percent=$(cat /sys/class/power_supply/BAT0/capacity)
   width=30
@@ -115,7 +113,6 @@ else
   printf "\rBATTERY:     \e[92m%3d%% [%-${width}s]\e[0m\n" $percent "$( printf "%${blobs}s" | tr " " "=" )"
   echo "CONNECTIONS:"
   nmcli con show --active
-  echo ""
-  printf "\rLaunch GUI:  \e[94mHyprland\e[0m\n"
-  echo ""
+  printf "\n\rLaunch GUI:  \e[94mHyprland\e[0m\n\n"
+  export PS1="%B%F{yellow}%n%f%b@%B%F{blue}%m%f%b %F{white}%~%  > "
 fi
