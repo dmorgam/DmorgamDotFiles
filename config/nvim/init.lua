@@ -100,7 +100,7 @@ require("lazy").setup({
   {'towolf/vim-helm', ft = 'helm'},
 
   -- Rest Api testing
-  {'NTBBloodbath/rest.nvim'},
+  {'rest-nvim/rest.nvim'},
 
 })
 

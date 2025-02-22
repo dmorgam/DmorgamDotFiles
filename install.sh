@@ -25,29 +25,26 @@ installNvim () {
     if test "$1" != '--nodeps'
     then
       echo "Instalando dependencias..."
-      if which apt > /dev/null 2>&1
-      then
-        sudo apt update
+
+      which apt > /dev/null 2>&1 &&
+        sudo apt update &&
         sudo apt install g++ libstdc++6 tidy ripgrep lua5.1 liblua5.1-0 libcurl4-openssl-dev
-      elif which yum > /dev/null 2>&1
-      then
+
+      which yum > /dev/null 2>&1 &&
         sudo yum install g++ libstdc++ tidy ripgrep lua51 lua51-devel libcurl-devel
-      elif which zypper > /dev/null 2>&1
-      then
+
+      which zypper > /dev/null 2>&1 &&
         sudo zypper install gcc-c++ libstdc++6 tidy ripgrep lua51 lua51-devel libcurl-devel
-      elif which pacman > /dev/null 2>&1
-      then
+
+      which pacman > /dev/null 2>&1 &&
         sudo pacman -S --needed gcc gcc-libs tidy ripgrep lua51 libcurl-gnutls luarocks
-      fi
     fi
 }
 
 installZsh () {
-  if which pacman > /dev/null 2>&1
-  then
-    echo "Instalando dependencias ..."
-    sudo pacman -S --needed starship eza
-  fi
+  which pacman > /dev/null 2>&1 &&
+    echo "Instalando dependencias ..." &&
+    sudo pacman -S --needed starship eza fzf
 
   echo "Copiando config..."
 

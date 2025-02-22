@@ -1,6 +1,6 @@
 # Dotfiles personales
 
-Mis dotfiles con mi config de nvim, vt y varios.
+Mis dotfiles con mi config de nvim, vt, hyprland y varios.
 
 ## NeoVim
 
@@ -35,6 +35,14 @@ Se instala via install.sh
 ```
 
 ## Tmux
+
+Se instala via install.sh
+
+```shell
+> install.sh --tmux
+```
+
+## Hyprland
 
 Se instala via install.sh
 

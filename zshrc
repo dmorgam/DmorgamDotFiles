@@ -9,7 +9,6 @@ compinit
 [[ -e ${ZDOTDIR:-~}/.antidote ]] ||
   git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 
-
 # Source antidote package manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
@@ -27,43 +26,10 @@ antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
 antidote bundle zsh-users/zsh-autosuggestions
 antidote bundle zsh-users/zsh-syntax-highlighting
 
-# -- User configuration -----------------------------------
 
-# Path
+# -- Local vars --------------------------------------------
+
 PATH="$PATH:/$HOME/.local/bin"
-
-# Kubectl configuration
-if type kubectl &> /dev/null
-then
-  source <(kubectl completion zsh)
-  alias k=kubectl
-fi
-
-if type kubecolor &> /dev/null
-then
-  compdef kubecolor=kubectl
-  alias k=kubecolor
-fi
-
-if type oc &> /dev/null
-then
-  source <(oc completion zsh)
-  compdef _oc oc
-fi
-
-# Aws cli autocomplete
-if type aws_completer &> /dev/null
-then
-  complete -C '~/.local/bin/aws_completer' aws
-fi
-
-# Terraform
-if type terraform &> /dev/null
-then
-  alias tf=terraform
-  complete -o nospace -C ~/.local/bin/terraform terraform
-  compdef __start_terraform tf
-fi
 
 # Enable vi mode
 bindkey -v
@@ -75,10 +41,47 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 # Default editor
 EDITOR=nvim
 
-# Reverse history search like bash
-bindkey '^R' history-incremental-search-backward
+# -- Tools -------------------------------------------------
 
-# Aliases
+# Kubernetes configuration
+type kubectl &> /dev/null &&
+  source <(kubectl completion zsh) &&
+  alias k=kubectl
+
+# Kubecolor
+type kubecolor &> /dev/null &&
+  compdef kubecolor=kubectl &&
+  alias k=kubecolor
+
+# Openshift
+type oc &> /dev/null &&
+  source <(oc completion zsh) &&
+  compdef _oc oc
+
+# Aws cli autocomplete
+type aws_completer &> /dev/null &&
+  complete -C '~/.local/bin/aws_completer' aws
+
+# Terraform
+type terraform &> /dev/null &&
+  alias tf=terraform &&
+  complete -o nospace -C ~/.local/bin/terraform terraform &&
+  compdef __start_terraform tf
+
+## Fuzzy finder
+type fzf &> /dev/null &&
+  source <(fzf --zsh) &&
+  type bat &> /dev/null &&
+    alias fzf='fzf --preview="bat --color=always {}"' ||
+    alias fzf='fzf --preview="cat {}"'
+
+## Eza
+type eza &> /dev/null &&
+  alias ls="eza --icons=always" &&
+  alias ll="eza --icons=always --long --git"
+
+# -- Aliases -----------------------------------------------
+
 alias vim=nvim
 alias man="LESS_TERMCAP_mb=$'\e[1;31m' \
            LESS_TERMCAP_md=$'\e[1;33m' \
@@ -91,8 +94,11 @@ alias man="LESS_TERMCAP_mb=$'\e[1;31m' \
            MANPAGER='less -s -M +Gg' man"
 
 alias ip="ip --color=auto"
-alias ls="eza --icons=always"
-alias ll="eza --icons=always --long --git"
+
+# -- User config -------------------------------------------
+
+# Reverse history search like bash
+bindkey '^R' history-incremental-search-backward
 
 # Modos de TTY y normales (para el login)
 if [[ "$(tty)" != /dev/tty* ]]
@@ -102,15 +108,15 @@ then
   echo ""
   eval "$(starship init zsh)"
 else
-  alias ls="eza --icons=never"
-  alias ll="eza --icons=never --long --git"
-  echo ""
+  type eza &> /dev/null &&
+    alias ls="eza --icons=never" &&
+    alias ll="eza --icons=never --long --git"
 
   # Porcentaje de bateria
-  percent=$(cat /sys/class/power_supply/BAT0/capacity)
   width=30
+  percent=$(cat /sys/class/power_supply/BAT0/capacity)
   (( blobs = percent * width / 100 ))
-  printf "\rBATTERY:     \e[92m%3d%% [%-${width}s]\e[0m\n" $percent "$( printf "%${blobs}s" | tr " " "=" )"
+  printf "\n\rBATTERY:     \e[92m%3d%% [%-${width}s]\e[0m\n" $percent "$( printf "%${blobs}s" | tr " " "=" )"
   echo "CONNECTIONS:"
   nmcli con show --active
   printf "\n\rLaunch GUI:  \e[94mHyprland\e[0m\n\n"
