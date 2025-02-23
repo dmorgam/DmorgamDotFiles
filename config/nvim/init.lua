@@ -342,20 +342,13 @@ require('lspconfig').lua_ls.setup {
   },
 }
 
--- Python
-require('lspconfig').pylsp.setup {}
 
--- Js/Ts
-require('lspconfig').ts_ls.setup {}
+-- LSP servers
+local servers = { "pylsp", "ts_ls", "terraformls", "yamlls", "jsonls" }
 
--- Terraform
-require('lspconfig').terraformls.setup {}
-
--- Yaml
-require('lspconfig').yamlls.setup {}
-
--- Json
-require('lspconfig').jsonls.setup {}
+for _, server in ipairs(servers) do
+    require('lspconfig')[server].setup {}
+end
 
 
 -- Snippets
