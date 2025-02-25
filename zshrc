@@ -3,6 +3,11 @@
 autoload -Uz compinit
 compinit
 
+# -- Pre-plugins variables ---------------------------------
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
+typeset -gA ZSH_HIGHLIGHT_STYLES
+
 # -- Antidote plugins --------------------------------------
 
 # Download antidote if needed
@@ -36,6 +41,9 @@ bindkey -v
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
+# Custom colors for prompt commands
+source "$HOME/.zsh/zsh-syntax-highlighting-theme.zsh"
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # Default editor
@@ -48,6 +56,7 @@ export BAT_THEME='gruvbox-dark'
 
 alias vim=nvim
 alias ip="ip --color=auto"
+alias info="info --vi-keys"
 type batcat &> /dev/null && alias bat="batcat"
 
 # -- Tools -------------------------------------------------
