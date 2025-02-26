@@ -38,10 +38,10 @@ require("lazy").setup({
   {'nvim-lualine/lualine.nvim'},
 
   -- Kanagawa theme
-  { "rebelot/kanagawa.nvim"},
+  --{ "rebelot/kanagawa.nvim"},
 
-  -- Onedark theme
-  -- {'navarasu/onedark.nvim'},
+  -- Catpuccin
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   -- Startup screen
   {'goolord/alpha-nvim'},
@@ -102,6 +102,24 @@ require("lazy").setup({
   -- Rest Api testing
   {'rest-nvim/rest.nvim'},
 
+  {"christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
+  }
+
 })
 
 
@@ -124,7 +142,7 @@ vim.opt.showtabline = 0
 
 
 -- [ Colorscheme ]
-vim.cmd('colorscheme kanagawa')
+vim.cmd('colorscheme catppuccin-macchiato')
 
 
 -- [ Custom mappings ]
@@ -223,7 +241,7 @@ require("oil").setup({
 
 require('lualine').setup({
   options = {
-    theme = 'kanagawa',
+    theme = 'catppuccin',
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     globalstatus = true

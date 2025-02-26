@@ -12,6 +12,7 @@ showHelp () {
   echo "    --etc            -  Instala la config de etc del sistema."
   echo "    --hyprland       -  Instala hyprland y su config."
   echo "    --mutt           -  Instala config de mutt."
+  echo "    --kitty          -  Instala config de kitty."
 }
 
 installNvim () {
@@ -60,23 +61,33 @@ installZsh () {
 }
 
 installTmux () {
-  echo "Copiando config de tmux..."
+  echo "Copiando config de tmux ..."
   cp -f "$BASEDIR/tmux.conf" "$HOME/.tmux.conf"
+
+  echo "Instalando TPM ..."
+  rm -rf "$HOME/.tmux/plugins/tpm"
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 }
 
 installEtc () {
   echo "Saltando al instalador de etc ..."
-  sh $BASEDIR/etc/install.sh
+  sh "$BASEDIR/etc/install.sh"
 }
 
 installHyprland () {
   echo "Saltando al instalador de hyprland ..."
-  sh $BASEDIR/hyprland/install.sh
+  sh "$BASEDIR/hyprland/install.sh"
 }
 
 installMutt () {
-  echo "Copiando config de mutt..."
-  cp -rf $BASEDIR/config/mutt/*  "$HOME/.config/mutt/"
+  echo "Copiando config de mutt ..."
+  cp -rf "$BASEDIR"/config/mutt/*  "$HOME/.config/mutt/"
+}
+
+installKitty () {
+  echo "Copiando config de kitty ..."
+  mkdir -p "$HOME/.config/kitty"
+  cp -f "$BASEDIR/config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 }
 
 case $1 in
@@ -100,6 +111,9 @@ case $1 in
     ;;
   '--mutt')
     installMutt
+    ;;
+  '--kitty')
+    installKitty
     ;;
   *)
     showHelp

@@ -50,8 +50,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 EDITOR=nvim
 
 # Bat theme
-export BAT_THEME='gruvbox-dark'
-
+export BAT_THEME='ansi'
 # -- Aliases -----------------------------------------------
 
 alias vim=nvim
