@@ -17,11 +17,9 @@ showHelp () {
 
 installNvim () {
     echo "Copiando config..."
-    mkdir -p ~/.config/nvim && cp ./config/nvim/init.lua ~/.config/nvim/
-
-    # Snippets
-    mkdir -p "$HOME/.config/nvim/snippets"
-    cp -rf "$BASEDIR/config/nvim/snippets/"* "$HOME/.config/nvim/snippets/"
+    rm -rf "$HOME/config/nvim"
+    mkdir -p ~/.config/nvim 
+    cp -rf "$BASEDIR/config/nvim" "$HOME/.config/"
 
     if test "$1" != '--nodeps'
     then
