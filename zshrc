@@ -31,6 +31,14 @@ antidote bundle ohmyzsh/ohmyzsh path:plugins/vi-mode
 antidote bundle zsh-users/zsh-autosuggestions
 antidote bundle zsh-users/zsh-syntax-highlighting
 
+# -- Check if tty mode -------------------------------------
+if [[ "$(tty)" != /dev/tty* ]] ||
+      cat /proc/version | grep -q Microsoft
+then
+  export IS_TTY=0
+else
+  export IS_TTY=1
+fi
 
 # -- Local vars --------------------------------------------
 
@@ -83,8 +91,8 @@ source "$HOME/.zsh/eza.zsh"
 
 # -- User config -------------------------------------------
 
-# Modos de TTY y normales (para el login)
-if [[ "$(tty)" != /dev/tty* ]]
+
+if (( ! IS_TTY ))
 then
   normalBanner
   eval "$(starship init zsh)"
