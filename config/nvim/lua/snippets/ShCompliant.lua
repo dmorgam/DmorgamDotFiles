@@ -2,68 +2,118 @@
 
 local ls = require("luasnip")
 
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+local ri = require("luasnip.extras").rep
+
 ls.add_snippets("sh", {
 
   -- Basicos --------------------------------------------------
 
   -- Bucle for
-  ls.snippet("for", {
-    ls.text_node('for index in $('),
-    ls.insert_node(1),
-    ls.text_node({')','do','  '}),
-    ls.insert_node(0),
-    ls.text_node({'','done'}),
+  s("for", {
+    t('for index in $('), i(1),
+    t({')','do'}),
+    t({'','  '}), i(2),
+    t({'','done'}),
   }),
 
   -- Bucle while
-  ls.snippet("while", {
-    ls.text_node('while '),
-    ls.insert_node(1),
-    ls.text_node({'','do','  '}),
-    ls.insert_node(0),
-    ls.text_node({'','done'}),
+  s("while", {
+    t('while '), i(1),
+    t({'','do'}),
+    t({'','  '}), i(2),
+    t({'','done'}),
   }),
 
   -- Switch case
-  ls.snippet("case", {
-    ls.text_node('case "'),
-    ls.insert_node(1),
-    ls.text_node({'" in','  "'}),
-    ls.insert_node(2),
-    ls.text_node({'")','    ','    ;;','esac'}),
+  s("case", {
+    t('case "'), i(1),
+    t({'" in','  "'}),
+    i(2), t({'")','    '}),
+    i(3),
+    t({'','    ;;','esac'}),
   }),
 
   -- If
-  ls.snippet("if", {
-    ls.text_node('if test '),
-    ls.insert_node(1),
-    ls.text_node({'','then','  '}),
-    ls.insert_node(0),
-    ls.text_node({'','fi'}),
+  s("if", {
+    t('if test '), i(1),
+    t({'','then'}),
+    t({'','  '}), i(2),
+    t({'','fi'}),
   }),
 
   -- If else
-  ls.snippet("ifelse", {
-    ls.text_node('if test '),
-    ls.insert_node(1),
-    ls.text_node({'','then','  '}),
-    ls.insert_node(0),
-    ls.text_node({'','else','  ','fi'}),
+  s("ifelse", {
+    t('if test '), i(1),
+    t({'','then'}),
+    t({'','  '}), i(2),
+    t({'','else','  ','fi'}),
   }),
 
   -- Date timestamp in day
-  ls.snippet("date-daytimestamp", {
-    ls.text_node('$(date +%Y%m%d)')
+  s("TIMESTAMP=$(date +%Y%m%d)", {
+    t({'TIMESTAMP=$(date +%Y%m%d)',''})
   }),
 
   -- Funcion
-  ls.snippet("funcion", {
-    ls.insert_node(1),
-    ls.text_node({' () {','  ','}'})
+  s("function", {
+    t('# '), ri(1), t(": "), i(2, "Description"),
+    t({'','#'}),
+    t({'','# '}), t("Args:"),
+    t({'','#   $1 - '}), i(3, "arg1Desc"),
+    t({'','#'}),
+    t({'','# '}), t("Returns:"),
+    t({'','#   '}), i(4, "returnType"), t(' - '), i(5, "returnDescription"),
+    t({'','#'}),
+    t({'',''}),i(1, "FunctionName"),
+    t({' () {'}),
+    t({'', '  '}), i(6, "Contents"),
+    t({'','}'}),
   }),
 
   -- shebang
-  ls.snippet("#!-shebang", {
-    ls.text_node('#!/bin/sh')
+  s("#!-shebang", {
+    t('#!/bin/sh'),
+    t({'','#'}),
+    t({'','# '}), i(1, "Description"),
+    t({'','#'}),
+    t({'','# '}), t("Args:"),
+    t({'','#   $1 - '}), i(2, "arg1Desc"),
+    t({'','#'}),
+    t({'','# '}), t("Returns:"),
+    t({'','#   '}), i(3, "returnType"), t(' - '), i(4, "returnDescription"),
+    t({'','#','',''}),
+    t({'','# ---- Variables -----------------------------------'}),
+    t({'',''}),
+    t({'',''}),
+    t({'BASEDIR=$(dirname "$0")',''}),
+    t({'',''}),
+    t({'','# ---- Functions -----------------------------------'}),
+    t({'',''}),
+    t({'',''}),
+    t({'',''}),
+    t({'','# ---- Main ----------------------------------------'}),
+    t({'',''}),
+    t({'',''}),
   }),
+
+  -- Basedir
+  s("BASEDIR=$(dirname...", {
+    t({'BASEDIR=$(dirname "$0")',''})
+  }),
+
+
+  -- Common functions ----------------------------------------
+
+  -- help function 
+  s("help ()", {
+    t('help () {'),
+    t({'', 'echo "'}), i(1, 'Description'), t('"'),
+    t({'','echo "    --'}), i(2, 'param1'), t('         -  '), i(3,'param1_desc'), t('"'),
+    t({'','echo "    --help           -  Muestra la ayuda."'}),
+    t({'','}'}),
+  }),
+
 })

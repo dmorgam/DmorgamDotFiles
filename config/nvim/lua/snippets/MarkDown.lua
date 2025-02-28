@@ -2,55 +2,42 @@
 
 local ls = require("luasnip")
 
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+
 ls.add_snippets("markdown", {
 
   -- Basicos --------------------------------------------------
 
   -- Comentario de codigo en markdown
-  ls.snippet("codigo", {
-    ls.text_node("```"),
-    ls.insert_node(1),
-    ls.text_node({"",""}),
-    ls.insert_node(0),
-    ls.text_node({"","```"})
+  s("```", {
+    t("```"), i(1),
+    t({"",""}), i(0),
+    t({"","```"})
   }),
 
   -- Enlace
-  ls.snippet("enlace", {
-    ls.text_node("["),
-    ls.insert_node(1),
-    ls.text_node("]"),
-    ls.text_node("("),
-    ls.insert_node(2),
-    ls.text_node(")"),
+  s("[]()", {
+    t("["), i(1), t("]"), t("("), i(2), t(")"),
   }),
 
   -- Foto
-  ls.snippet("foto", {
-    ls.text_node("![]"),
-    ls.text_node("("),
-    ls.insert_node(1),
-    ls.text_node(")"),
+  s("![]()", {
+    t("!["), i(1), t("]"), t("("), i(2), t(")"),
   }),
 
   -- Negrita
-  ls.snippet("negrita", {
-    ls.text_node("**"),
-    ls.insert_node(1),
-    ls.text_node("**"),
+  s("**", {
+    t("**"), i(1), t("**"),
   }),
-
 
   -- Tablas ---------------------------------------------------
 
   -- Tabla 2 campos
-  ls.snippet("tabla2", {
-    ls.text_node("| "),
-    ls.insert_node(1),
-    ls.text_node(" | "),
-    ls.insert_node(2),
-    ls.text_node(" |"),
-    ls.text_node({
+  s("tabla2", {
+    t("| "), i(1), t(" | "), i(2), t(" |"),
+    t({
       "",
       "|------|------|",
       "|      |      |"
@@ -58,15 +45,9 @@ ls.add_snippets("markdown", {
   }),
 
   -- Tabla 3 campos
-  ls.snippet("tabla3", {
-    ls.text_node("| "),
-    ls.insert_node(1),
-    ls.text_node(" | "),
-    ls.insert_node(2),
-    ls.text_node(" | "),
-    ls.insert_node(3),
-    ls.text_node(" |"),
-    ls.text_node({
+  s("tabla3", {
+    t("| "), i(1), t(" | "), i(2), t(" | "), i(3), t(" |"),
+    t({
       "",
       "|------|------|------|",
       "|      |      |      |"
@@ -74,17 +55,9 @@ ls.add_snippets("markdown", {
   }),
 
   -- Tabla 4 campos
-  ls.snippet("tabla4", {
-    ls.text_node("| "),
-    ls.insert_node(1),
-    ls.text_node(" | "),
-    ls.insert_node(2),
-    ls.text_node(" | "),
-    ls.insert_node(3),
-    ls.text_node(" | "),
-    ls.insert_node(4),
-    ls.text_node(" |"),
-    ls.text_node({
+  s("tabla4", {
+    t("| "), i(1), t(" | "), i(2), t(" | "), i(3), t(" | "), i(4), t(" |"),
+    t({
       "",
       "|------|------|------|------|",
       "|      |      |      |      |"
@@ -92,19 +65,9 @@ ls.add_snippets("markdown", {
   }),
 
   -- Tabla 5 campos
-  ls.snippet("tabla5", {
-    ls.text_node("| "),
-    ls.insert_node(1),
-    ls.text_node(" | "),
-    ls.insert_node(2),
-    ls.text_node(" | "),
-    ls.insert_node(3),
-    ls.text_node(" | "),
-    ls.insert_node(4),
-    ls.text_node(" | "),
-    ls.insert_node(5),
-    ls.text_node(" |"),
-    ls.text_node({
+  s("tabla5", {
+    t("| "), i(1), t(" | "), i(2), t(" | "), i(3), t(" | "), i(4), t(" | "), i(5), t(" |"),
+    t({
       "",
       "|------|------|------|------|------|",
       "|      |      |      |      |      |"
