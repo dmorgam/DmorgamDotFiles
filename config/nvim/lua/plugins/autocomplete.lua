@@ -87,6 +87,10 @@ return {
         paths = vim.fn.stdpath("config") .. "/lua/snippets"
       })
 
+      -- For toggle choice nodes
+      vim.api.nvim_set_keymap("i", "<C-e>", "<Plug>luasnip-next-choice", {})
+      vim.api.nvim_set_keymap("s", "<C-e>", "<Plug>luasnip-next-choice", {})
+
     end
   },
 
