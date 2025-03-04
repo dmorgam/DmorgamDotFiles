@@ -1,0 +1,65 @@
+" Vim config for servers
+
+" No vi retrocompatibility
+set nocompatible
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+let mapleader = " "
+
+" Ui settings
+syntax on
+set number
+set termguicolors
+set cursorline
+set ruler
+
+" Statusline
+set noshowmode
+set laststatus=2
+set statusline=
+set statusline+=%#StatusLine#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffAdd#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#TabLineFill#%{(mode()=='R')?'\ \ REPLACE\ ':''}
+set statusline+=%#DiffDelete#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+set statusline+=%#QuickFixLine#%{StatuslineGit()}
+set statusline+=%#CursorColumn#\ %f
+set statusline+=%=
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ %{&fileformat}
+set statusline+=\ %y
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\ 
+
+" Colors
+colorscheme slate
+set background=dark
+
+
+" Remaps
+
+" Ex filemanager
+nnoremap <Leader>f :Ex<CR>
+
+" Buffer management
+nnoremap <leader>k :bnext<CR>
+nnoremap <leader>j :bprev<CR>
+nnoremap <leader>d :bn\|bw #<CR>
+nnoremap <leader>b :buffers<CR>
+
+" Autoclose brackets
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+
+" Functions
+function! StatuslineGit()
+  let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
