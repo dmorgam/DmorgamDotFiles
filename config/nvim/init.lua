@@ -10,15 +10,19 @@ require("lazy").setup("plugins")
 -- User options
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
 
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
+
+-- 80 column guide
+vim.opt.colorcolumn = "80"
 
 -- Hide tabline, present in lualine bufferline
 vim.opt.showtabline = 0
@@ -49,23 +53,23 @@ vim.api.nvim_set_keymap('n','<leader>gv',':Neogit kind=vsplit<CR>',{ noremap = t
 
 -- Open markdown files on firefox
 vim.api.nvim_create_user_command('MarkdownView', function()
-  local filepath = vim.fn.expand('%:p')
+    local filepath = vim.fn.expand('%:p')
 
-  -- WSL
-  if vim.loop.os_uname().release:find("WSL") then
-    local windows_filepath = vim.fn.system('wslpath -w "' .. filepath .. '"')
-    vim.fn.jobstart({'/mnt/c/Users/dmorenog/AppData/Local/Microsoft/WindowsApps/firefox.exe', windows_filepath}, { detach = true })
+    -- WSL
+    if vim.loop.os_uname().release:find("WSL") then
+        local windows_filepath = vim.fn.system('wslpath -w "' .. filepath .. '"')
+        vim.fn.jobstart({'/mnt/c/Users/dmorenog/AppData/Local/Microsoft/WindowsApps/firefox.exe', windows_filepath}, { detach = true })
 
-  -- Linux
-  elseif vim.loop.os_uname().sysname:find("Linux") then
-    vim.fn.jobstart({'firefox', filepath}, { detach = true })
-  end
+    -- Linux
+    elseif vim.loop.os_uname().sysname:find("Linux") then
+        vim.fn.jobstart({'firefox', filepath}, { detach = true })
+    end
 end, {})
 
 
 -- Config for neovide
 if vim.g.neovide then
-  vim.o.guifont = "SauceCodePro Nerd Font:h10"
-  vim.opt.autochdir = true
-  vim.g.neovide_fullscreen = false
+    vim.o.guifont = "SauceCodePro Nerd Font:h10"
+    vim.opt.autochdir = true
+    vim.g.neovide_fullscreen = false
 end
