@@ -13,6 +13,7 @@ showHelp () {
   echo "    --hyprland       -  Instala hyprland y su config."
   echo "    --mutt           -  Instala config de mutt."
   echo "    --kitty          -  Instala config de kitty."
+  echo "    --scripts        -  Instala scripts locales."
 }
 
 installNvim () {
@@ -88,6 +89,12 @@ installKitty () {
   cp -f "$BASEDIR/config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 }
 
+installScripts () {
+  echo "Instalando local scripts ..."
+  mkdir -p "$HOME/.local/bin"
+  cp -rf "$BASEDIR"/local/bin/* "$HOME/.local/bin/"
+}
+
 case $1 in
   '--help')
     showHelp
@@ -112,6 +119,9 @@ case $1 in
     ;;
   '--kitty')
     installKitty
+    ;;
+  '--scripts')
+    installScripts
     ;;
   *)
     showHelp
