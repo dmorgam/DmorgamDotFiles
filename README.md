@@ -47,7 +47,7 @@ Se instala via install.sh
 Se instala via install.sh
 
 ```shell
-> install.sh --tmux
+> install.sh --hyprland
 ```
 
 ## Etc

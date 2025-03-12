@@ -26,9 +26,17 @@ normalBanner () {
   # Banner normal
   #
 
-  if type pokemon-colorscripts &> /dev/null
+  # Banner para WSL
+  if cat /proc/version | grep -q "[mM]icrosoft"
   then
-    pokemon-colorscripts --no-title -r
+    cat ~/.zsh/ansi-logos/wsl-logo.txt
+
+  # Banner para linux
+  elif type pokemon-colorscripts &> /dev/null
+  then
+    echo '' && pokemon-colorscripts --no-title -r
+
+  # Banner fallback
   else
     echo $(cat /etc/hostname) | figlet -f smslant | lolcat
   fi
