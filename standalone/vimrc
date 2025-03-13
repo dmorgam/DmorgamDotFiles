@@ -3,22 +3,25 @@
 " No vi retrocompatibility
 set nocompatible
 
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 let mapleader = " "
+set backspace=indent,eol,start
 
 " Ui settings
 syntax on
 set number
+set relativenumber
 set termguicolors
 set cursorline
 set ruler
+set lazyredraw
+set colorcolumn=80
 
 " Statusline
 set noshowmode
 set laststatus=2
-set statusline=
 set statusline+=%#StatusLine#%{(mode()=='n')?'\ \ NORMAL\ ':''}
 set statusline+=%#DiffAdd#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#TabLineFill#%{(mode()=='R')?'\ \ REPLACE\ ':''}
@@ -26,17 +29,21 @@ set statusline+=%#DiffDelete#%{(mode()=='v')?'\ \ VISUAL\ ':''}
 set statusline+=%#QuickFixLine#%{StatuslineGit()}
 set statusline+=%#CursorColumn#\ %f
 set statusline+=%=
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=%#StatusLine#\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\ %{&fileformat}
-set statusline+=\ %y
-set statusline+=\ %p%%
+set statusline+=\ %y\ 
+set statusline+=%#Folded#\ %p%%
 set statusline+=\ %l:%c
 set statusline+=\ 
 
 " Colors
-colorscheme slate
+colorscheme desert
 set background=dark
-
+highlight LineNr ctermfg=grey guibg=#404040 guifg=#808080
+highlight CursorLineNr ctermfg=white guibg=#404040 guifg=#ffffff
+highlight CursorLine guibg=#808080 ctermbg=236 cterm=NONE gui=NONE
+highlight ColorColumn ctermbg=darkgrey guibg=#444444
+highlight clear VertSplit
 
 " Remaps
 
@@ -60,6 +67,10 @@ inoremap {;<CR> {<CR>};<ESC>O
 
 " Functions
 function! StatuslineGit()
-  let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+  if executable('git')
+    let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+  else
+    return '  N/A '
+  endif
 endfunction
