@@ -29,6 +29,15 @@ return {
           }
       end
 
+      -- Powershell LSP
+      require("lspconfig").powershell_es.setup {
+          bundle_path = vim.fn.expand("$HOME") .. "/.local/share/nvim/mason/packages/powershell-editor-services/",
+          init_options = {
+              enableProfileLoading = false,
+          },
+      }
+
+
     end
   }
 }

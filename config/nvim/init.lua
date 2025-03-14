@@ -67,9 +67,8 @@ vim.api.nvim_create_user_command('MarkdownView', function()
 end, {})
 
 
--- Config for neovide
-if vim.g.neovide then
-    vim.o.guifont = "DaddyTimeMono Nerd Font Mono:h14"
-    vim.opt.autochdir = true
-    vim.g.neovide_fullscreen = false
-end
+-- Powershell files config (for windows corporate things)
+require("config.powershell")
+
+-- GUI config
+require("config.gui")
