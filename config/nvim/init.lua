@@ -32,7 +32,7 @@ vim.cmd('colorscheme catppuccin-macchiato')
 
 
 -- Toggle Oil
-vim.api.nvim_set_keymap('n','<leader>f',':Oil<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>o',':Oil<CR>',{ noremap = true })
 
 -- Fast buffer movement
 vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',{ noremap = true })
@@ -42,7 +42,7 @@ vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>d',':bn|bw #<CR>',{ noremap = true })
 
 -- Telescope mappings
-vim.api.nvim_set_keymap('n','<leader>tf',':Telescope find_files<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>f',':Telescope find_files<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>b',':Telescope buffers<CR>',{ noremap = true })
 
