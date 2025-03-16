@@ -1,5 +1,5 @@
 -- Snippets para Powershell
---
+
 local ls = require("luasnip")
 
 local s = ls.snippet
@@ -39,6 +39,13 @@ ls.add_snippets("ps1", {
         t({'','    '}), i(0),
         t({'','} else {'}),
         t({'','    '}),
+        t({'','}'}),
+    }),
+
+    -- Switch Case
+    s("switch ($var) {", {
+        t('switch ($'), i(1, 'Variable'), t(') {'),
+        t({'','    "'}), i(2, 'Valor1'), t('"  { '), i(0), t(' }'),
         t({'','}'}),
     }),
 
@@ -87,12 +94,12 @@ ls.add_snippets("ps1", {
     -- Method
     s("[type] Method() {", {
         t('['), i(1, 'returnType'), t('] '), i(2, 'MethodName'), t('() {'),
-        t({'','<#'}),
-        t({'','.SYNOPSIS'}),
-        t({'',''}), i(3, "description"),
-        t({'','.DESCRIPTION'}),
-        t({'',''}), ri(3),
-        t({'','#>'}),
+        t({'','    <#'}),
+        t({'','    .SYNOPSIS'}),
+        t({'','    '}), i(3, "description"),
+        t({'','    .DESCRIPTION'}),
+        t({'','    '}), ri(3),
+        t({'','    #>'}),
         t({'',''}),
         t({'','    '}), i(0),
         t({'','}'}),
@@ -150,6 +157,6 @@ ls.add_snippets("ps1", {
         t({'','}'}),
         t({'',''}),
         t({'','$response = Invoke-RestMethod -Uri $url -Method '}),
-               c(2, { t('Post'), t('Get'), t('Put'), t('Patch'), t('Delete'), t('Head')}), t(' -Headers $headers -Body $body'),
+        c(2, { t('Post'), t('Get'), t('Put'), t('Patch'), t('Delete'), t('Head')}), t(' -Headers $headers -Body $body'),
     }),
 })

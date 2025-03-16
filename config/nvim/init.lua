@@ -47,8 +47,19 @@ vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = 
 vim.api.nvim_set_keymap('n','<leader>b',':Telescope buffers<CR>',{ noremap = true })
 
 -- Neogit mappings
-vim.api.nvim_set_keymap('n','<leader>g',':Neogit<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>g',':NeoGitToggleSplit<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>gv',':Neogit kind=vsplit<CR>',{ noremap = true })
+
+
+-- Autoremove trailing spaces on insert leave
+vim.api.nvim_create_autocmd("InsertLeave", {
+    pattern = "*",
+    callback = function()
+        local view = vim.fn.winsaveview()
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.winrestview(view)
+    end,
+})
 
 
 -- Open markdown files on firefox
