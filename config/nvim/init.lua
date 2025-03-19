@@ -30,6 +30,11 @@ vim.opt.showtabline = 0
 -- Colorscheme
 vim.cmd('colorscheme catppuccin-macchiato')
 
+-- Folding options
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.o.foldlevelstart = 20
 
 -- Toggle Oil
 vim.api.nvim_set_keymap('n','<leader>o',':Oil<CR>',{ noremap = true })
