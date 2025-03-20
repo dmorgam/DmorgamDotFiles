@@ -2,6 +2,13 @@
 
 # Funciones para mostrar el banner
 
+ttyMenu () {
+    # Menu para tty
+
+    menu="hyprland\nexit"
+    echo -n $menu | /usr/bin/fzf --height=5 --prompt="Select option: " | sh -s
+}
+
 
 ttyBanner () {
   #
@@ -16,7 +23,9 @@ ttyBanner () {
 
   echo "CONNECTIONS:"
   nmcli con show --active
-  printf "\n\rLaunch GUI:  \e[94mHyprland\e[0m\n\n"
+  printf "\n\rLaunch GUI:  \e[94mHyprland\e[0m\n"
+
+  ttyMenu
 
 }
 
