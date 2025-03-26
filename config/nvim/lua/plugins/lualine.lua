@@ -8,17 +8,17 @@ return {
       require('lualine').setup({
         options = {
           theme = 'catppuccin',
-          component_separators = { left = '', right = '' },
+          component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           globalstatus = true
         },
         sections = {
-          lualine_a = {'mode'},
+          lualine_a = { { 'mode', separator = { left = '' } } },
           lualine_b = {'branch', 'diff', 'diagnostics'},
-          lualine_c = {{'filename', path = 1}},
+          lualine_c = { {'filename', path = 1} },
           lualine_x = {'encoding', 'fileformat', 'filetype'},
           lualine_y = {'progress','location'},
-          lualine_z = {'tabs'}
+          lualine_z = { { 'tabs', separator = { right = '' } } }
         }
       })
 

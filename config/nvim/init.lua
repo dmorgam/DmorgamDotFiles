@@ -44,7 +44,10 @@ vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',{ noremap = true })
 
 -- Wipe buffer and switch to another one
-vim.api.nvim_set_keymap('n','<leader>d',':bn|bw #<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>bd',':bn|bw #<CR>',{ noremap = true })
+
+-- Diagnostics
+vim.api.nvim_set_keymap('n','<leader>d',':Diagnostics<CR>',{ noremap = true })
 
 -- Telescope mappings
 vim.api.nvim_set_keymap('n','<leader>f',':Telescope find_files<CR>',{ noremap = true })
@@ -80,6 +83,11 @@ vim.api.nvim_create_user_command('MarkdownView', function()
     elseif vim.loop.os_uname().sysname:find("Linux") then
         vim.fn.jobstart({'firefox', filepath}, { detach = true })
     end
+end, {})
+
+-- Diagnostics
+vim.api.nvim_create_user_command('Diagnostics', function()
+    vim.diagnostic.setloclist()
 end, {})
 
 
