@@ -6,4 +6,4 @@
 
 # Aws cli autocomplete
 type aws_completer &> /dev/null &&
-  complete -C '~/.local/bin/aws_completer' aws
+  complete -C 'aws_completer' aws

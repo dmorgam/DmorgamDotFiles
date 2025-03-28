@@ -34,6 +34,7 @@ normalBanner () {
   #
   # Banner normal
   #
+  clear
 
   # Banner para WSL
   if cat /proc/version | grep -q "[mM]icrosoft"
@@ -55,6 +56,6 @@ normalBanner () {
   COLS=60
   test $(tput cols) -lt 60 && (( COLS = $COL_LEN - 2 ))
 
-  fortune ~/.fortune/custom-quotes | fold -w $COLS | lolcat
+  fortune ~/.fortune/custom-quotes | fold -s -w $COLS | lolcat
   echo ""
 }

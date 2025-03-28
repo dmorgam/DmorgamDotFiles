@@ -1,106 +1,167 @@
-[aws]
-symbol = "  "
+format = """\
+[╭╴](fg:arrow)\
+$username\
+$directory\
+(\
+    $git_branch\
+    $git_status\
+)\
+(\
+    $python\
+    $nodejs\
+    $java\
+    $golang\
+    $helm\
+    $rust\
+    $lua\
+    $terraform\
+    $aws\
+    $azure\
+    $kubernetes\
+)
+[╰─](fg:lavender)$character\
+"""
 
-[buf]
-symbol = " "
+right_format = """\
+$cmd_duration\
+"""
 
-[c]
-symbol = " "
+add_newline = true
 
-[cmake]
-symbol = " "
+palette = "catppuccin_mocha"
 
-[conda]
-symbol = " "
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
 
-[crystal]
-symbol = " "
+[username]
+format = '[](fg:mauve)[󱐋 ](bg:mauve fg:base)[ $user](bg:base fg:mauve)[](fg:base)'
 
-[dart]
-symbol = " "
+disabled = false
+show_always = true
+
+[character]
+success_symbol = "[❯](fg:green)"
+error_symbol = "[❯](fg:red)"
 
 [directory]
-read_only = " 󰌾"
+format = " [](fg:sapphire)[ ](bg:sapphire fg:base)[ $path ](bg:base fg:sapphire)[$read_only](bg:sapphire fg:yellow)[](fg:base)"
+truncation_length = 2
+style = "fg:text_color bg:directory"
+read_only_style = "fg:text_color bg:directory"
+before_repo_root_style = "fg:text_color bg:directory"
+truncation_symbol = "…/"
+truncate_to_repo = true
+read_only ="  "
 
-[docker_context]
-symbol = " "
-
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
-[fennel]
-symbol = " "
-
-[fossil_branch]
-symbol = " "
+[cmd_duration]
+format = " [](fg:maroon)[ ](bg:maroon fg:base)[ $duration](bg:base fg:maroon)[](fg:base)"
+min_time = 500
 
 [git_branch]
-symbol = " "
-style = 'bold purple'
+format = " [](fg:yellow)[ ](fg:base bg:yellow)[ $branch](fg:yellow bg:base)[](fg:base)"
 
-[git_commit]
-tag_symbol = '  '
-
-[golang]
-symbol = " "
-
-[guix_shell]
-symbol = " "
-
-[haskell]
-symbol = " "
-
-[haxe]
-symbol = " "
-
-[hg_branch]
-symbol = " "
-
-[hostname]
-ssh_symbol = " "
+[git_status]
+format = '[ ](fg:peach)[ ](bg:peach fg:base)[ $all_status$ahead_behind ](bg:base fg:peach)[](fg:base)'
 
 [java]
+format = "[ ](fg:flamingo)[$symbol](bg:flamingo fg:base)[ $version](bg:base fg:flamingo)[](fg:base)"
+version_format = "${raw}"
 symbol = " "
-
-[julia]
-symbol = " "
-
-[kotlin]
-symbol = " "
-
-[lua]
-symbol = " "
-
-[memory_usage]
-symbol = "󰍛 "
-
-[meson]
-symbol = "󰔷 "
-
-[nim]
-symbol = "󰆥 "
-
-[nix_shell]
-symbol = " "
+disabled = false
 
 [nodejs]
+format = "[ ](fg:yellow)[$symbol](bg:yellow fg:base)[ $version](bg:base fg:yellow)[](fg:base)"
 symbol = " "
+version_format = "${raw}"
+disabled=false
 
-[ocaml]
-symbol = " "
+[rust]
+format = "[ ](fg:red)[$symbol](bg:red fg:base)[ $version](bg:base fg:red)[](fg:base)"
+symbol = " "
+version_format = "${raw}"
+disabled=false
+
+[python]
+format = '[ ](fg:green)[${symbol}](bg:green fg:base)[ ${pyenv_prefix}(${version} )(\($virtualenv\))](bg:base fg:green)[](fg:base)'
+symbol = " "
+version_format = "${raw}"
+disabled=false
+
+[c]
+format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ ($version(-$name) )](bg:base fg:blue)[](fg:base)"
+symbol = " "
+version_format = "${raw}"
+disabled=true
+
+[golang]
+format = "[ ](fg:teal)[$symbol](bg:teal fg:base)[ $version](bg:base fg:teal)[](fg:base)"
+symbol = " "
+version_format = "${raw}"
+disabled=false
+
+[helm]
+format = "[ ](fg:sky)[$symbol](bg:sky fg:base)[ $version](bg:base fg:sky)[](fg:base)"
+symbol = " "
+version_format = "${raw}"
+disabled=false
+
+[lua]
+format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ $version](bg:base fg:blue)[](fg:base)"
+symbol = " "
+version_format = "${raw}"
+disabled=false
+
+[terraform]
+format = "[ ](fg:mauve)[$symbol](bg:mauve fg:base)[ $version](bg:base fg:mauve)[](fg:base)"
+symbol = " "
+version_format = "${raw}"
+disabled=false
+
+[aws]
+format = "[ ](fg:peach)[$symbol](bg:peach fg:base)[ $region](bg:base fg:peach)[](fg:base)"
+symbol = " "
+disabled=false
+
+[azure]
+format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ $subscription](bg:base fg:blue)[](fg:base)"
+symbol = "󰠅 "
+disabled=false
+
+[kubernetes]
+format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ $context](bg:base fg:blue)[](fg:base)"
+symbol = "☸  "
+disabled=false
 
 [os.symbols]
-Alpaquita = " "
 Alpine = " "
-AlmaLinux = " "
 Amazon = " "
 Android = " "
 Arch = " "
-Artix = " "
-CachyOS = " "
 CentOS = " "
 Debian = " "
 DragonFly = " "
@@ -108,13 +169,8 @@ Emscripten = " "
 EndeavourOS = " "
 Fedora = " "
 FreeBSD = " "
-Garuda = "󰛓 "
 Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
 Linux = " "
-Mabox = " "
 Macos = " "
 Manjaro = " "
 Mariner = " "
@@ -122,60 +178,13 @@ MidnightBSD = " "
 Mint = " "
 NetBSD = " "
 NixOS = " "
-Nobara = " "
-OpenBSD = "󰈺 "
 openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
+Pop = " "
 Raspbian = " "
 Redhat = " "
 RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
+Redox = " "
 SUSE = " "
 Ubuntu = " "
 Unknown = " "
-Void = " "
-Windows = "󰍲 "
-
-[package]
-symbol = "󰏗 "
-
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
-
-[pijul_channel]
-symbol = " "
-
-[python]
-symbol = " "
-
-[rlang]
-symbol = "󰟔 "
-
-[ruby]
-symbol = " "
-
-[rust]
-symbol = "󱘗 "
-
-[scala]
-symbol = " "
-
-[swift]
-symbol = " "
-
-[zig]
-symbol = " "
-
-[gradle]
-symbol = " "
-
-[kubernetes]
-symbol = "  "
-style = "bright-green bold"
-disabled = false
+Windows = " "
