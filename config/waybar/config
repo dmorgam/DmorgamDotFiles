@@ -19,7 +19,7 @@
            "*": 10
          }
     },
-    "hyprland/window": {  
+    "hyprland/window": {
       "format": "{}",
       "icon": true,
       "icon-size": 16
