@@ -87,6 +87,7 @@ format = " [](fg:yellow)[ ](fg:base bg:yellow)[ $branch](fg:yellow bg:base
 
 [git_status]
 format = '[ ](fg:peach)[ ](bg:peach fg:base)[ $all_status$ahead_behind ](bg:base fg:peach)[](fg:base)'
+up_to_date = ''
 
 [java]
 format = "[ ](fg:flamingo)[$symbol](bg:flamingo fg:base)[ $version](bg:base fg:flamingo)[](fg:base)"
