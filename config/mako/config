@@ -4,6 +4,13 @@ font=JetBrainsMono Nerd Font Propo
 # Border
 border-radius=10
 
+# Pango markup
+markup=1
+
+# Size
+width=600
+height=150
+
 # Colors
 
 background-color=#1e1e2e

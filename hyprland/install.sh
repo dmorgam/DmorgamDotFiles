@@ -38,7 +38,7 @@ then
           otf-font-awesome ttf-fantasque-nerd hyprlock hypridle pavucontrol
           xdg-desktop-portal-hyprland thunar pipewire wireplumber mako
           libnotify ttf-jetbrains-mono-nerd hyprpolkitagent python-pillow
-          highlight ttf-nerd-fonts-symbols wl-clipboard udiskie"
+          highlight ttf-nerd-fonts-symbols wl-clipboard udiskie xdg-user-dirs"
     AUR_DEPS="wlogout"
 
     sudo pacman -S --needed $DEPS
@@ -58,6 +58,10 @@ echo " + Copiando config ..."
 
 # Locale
 echo "$LOCALE" > "${HOME}/.config/locale.conf"
+
+# Xdg user dirs
+cp -f "$HYPR_BASEDIR/../config/user-dirs.dirs" "${HOME}/.config/"
+cp -f "$HYPR_BASEDIR/../config/user-dirs.locale" "${HOME}/.config/"
 
 mkdir -p "${HOME}/.config/hypr/"
 mkdir -p "${HOME}/.config/waybar/"
