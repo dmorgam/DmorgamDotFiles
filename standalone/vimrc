@@ -1,8 +1,5 @@
 " Vim config for servers
 
-" No vi retrocompatibility
-set nocompatible
-
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -11,38 +8,6 @@ set backspace=indent,eol,start
 
 " Ui settings
 syntax on
-set number
-set relativenumber
-set termguicolors
-set cursorline
-set ruler
-set lazyredraw
-set colorcolumn=80
-
-" Statusline
-set noshowmode
-set laststatus=2
-set statusline+=%#StatusLine#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-set statusline+=%#DiffAdd#%{(mode()=='i')?'\ \ INSERT\ ':''}
-set statusline+=%#TabLineFill#%{(mode()=='R')?'\ \ REPLACE\ ':''}
-set statusline+=%#DiffDelete#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-set statusline+=%#QuickFixLine#%{StatuslineGit()}
-set statusline+=%#CursorColumn#\ %f
-set statusline+=%=
-set statusline+=%#StatusLine#\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\ %{&fileformat}
-set statusline+=\ %y
-set statusline+=\ %#Folded#\ %p%%
-set statusline+=\ %l:%c
-
-" Colors
-colorscheme slate
-set background=dark
-highlight LineNr ctermfg=grey guibg=#404040 guifg=#808080
-highlight CursorLineNr ctermfg=white guibg=#404040 guifg=#ffffff
-highlight CursorLine guibg=#505050 ctermbg=236 cterm=NONE gui=NONE
-highlight ColorColumn ctermbg=darkgrey guibg=#444444
-highlight clear VertSplit
 
 " Remaps
 
@@ -52,15 +17,10 @@ nnoremap <Leader>f :Ex<CR>
 " Buffer management
 nnoremap <leader>k :bnext<CR>
 nnoremap <leader>j :bprev<CR>
-nnoremap <leader>d :bn\|bw #<CR>
 nnoremap <leader>b :buffers<CR>
 
 " Completion tab
 inoremap <expr> <Tab> SmartTab()
-
-" Open toggle terminal function
-nnoremap <silent> <Leader>t :call <SID>ToggleTerminal()<CR>
-tnoremap <silent> <Leader>t <C-w>N:call <SID>ToggleTerminal()<CR>
 
 " Functions
 function! SmartTab()
@@ -70,44 +30,3 @@ function! SmartTab()
         return "\<Tab>"
     endif
 endfunction
-
-function! StatuslineGit()
-  if executable('git')
-    let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-  else
-    return '  N/A '
-  endif
-endfunction
-
-let s:term_buf_nr = -1
-function! s:ToggleTerminal() abort
-    if s:term_buf_nr == -1
-        execute "botright terminal"
-        let s:term_buf_nr = bufnr("%")
-        let s:term_win_id = win_getid()
-    else
-        if win_getid() == s:term_win_id
-            execute 'close!'
-            let s:term_win_id = -1
-        else
-            execute "botright split"
-            try
-                execute 'buffer ' . s:term_buf_nr
-            catch
-                execute "terminal ++curwin"
-                let s:term_buf_nr = bufnr("%")
-            endtry
-            let s:term_win_id = win_getid()
-            call feedkeys("i", "n")
-        endif
-    endif
-endfunction
-
-function! s:CloseTerminalOnExit() abort
-    if s:term_buf_nr != -1
-        execute 'bdelete! ' . s:term_buf_nr
-    endif
-endfunction
-autocmd ExitPre * call s:CloseTerminalOnExit()
-
