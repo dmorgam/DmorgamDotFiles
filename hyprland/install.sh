@@ -36,9 +36,10 @@ then
   then
     DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3 gvfs
           otf-font-awesome ttf-fantasque-nerd hyprlock hypridle pavucontrol
-          xdg-desktop-portal-hyprland thunar pipewire wireplumber mako
-          libnotify ttf-jetbrains-mono-nerd hyprpolkitagent python-pillow
-          highlight ttf-nerd-fonts-symbols wl-clipboard udiskie xdg-user-dirs"
+          xdg-desktop-portal-hyprland thunar thunar-archive-plugin pipewire
+          wireplumber mako libnotify ttf-jetbrains-mono-nerd hyprpolkitagent
+          python-pillow highlight ttf-nerd-fonts-symbols wl-clipboard udiskie
+          xdg-user-dirs"
     AUR_DEPS="wlogout"
 
     sudo pacman -S --needed $DEPS
