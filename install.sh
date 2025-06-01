@@ -19,7 +19,7 @@ showHelp () {
 installNvim () {
     echo "Copiando config..."
     rm -rf "$HOME/config/nvim"
-    mkdir -p ~/.config/nvim 
+    mkdir -p ~/.config/nvim
     cp -rf "$BASEDIR/config/nvim" "$HOME/.config/"
 
     if test "$1" != '--nodeps'
