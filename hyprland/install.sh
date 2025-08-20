@@ -39,7 +39,7 @@ then
           xdg-desktop-portal-hyprland thunar thunar-archive-plugin xarchiver
           pipewire wireplumber mako libnotify ttf-jetbrains-mono-nerd hyprpolkitagent
           python-pillow highlight ttf-nerd-fonts-symbols wl-clipboard udiskie
-          xdg-user-dirs acpi"
+          xdg-user-dirs acpi systemd-resolvconf"
     AUR_DEPS="wlogout"
 
     sudo pacman -S --needed $DEPS
