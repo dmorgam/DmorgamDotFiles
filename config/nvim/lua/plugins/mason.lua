@@ -10,7 +10,17 @@ return {
   {
     'williamboman/mason-lspconfig.nvim',
     config = function ()
-      require("mason-lspconfig").setup()
+      require("mason-lspconfig").setup({
+           ensure_installed = {
+               "helm_ls",
+               "lua_ls",
+               "powershell_es",
+               "pylsp",
+               "terraformls",
+               "ts_ls",
+               "yamlls",
+           },
+      })
     end
   },
 }

@@ -10,6 +10,7 @@ return {
         python    = {'pylint'},
         sh        = {'shellcheck'},
         markdown  = {'markdownlint'},
+        groovy    = {'npm-groovy-lint'},
       }
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
