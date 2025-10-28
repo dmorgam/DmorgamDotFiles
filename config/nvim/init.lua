@@ -86,10 +86,7 @@ vim.api.nvim_create_user_command('MarkdownView', function()
 end, {})
 
 -- Diagnostics
-vim.api.nvim_create_user_command('Diagnostics', function()
-    vim.diagnostic.setloclist()
-end, {})
-
+require("config.diagnostics")
 
 -- Powershell files config (for windows corporate things)
 require("config.powershell")
