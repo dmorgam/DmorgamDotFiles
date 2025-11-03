@@ -35,9 +35,16 @@ return {
       -- Powershell LSP
       vim.lsp.config.powershell_es = {
           capabilities = capabilities,
-          cmd = {
-            vim.fn.expand("$HOME") ..
-            "/.local/share/nvim/mason/packages/powershell-editor-services/PowerShellEditorServices.Host",
+          filetypes = { "ps1", "psm1", "psd1" },
+          bundle_path =
+            os.getenv("HOME") ..
+            "/.local/share/nvim/mason/packages/powershell-editor-services",
+          settings = {
+              powershell = {
+                  codeFormatting = {
+                      Preset = 'OTBS'
+                  }
+              }
           },
           init_options = {
             enableProfileLoading = false,
