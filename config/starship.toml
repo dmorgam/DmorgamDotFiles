@@ -138,7 +138,7 @@ version_format = "${raw}"
 disabled=false
 
 [terraform]
-format = "[ ](fg:mauve)[$symbol](bg:mauve fg:base)[ $version](bg:base fg:mauve)[](fg:base)"
+format = "[ ](fg:mauve)[$symbol](bg:mauve fg:base)[ $version $workspace](bg:base fg:mauve)[](fg:base)"
 symbol = " "
 version_format = "${raw}"
 disabled=false
