@@ -21,6 +21,9 @@ vim.opt.cursorline = true
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
+-- tiempo en ms para CursorHold
+vim.o.updatetime = 1000
+
 -- 80 column guide
 vim.opt.colorcolumn = "80"
 
@@ -29,6 +32,9 @@ vim.opt.showtabline = 0
 
 -- Colorscheme
 vim.cmd('colorscheme catppuccin-macchiato')
+
+-- Color completion menu with normal float for clarity
+vim.api.nvim_set_hl(0, "Pmenu", { bg = vim.api.nvim_get_hl(0, { name = "NormalFloat" }).bg })
 
 -- Folding options
 vim.opt.foldmethod = "expr"
@@ -55,9 +61,11 @@ vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = 
 vim.api.nvim_set_keymap('n','<leader>b',':Telescope buffers<CR>',{ noremap = true })
 
 -- Neogit mappings
-vim.api.nvim_set_keymap('n','<leader>g',':NeoGitToggleSplit<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>g',':Neogit<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>gv',':Neogit kind=vsplit<CR>',{ noremap = true })
 
+-- LSP mappings
+vim.api.nvim_set_keymap('n','<leader>s',':lua vim.lsp.buf.signature_help()<CR>',{ noremap = true })
 
 -- Autoremove trailing spaces on insert leave
 vim.api.nvim_create_autocmd("InsertLeave", {
@@ -85,6 +93,9 @@ vim.api.nvim_create_user_command('MarkdownView', function()
     end
 end, {})
 
+-- LSP config
+require("config.lspconfig")
+
 -- Diagnostics
 require("config.diagnostics")
 
@@ -93,3 +104,4 @@ require("config.powershell")
 
 -- GUI config
 require("config.gui")
+

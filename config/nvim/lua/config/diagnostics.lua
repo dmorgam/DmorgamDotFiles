@@ -9,19 +9,15 @@ local diagnostic_signs = {
 
 local function diagnostic_format(diagnostic)
     return string.format(
-        "%s %s (%s): %s",
+        "%s %s (%s)",
         diagnostic_signs[diagnostic.severity],
         diagnostic.source,
-        diagnostic.code,
-        diagnostic.message
+        diagnostic.code
     )
 end
 
 vim.diagnostic.config({
-    virtual_lines = {
-        current_line = true,
-        format = diagnostic_format
-    },
+
     virtual_text = {
         spacing = 4,
         prefix = "",
@@ -39,3 +35,14 @@ vim.diagnostic.config({
 vim.api.nvim_create_user_command('Diagnostics', function()
     vim.diagnostic.setloclist()
 end, {})
+
+-- Autolanzar diagnostics inline
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = "*",
+  callback = function()
+    vim.diagnostic.open_float(nil, {
+      focus = false,
+      scope = "line"
+    })
+  end,
+})
