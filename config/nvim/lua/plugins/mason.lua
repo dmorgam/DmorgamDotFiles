@@ -19,6 +19,7 @@ return {
                "terraformls",
                "ts_ls",
                "yamlls",
+               "jsonls"
            },
       })
     end

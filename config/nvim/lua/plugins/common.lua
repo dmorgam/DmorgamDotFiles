@@ -28,29 +28,20 @@ return {
   -- Helm
   {'towolf/vim-helm', ft = 'helm'},
 
-  -- Rest Api testing
+  -- Http client
   {
-    'rest-nvim/rest.nvim',
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-        opts = function (_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          table.insert(opts.ensure_installed, "http")
-        end,
+    "mistweaverco/kulala.nvim",
+    keys = {
+      { "<leader>Rs", desc = "Send request" },
+      { "<leader>Ra", desc = "Send all requests" },
+      { "<leader>Rb", desc = "Open scratchpad" },
     },
-    config = function ()
-        vim.g.rest_nvim = {
-            request = {
-                skip_ssl_verification = true
-            }
-        }
-
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = "json",
-            callback = function()
-                vim.opt_local.formatprg = "jq ."
-            end
-        })
-    end
-  },
+    ft = {"http", "rest"},
+    opts = {
+      global_keymaps = true,
+      global_keymaps_prefix = "<leader>R",
+      kulala_keymaps_prefix = "",
+      additional_curl_options = { "--insecure" }
+    },
+  }
 }

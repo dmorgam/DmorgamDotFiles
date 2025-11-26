@@ -3,37 +3,37 @@
 -- cmp integration
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-vim.lsp.config("lua_ls", {
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = { version = 'LuaJIT' },
-      diagnostics = {
-          globals = {'vim'},
-      },
-      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-      telemetry = { enable = false },
+-- Lua LS
+vim.lsp.config.lua_ls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/packages/lua-language-server/lua-language-server")
     },
-  },
-})
-
--- LSP servers
-local servers = { "pylsp", "ts_ls", "terraformls",
-                  "yamlls", "jsonls" }
-
-for _, server in ipairs(servers) do
-    vim.lsp.config[server] = {
-        capabilities = capabilities,
-    }
-end
+    filetypes = { 'lua' },
+    settings = {
+        Lua = {
+            runtime = { version = 'LuaJIT' },
+            diagnostics = {
+                globals = {'vim'},
+            },
+            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+            telemetry = { enable = false },
+        },
+    },
+}
 
 -- Powershell LSP
 vim.lsp.config.powershell_es = {
     capabilities = capabilities,
-    filetypes = { "ps1", "psm1", "psd1" },
-    bundle_path =
-      os.getenv("HOME") ..
-      "/.local/share/nvim/mason/packages/powershell-editor-services",
+    filetypes = { "ps1" },
+    cmd = {
+        "pwsh",
+        "-NoLogo",
+        "-NoProfile",
+        "-Command",
+        vim.fn.expand("$MASON/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1"),
+        "-Stdio"
+    },
     settings = {
         powershell = {
             codeFormatting = {
@@ -42,15 +42,77 @@ vim.lsp.config.powershell_es = {
         }
     },
     init_options = {
-      enableProfileLoading = false,
+        enableProfileLoading = false,
     }
 }
 
+-- Python
+vim.lsp.config.pylsp = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/packages/python-lsp-server/venv/bin/pylsp")
+    },
+    filetypes = { 'python' }
+}
+
+-- Typescript
+vim.lsp.config.ts_ls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/packages/typescript-language-server/node_modules/typescript-language-server/lib/cli.mjs"),
+        "--stdio"
+    },
+    filetypes = { 'javascript', 'typescript' }
+}
+
+-- Terraform
+vim.lsp.config.terraformls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/packages/terraform-ls/terraform-ls"),
+        "serve"
+    },
+    filetypes = { 'terraform' },
+    root_dir = vim.loop.cwd()
+}
+
+-- Yaml
+vim.lsp.config.yamlls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/packages/yaml-language-server/node_modules/yaml-language-server/bin/yaml-language-server"),
+        "--stdio"
+    },
+    filetypes = { 'yaml' }
+}
+
+-- Json
+vim.lsp.config.jsonls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/packages/json-lsp/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server"),
+        "--stdio"
+    },
+    filetypes = { "json" }
+}
+
+-- Helm
+vim.lsp.config.helm_ls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/packages/helm-ls/helm_ls_linux_amd64"),
+        "serve",
+        "--stdio"
+    },
+    filetypes = { 'helm' }
+}
+
 -- Enable servers
-vim.lsp.enable(vim.lsp.config.lua_ls)
-
-for _, server in ipairs(servers) do
-    vim.lsp.enable(vim.lsp.config[server])
-end
-
-vim.lsp.enable(vim.lsp.config.powershell_es)
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('powershell_es')
+vim.lsp.enable('pylsp')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('terraformls')
+vim.lsp.enable('yamlls')
+vim.lsp.enable('jsonls')
+vim.lsp.enable('helm_ls')
