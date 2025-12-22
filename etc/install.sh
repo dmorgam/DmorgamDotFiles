@@ -2,7 +2,7 @@
 
 #
 # Script para configurar opciones del sistema.
-# 
+#
 # - /etc/issue
 # - Custom vtcolors
 
@@ -22,6 +22,7 @@ echo "Instando configuración de VT ... "
 sudo cp "${BASEDIR}/${VT_COLORS_THEME}" /etc/custom-vt-colors.hex
 sudo cp "${BASEDIR}/custom-vt-colors.service" /etc/systemd/system/custom-vt-colors.service
 sudo cp "${BASEDIR}/vconsole.conf" /etc/vconsole.conf
+sudo cp "${BASEDIR}/sddm.conf" /etc/sddm.conf
 
 # Install systemd unit for vt colors
 sudo systemctl daemon-reload
