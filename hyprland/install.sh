@@ -89,6 +89,7 @@ cp -f "$HYPR_BASEDIR/../config/rofi/config.rasi" "${HOME}/.config/rofi/config.ra
 cp -f "$HYPR_BASEDIR/../local/share/rofi/themes/$ROFI_THEME" "${HOME}/.local/share/rofi/themes/$ROFI_THEME"
 
 # Wlogout
+cp -f "$HYPR_BASEDIR/../config/wlogout/layout" "${HOME}/.config/wlogout/layout"
 cp -f "$HYPR_BASEDIR/../config/wlogout/style.css" "${HOME}/.config/wlogout/style.css"
 
 # Mako notifications
