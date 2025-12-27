@@ -2,8 +2,8 @@
     "layer": "top",
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["custom/music"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "backlight", "battery","hyprland/language", "clock", "tray", "custom/lock", "custom/power"],
+    "modules-center": ["custom/music", "clock"],
+    "modules-right": ["cpu", "memory", "pulseaudio", "backlight", "battery","hyprland/language", "tray", "custom/lock", "custom/power"],
     "hyprland/workspaces": {
          "disable-scroll": true,
          "sort-by-name": true,
@@ -23,7 +23,7 @@
       "icon-size": 16
     },
     "hyprland/language": {
-      "format": "󰌓 {}",
+      "format": "󰌓 {} ",
       "format-en": "US",
       "format-es": "ES",
     },
@@ -42,14 +42,14 @@
     },
     "clock": {
         "timezone": "Europe/Madrid",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "📅 {:%d/%m/%Y}",
-        "format": "{:%H:%M}"
+        "tooltip-format": "<tt><big>{calendar}</big></tt>",
+        "format": "{:%H:%M  %d/%m}"
     },
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip-format": "{percent}% {icon}"
     },
     "battery": {
         "states": {
@@ -60,7 +60,9 @@
         "format-charging": "󰂉",
         "format-plugged": "󰂅",
         "format-alt": "{icon}",
-        "format-icons": ["󱃍", "󱃍",  "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        "format-icons": ["󱃍", "󰁺", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{capacity}% - {timeTo}"
+
     },
     "cpu": {
       "interval": 10,
@@ -77,7 +79,8 @@
         "format-icons": {
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "tooltip-format": " {volume}% - {desc}"
     },
     "custom/lock": {
         "tooltip": false,

@@ -2,8 +2,15 @@
 
 * {
   font-family: JetBrainsMono Nerd Font Propo;
-  font-size: 16px;
+  font-size: 17px;
   min-height: 0;
+}
+
+tooltip {
+  border: 0;
+  border-radius: 2rem;
+  background: @surface0;
+  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.3);
 }
 
 #waybar {
@@ -11,17 +18,14 @@
 }
 
 #waybar > box {
-  background: rgba(30,30,46,0.8);
-  color: @text;
-  border-radius: 2rem;
-  margin: 5px;
-  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.6);
+  background-color: transparent;
 }
 
 #workspaces {
   border-radius: 2rem;
-  background-color: @surface0;
-  margin: 5px;
+  background: @base;
+  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.3);
+  margin: 8px;
 }
 
 #workspaces button {
@@ -52,17 +56,16 @@
 #window,
 #language,
 #custom-power {
-  background-color: @surface0;
+  background: @base;
+  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.3);
   padding: 0.1rem 1rem;
-  margin: 5px;
+  margin: 8px;
 }
 
 #clock {
   color: @blue;
-  border-radius: 0px 2rem 2rem 0px;
+  border-radius: 2rem;
   margin-right: 1rem;
-  border-left: 0px;
-  margin-left: 0px;
 }
 
 #battery {
@@ -100,11 +103,11 @@
 }
 
 #language {
+  border-radius: 0px 2rem 2rem 0px;
   border-right: 0px;
   border-left: 0px;
   padding: 0.1rem 0.5rem;
   margin-left: 0px;
-  margin-right: 0px;
 }
 
 #custom-music {

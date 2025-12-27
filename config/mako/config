@@ -1,5 +1,5 @@
 # Font
-font=JetBrainsMono Nerd Font Propo
+font=JetBrainsMono Nerd Font Propo 12
 
 # Border
 border-radius=10
@@ -8,15 +8,15 @@ border-radius=10
 markup=1
 
 # Size
-width=600
-height=150
+width=500
+border-size=1
+border-color=#00000033
 
 # Colors
 
 background-color=#1e1e2e
 text-color=#cdd6f4
-border-color=#b4befe
 progress-color=over #313244
 
 [urgency=high]
-border-color=#fab387
+text-color=#fab387
