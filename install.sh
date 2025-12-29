@@ -73,10 +73,6 @@ installEtc () {
   sh "$BASEDIR/etc/install.sh"
 }
 
-installHyprland () {
-  echo "Saltando al instalador de hyprland ..."
-  sh "$BASEDIR/hyprland/install.sh"
-}
 
 installMutt () {
   echo "Copiando config de mutt ..."
@@ -93,6 +89,13 @@ installScripts () {
   echo "Instalando local scripts ..."
   mkdir -p "$HOME/.local/bin"
   cp -rf "$BASEDIR"/local/bin/* "$HOME/.local/bin/"
+}
+
+installHyprland () {
+  echo "Saltando al instalador de hyprland ..."
+  sh "$BASEDIR/hyprland/install.sh"
+
+  installScripts
 }
 
 case $1 in
