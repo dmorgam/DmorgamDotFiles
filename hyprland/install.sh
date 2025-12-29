@@ -39,7 +39,7 @@ then
           xdg-desktop-portal-hyprland thunar thunar-archive-plugin xarchiver
           pipewire wireplumber mako libnotify ttf-jetbrains-mono-nerd hyprpolkitagent
           python-pillow highlight ttf-nerd-fonts-symbols wl-clipboard udiskie
-          xdg-user-dirs acpi systemd-resolvconf sddm"
+          xdg-user-dirs acpi systemd-resolvconf sddm btop"
     AUR_DEPS="wlogout sddm-theme-sugar-candy-git"
 
     sudo pacman -S --needed $DEPS
