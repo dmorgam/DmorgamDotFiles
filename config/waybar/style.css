@@ -2,7 +2,7 @@
 
 * {
   font-family: JetBrainsMono Nerd Font Propo;
-  font-size: 17px;
+  font-size: 18px;
   min-height: 0;
 }
 
@@ -50,6 +50,7 @@ tooltip {
 #clock,
 #battery,
 #pulseaudio,
+#custom-wg,
 #custom-lock,
 #cpu,
 #memory,
@@ -58,7 +59,7 @@ tooltip {
 #custom-power {
   background: @base;
   box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.3);
-  padding: 0.1rem 1rem;
+  padding: 0.1rem 0.8rem;
   margin: 8px;
 }
 
@@ -70,8 +71,6 @@ tooltip {
 
 #battery {
   color: @text;
-  margin-left: 0px;
-  margin-right: 0px;
 }
 
 #battery.charging {
@@ -84,18 +83,21 @@ tooltip {
 
 #backlight {
   color: @yellow;
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
-#backlight, #battery {
-  border-radius: 0;
-  border-right: 0px;
-  border-left: 0px;
 }
 
 #pulseaudio {
   color: @maroon;
+}
+
+#backlight, #battery, #pulseaudio {
+  border-radius: 0;
+  border-right: 0px;
+  border-left: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#custom-wg {
   border-radius: 2rem 0px 0px 2rem;
   margin-left: 1rem;
   border-right: 0px;
@@ -156,4 +158,12 @@ window#waybar.empty #window {
 #tray {
   margin-right: 1rem;
   border-radius: 2rem;
+}
+
+menu {
+	background: @base;
+	color: @overlay1;
+}
+menuitem {
+	border-radius: 2em;
 }

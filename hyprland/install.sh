@@ -80,9 +80,7 @@ cp -f "$HYPR_BASEDIR/../config/hypr/hypridle.conf" "${HOME}/.config/hypr/hypridl
 cp -f "$HYPR_BASEDIR/../config/hypr/theme.conf" "${HOME}/.config/hypr/theme.conf"
 
 # Waybar
-cp -f "$HYPR_BASEDIR/../config/waybar/config" "${HOME}/.config/waybar/config"
-cp -f "$HYPR_BASEDIR/../config/waybar/style.css" "${HOME}/.config/waybar/style.css"
-cp -f "$HYPR_BASEDIR/../config/waybar/$WAYBAR_THEME" "${HOME}/.config/waybar/colorscheme.css"
+cp -r "$HYPR_BASEDIR/../config/waybar/" "${HOME}/.config/"
 
 # Rofi
 cp -f "$HYPR_BASEDIR/../config/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"

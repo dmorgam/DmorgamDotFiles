@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/music", "clock"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "backlight", "battery","hyprland/language", "tray", "custom/lock", "custom/power"],
+    "modules-right": ["cpu", "memory", "custom/wg", "pulseaudio", "backlight", "battery","hyprland/language", "tray", "custom/lock", "custom/power"],
     "hyprland/workspaces": {
          "disable-scroll": true,
          "sort-by-name": true,
@@ -94,5 +94,15 @@
         "tooltip": false,
         "on-click": "wlogout &",
         "format": "⏻"
-    }
+    },
+    "custom/wg": {
+        "exec": "~/.config/waybar/scripts/wireguard.sh",
+        "return-type": "json",
+        "interval": 5,
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/wg_menu.xml",
+        "menu-actions": {
+            "wg-raspi": "~/.config/waybar/scripts/wireguard.sh toggle raspi-wireguard"
+        },
+    },
 }
