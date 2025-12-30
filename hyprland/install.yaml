@@ -1,0 +1,62 @@
+---
+# Hyprland install config as yaml
+
+locale: "LANG=es_ES.UTF-8"
+
+waybar_theme: catpuccin-mocha.css
+rofi_theme: catppuccin-mocha.rasi
+
+packages:
+  arch:
+    pacman:
+      # Hyprland and utils
+      - hyprland
+      - hyprpaper
+      - hyprlock
+      - hypridle
+      - xdg-desktop-portal-hyprland
+      - hyprpolkitagent
+      - hyprsunset
+
+      # File Manager and FS
+      - thunar
+      - thunar-archive-plugin
+      - xarchiver
+      - ranger
+      - xdg-user-dirs
+      - udiskie
+      - gvfs
+
+      # Fonts
+      - otf-font-awesome
+      - ttf-fantasque-nerd
+      - ttf-jetbrains-mono-nerd
+      - ttf-nerd-fonts-symbols
+      - noto-fonts
+
+      # Sound
+      - pipewire
+      - wireplumber
+      - pavucontrol
+
+      # Themes
+      - capitaine-cursors
+
+      # Other deps
+      - kitty
+      - rofi-wayland
+      - waybar
+      - gtk3
+      - mako
+      - libnotify
+      - python-pillow
+      - highlight
+      - wl-clipboard
+      - acpi
+      - systemd-resolvconf
+      - sddm
+      - btop
+
+    yay:
+      - wlogout
+      - sddm-theme-sugar-candy-git

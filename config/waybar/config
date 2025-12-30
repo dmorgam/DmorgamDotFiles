@@ -25,7 +25,7 @@
     "hyprland/language": {
       "format": "󰌓 {} ",
       "format-en": "US",
-      "format-es": "ES",
+      "format-es": "ES"
     },
     "tray": {
         "icon-size": 24,
@@ -50,7 +50,12 @@
         "device": "intel_backlight",
         "format": "{icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""],
-        "tooltip-format": "{percent}% {icon}"
+        "tooltip-format": "{percent}% {icon}",
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/backlight_menu.xml",
+        "menu-actions": {
+            "hyprsunset": "test $(hyprctl hyprsunset temperature) = 6500 && hyprctl hyprsunset temperature 5000 || hyprctl hyprsunset temperature 6500"
+        }
     },
     "battery": {
         "states": {
@@ -88,7 +93,7 @@
     "custom/lock": {
         "tooltip": false,
         "on-click": "loginctl lock-session",
-        "format": "",
+        "format": ""
     },
     "custom/power": {
         "tooltip": false,
@@ -103,6 +108,6 @@
         "menu-file": "~/.config/waybar/wg_menu.xml",
         "menu-actions": {
             "wg-raspi": "~/.config/waybar/scripts/wireguard.sh toggle raspi-wireguard"
-        },
-    },
+        }
+    }
 }

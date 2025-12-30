@@ -162,7 +162,7 @@ window#waybar.empty #window {
 
 menu {
 	background: @base;
-	color: @overlay1;
+	color: @subtext0;
 }
 menuitem {
 	border-radius: 2em;

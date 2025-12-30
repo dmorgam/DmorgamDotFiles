@@ -7,11 +7,12 @@
 #
 
 HYPR_BASEDIR=$(dirname "$0")
+HYPR_INSTALL_YAML="${HYPR_BASEDIR}/install.yaml"
 
-LOCALE="LANG=es_ES.UTF-8"
+LOCALE="$(yq -r '.locale' "$HYPR_INSTALL_YAML" | xargs)"
 
-WAYBAR_THEME="catpuccin-mocha.css"
-ROFI_THEME="catppuccin-mocha.rasi"
+WAYBAR_THEME="$(yq -r '.waybar_theme' "$HYPR_INSTALL_YAML" | xargs)"
+ROFI_THEME="$(yq -r '.rofi_theme' "$HYPR_INSTALL_YAML" | xargs)"
 
 echo " -- INSTALADOR HYPRLAND --"
 
@@ -34,13 +35,11 @@ then
   echo " + Instalando paquetes ..."
   if test $DISTRO = "Arch"
   then
-    DEPS="hyprland kitty hyprpaper rofi-wayland noto-fonts waybar gtk3 gvfs
-          otf-font-awesome ttf-fantasque-nerd hyprlock hypridle pavucontrol
-          xdg-desktop-portal-hyprland thunar thunar-archive-plugin xarchiver
-          pipewire wireplumber mako libnotify ttf-jetbrains-mono-nerd hyprpolkitagent
-          python-pillow highlight ttf-nerd-fonts-symbols wl-clipboard udiskie
-          xdg-user-dirs acpi systemd-resolvconf sddm btop"
-    AUR_DEPS="wlogout sddm-theme-sugar-candy-git"
+    # Install yq to load yaml
+    sudo pacman -S --needed yq
+
+    DEPS="$(yq -r '.packages.arch.pacman[]' "$HYPR_INSTALL_YAML" | xargs)"
+    AUR_DEPS="$(yq -r '.packages.arch.yay[]' "$HYPR_INSTALL_YAML" | xargs)"
 
     sudo pacman -S --needed $DEPS
 
@@ -73,28 +72,23 @@ mkdir -p "${HOME}/.config/mako/"
 mkdir -p "${HOME}/.config/ranger/"
 
 # Hyprland
-cp -f "$HYPR_BASEDIR/../config/hypr/hyprland.conf" "${HOME}/.config/hypr/hyprland.conf"
-cp -f "$HYPR_BASEDIR/../config/hypr/hyprpaper.conf" "${HOME}/.config/hypr/hyprpaper.conf"
-cp -f "$HYPR_BASEDIR/../config/hypr/hyprlock.conf" "${HOME}/.config/hypr/hyprlock.conf"
-cp -f "$HYPR_BASEDIR/../config/hypr/hypridle.conf" "${HOME}/.config/hypr/hypridle.conf"
-cp -f "$HYPR_BASEDIR/../config/hypr/theme.conf" "${HOME}/.config/hypr/theme.conf"
+cp -r "$HYPR_BASEDIR/../config/hypr/" "${HOME}/.config/"
 
 # Waybar
 cp -r "$HYPR_BASEDIR/../config/waybar/" "${HOME}/.config/"
 
 # Rofi
-cp -f "$HYPR_BASEDIR/../config/rofi/config.rasi" "${HOME}/.config/rofi/config.rasi"
+cp -r "$HYPR_BASEDIR/../config/rofi/" "${HOME}/.config/"
 cp -f "$HYPR_BASEDIR/../local/share/rofi/themes/$ROFI_THEME" "${HOME}/.local/share/rofi/themes/$ROFI_THEME"
 
 # Wlogout
-cp -f "$HYPR_BASEDIR/../config/wlogout/layout" "${HOME}/.config/wlogout/layout"
-cp -f "$HYPR_BASEDIR/../config/wlogout/style.css" "${HOME}/.config/wlogout/style.css"
+cp -r "$HYPR_BASEDIR/../config/wlogout/" "${HOME}/.config/"
 
 # Mako notifications
-cp -f "$HYPR_BASEDIR/../config/mako/config" "${HOME}/.config/mako/config"
+cp -r "$HYPR_BASEDIR/../config/mako/" "${HOME}/.config/"
 
 # Ranger
-cp -f "$HYPR_BASEDIR/../config/ranger/rc.conf" "${HOME}/.config/ranger/rc.conf"
+cp -r "$HYPR_BASEDIR/../config/ranger/" "${HOME}/.config/"
 
 if ! test -d "${HOME}/.config/ranger/plugins/ranger_devicons"
 then
