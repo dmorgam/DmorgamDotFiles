@@ -42,6 +42,10 @@ packages:
       # Themes
       - capitaine-cursors
 
+      # Android MTP file transfer
+      - mtpfs
+      - gvfs-mtp
+
       # Other deps
       - kitty
       - rofi-wayland
