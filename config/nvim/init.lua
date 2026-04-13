@@ -64,7 +64,8 @@ vim.api.nvim_set_keymap('n','<leader>fg',':Telescope live_grep<CR>',{ noremap = 
 vim.api.nvim_set_keymap('n','<leader>fb',':Telescope buffers<CR>',{ noremap = true })
 
 -- Snacks mappings
-vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end)
+vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end, { desc = "Terminal" })
+vim.keymap.set("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen mode" })
 
 -- Neogit mappings
 vim.api.nvim_set_keymap('n','<leader>g',':Neogit<CR>',{ noremap = true })
