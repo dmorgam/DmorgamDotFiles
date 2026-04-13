@@ -12,7 +12,8 @@ return {
           initial_mode = 'insert',
           path_display = {
             'truncate'
-          }
+          },
+          borderchars = { "", "", "", "", "", "", "", "" }
         },
         extensions = {
           live_grep_args = {

@@ -42,6 +42,9 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.o.foldlevelstart = 20
 
+-- Easy terminal exit
+vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
+
 -- Toggle Oil
 vim.api.nvim_set_keymap('n','<leader>o',':Oil<CR>',{ noremap = true })
 
@@ -56,9 +59,12 @@ vim.api.nvim_set_keymap('n','<leader>bd',':bn|bw #<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>d',':Diagnostics<CR>',{ noremap = true })
 
 -- Telescope mappings
-vim.api.nvim_set_keymap('n','<leader>f',':Telescope find_files<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>tg',':Telescope live_grep<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>b',':Telescope buffers<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>ff',':Telescope find_files<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>fg',':Telescope live_grep<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>fb',':Telescope buffers<CR>',{ noremap = true })
+
+-- Snacks mappings
+vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end)
 
 -- Neogit mappings
 vim.api.nvim_set_keymap('n','<leader>g',':Neogit<CR>',{ noremap = true })

@@ -7,16 +7,6 @@ return {
     -- Webdev icons
     {'nvim-tree/nvim-web-devicons'},
 
-    -- Indent blankline show
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        main = 'ibl',
-        opts = {},
-        config = function ()
-            require("ibl").setup ()
-        end
-    },
-
     -- Todo plugin
     {
         'folke/todo-comments.nvim',
