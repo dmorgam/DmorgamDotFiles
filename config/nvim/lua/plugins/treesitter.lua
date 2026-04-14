@@ -4,6 +4,7 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         branch = 'main',
+        lazy = false,
         build = function()
             -- Borrar queries de markdown del plugin para usar los de neovim (compatibles con 0.12)
             local ts_path = vim.fn.stdpath("data") .. "/lazy/nvim-treesitter"
