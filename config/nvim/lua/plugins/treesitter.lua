@@ -14,7 +14,7 @@ return {
         end,
         config = function ()
 
-            require('nvim-treesitter.configs').setup ({
+            require('nvim-treesitter.config').setup ({
                 -- markdown y markdown_inline usan los parsers/queries del sistema
                 -- (los de la rama main son incompatibles con nvim 0.12)
                 ensure_installed = { "lua", "python", "http", "json",
