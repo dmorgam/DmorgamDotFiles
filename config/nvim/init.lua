@@ -17,9 +17,24 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
+vim.opt.signcolumn = "yes"
 
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
+
+-- Splits
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Scroll
+vim.opt.scrolloff = 8
+
+-- preview de sustitucion
+vim.opt.inccommand = "split"
+
+-- Busqueda smart y case insensitive
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
 
 -- tiempo en ms para CursorHold
 vim.o.updatetime = 1000
@@ -67,9 +82,10 @@ vim.api.nvim_set_keymap('n','<leader>fb',':Telescope buffers<CR>',{ noremap = tr
 vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end, { desc = "Terminal" })
 vim.keymap.set("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen mode" })
 
--- Neogit mappings
-vim.api.nvim_set_keymap('n','<leader>g',':Neogit<CR>',{ noremap = true })
+-- Git mappings
+vim.api.nvim_set_keymap('n','<leader>gg',':Neogit<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>gv',':Neogit kind=vsplit<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>gb',':Gitsigns blame<CR>',{ noremap = true })
 
 -- LSP mappings
 vim.api.nvim_set_keymap('n','<leader>s',':lua vim.lsp.buf.signature_help()<CR>',{ noremap = true })
