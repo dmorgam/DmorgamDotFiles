@@ -1,5 +1,5 @@
 format = """\
-[╭╴](fg:arrow)\
+[╭╴](fg:lavender)\
 $username\
 $directory\
 (\
@@ -19,7 +19,7 @@ $directory\
     $azure\
     $kubernetes\
 )
-[╰─](fg:lavender)$character\
+[╰─](fg:lavender)$status$jobs$character\
 """
 
 right_format = """\
@@ -67,13 +67,11 @@ show_always = true
 [character]
 success_symbol = "[❯](fg:green)"
 error_symbol = "[❯](fg:red)"
+vimcmd_symbol = "[❮](fg:green)"
 
 [directory]
 format = " [](fg:sapphire)[ ](bg:sapphire fg:base)[ $path ](bg:base fg:sapphire)[$read_only](bg:sapphire fg:yellow)[](fg:base)"
-truncation_length = 2
-style = "fg:text_color bg:directory"
-read_only_style = "fg:text_color bg:directory"
-before_repo_root_style = "fg:text_color bg:directory"
+truncation_length = 3
 truncation_symbol = "…/"
 truncate_to_repo = true
 read_only ="  "
@@ -158,34 +156,12 @@ format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ $context](bg:base fg:blue)[
 symbol = "☸  "
 disabled=false
 
-[os.symbols]
-Alpine = " "
-Amazon = " "
-Android = " "
-Arch = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Gentoo = " "
-Linux = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-openSUSE = " "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-Redox = " "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Windows = " "
+[status]
+format = '[ $symbol](fg:red)[ $status](fg:peach)'
+symbol = "✘"
+disabled = false
+
+[jobs]
+format = "[ $symbol $number](fg:peach)"
+symbol = ""
+threshold = 1
