@@ -2,7 +2,7 @@
 
 * {
   font-family: JetBrainsMono Nerd Font Propo;
-  font-size: 18px;
+  font-size: 14px;
   min-height: 0;
 }
 
@@ -14,34 +14,25 @@ tooltip {
 }
 
 #waybar {
-  background-color: transparent;
-}
-
-#waybar > box {
-  background-color: transparent;
-}
-
-#workspaces {
-  border-radius: 2rem;
-  background: @base;
-  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.3);
-  margin: 8px;
+  background-color: @base;
+  box-shadow: 0px 2px 4px 0px rgba(26,26,26,0.3);
 }
 
 #workspaces button {
   color: @overlay1;
-  border-radius: 2rem;
-  padding: 0.4rem;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
 }
 
 #workspaces button.active {
   color: @lavender;
-  border-radius: 2rem;
 }
 
 #workspaces button:hover {
+  background: transparent;
+  border: none;
   color: @sapphire;
-  border-radius: 2rem;
 }
 
 #custom-music,
@@ -57,16 +48,12 @@ tooltip {
 #window,
 #language,
 #custom-power {
-  background: @base;
-  box-shadow: 0px 0px 3px 0px rgba(26,26,26,0.3);
-  padding: 0.1rem 0.8rem;
-  margin: 8px;
+  color: @text;
+  padding: 0.5rem 1rem;
 }
 
 #clock {
-  color: @blue;
-  border-radius: 2rem;
-  margin-right: 1rem;
+  color: @lavender;
 }
 
 #battery {
@@ -81,89 +68,37 @@ tooltip {
   color: @red;
 }
 
-#backlight {
-  color: @yellow;
-}
-
-#pulseaudio {
-  color: @maroon;
-}
-
-#backlight, #battery, #pulseaudio {
-  border-radius: 0;
-  border-right: 0px;
-  border-left: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
-#custom-wg {
-  border-radius: 2rem 0px 0px 2rem;
-  margin-left: 1rem;
-  border-right: 0px;
-  margin-right: 0px;
-}
-
+#cpu,
+#memory,
+#custom-wg,
+#pulseaudio,
+#backlight,
+#battery,
 #language {
-  border-radius: 0px 2rem 2rem 0px;
-  border-right: 0px;
-  border-left: 0px;
-  padding: 0.1rem 0.5rem;
-  margin-left: 0px;
+  padding: 0.5rem 0.6rem;
+}
+
+#custom-separator {
+  padding: 0;
 }
 
 #custom-music {
-  color: @mauve;
-  border-radius: 2rem;
-}
-
-#window {
-  color: @text;
-  border-radius: 2rem;
-  margin-left: 1rem;
-}
-
-window#waybar.empty #window {
-  background-color: transparent;
-  box-shadow: none;
-}
-
-#cpu {
-  color: @mauve;
-  border-radius: 2rem 0px 0px 2rem;
-  border-right: 0px;
-  margin-right: 0px;
-}
-
-#memory {
-  color: @yellow;
-  border-radius: 0px 2rem 2rem 0px;
-  border-left: 0px;
-  margin-right: 5px;
-  margin-left: 0px;
-}
-
-#custom-lock {
-  border-radius: 2rem 0px 0px 2rem;
-  color: @lavender;
-  margin-right: 0px;
+  color: @subtext1;
 }
 
 #custom-power {
-  border-radius: 0px 2rem 2rem 0px;
   color: @red;
-  margin-left: 0px;
 }
 
-#tray {
-  margin-right: 1rem;
-  border-radius: 2rem;
+window#waybar.empty #window {
+  opacity: 0;
 }
 
 menu {
-	background: @base;
-	color: @subtext0;
+  background: @base;
+  color: @subtext0;
 }
+
 menuitem {
-	border-radius: 2em;
+  border-radius: 2rem;
 }

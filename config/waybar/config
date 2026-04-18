@@ -2,8 +2,19 @@
     "layer": "top",
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["custom/music", "clock"],
-    "modules-right": ["cpu", "memory", "custom/wg", "pulseaudio", "backlight", "battery","hyprland/language", "tray", "custom/lock", "custom/power"],
+    "modules-center": ["clock"],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "custom/separator",
+        "custom/wg",
+        "pulseaudio",
+        "backlight",
+        "battery",
+        "hyprland/language",
+        "tray",
+        "custom/power"
+    ],
     "hyprland/workspaces": {
          "disable-scroll": true,
          "sort-by-name": true,
@@ -32,7 +43,7 @@
         "spacing": 4
     },
     "custom/music": {
-        "format": "  {}",
+        "format": " {}",
         "escape": true,
         "interval": 5,
         "tooltip": false,
@@ -109,5 +120,10 @@
         "menu-actions": {
             "wg-raspi": "~/.config/waybar/scripts/wireguard.sh toggle raspi-wireguard"
         }
-    }
+    },
+    "custom/separator": {
+        "format": "   ",
+        "interval": "once",
+        "tooltip": false
+    },
 }
