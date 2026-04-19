@@ -61,22 +61,29 @@ vim.o.foldlevelstart = 20
 vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
 
 -- Toggle Oil
-vim.api.nvim_set_keymap('n','<leader>o',':Oil<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>o',':Oil<CR>',
+    { noremap = true, desc = 'Oil File Manager' })
 
 -- Fast buffer movement
-vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',
+    { noremap = true, desc = 'Next Buffer' })
+vim.api.nvim_set_keymap('n','<leader>j',':bprev<CR>',
+    { noremap = true, desc = 'Previous Buffer' })
 
 -- Wipe buffer and switch to another one
-vim.api.nvim_set_keymap('n','<leader>bd',':bn|bw #<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>bd',':bn|bw #<CR>',
+    { noremap = true, desc = 'Delete Buffer' })
 
 -- Diagnostics
-vim.api.nvim_set_keymap('n','<leader>d',':Diagnostics<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>d',':Diagnostics<CR>',
+    { noremap = true, desc = 'Diagnostics' })
 
 -- Telescope mappings
 vim.api.nvim_set_keymap('n','<leader>ff',':Telescope find_files<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>fg',':Telescope live_grep<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>fb',':Telescope buffers<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>fh',':Telescope help_tags<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>fs',':Telescope lsp_document_symbols<CR>',{ noremap = true })
 
 -- Snacks mappings
 vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end, { desc = "Terminal" })
@@ -86,9 +93,15 @@ vim.keymap.set("n", "<leader>z", function() require("snacks").zen() end, { desc 
 vim.api.nvim_set_keymap('n','<leader>gg',':Neogit<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>gv',':Neogit kind=vsplit<CR>',{ noremap = true })
 vim.api.nvim_set_keymap('n','<leader>gb',':Gitsigns blame<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>gd',':Gitsigns diffthis<CR>',{ noremap = true })
 
 -- LSP mappings
-vim.api.nvim_set_keymap('n','<leader>s',':lua vim.lsp.buf.signature_help()<CR>',{ noremap = true })
+vim.api.nvim_set_keymap('n','<leader>ls',':lua vim.lsp.buf.signature_help()<CR>',
+    { noremap = true, desc = "LSP Signature Help" })
+vim.api.nvim_set_keymap('n','<leader>ld',':lua vim.lsp.buf.definition()<CR>',
+    { noremap = true, desc = "LSP Definition/Declaration" })
+vim.api.nvim_set_keymap('n','<leader>lr',':lua vim.lsp.buf.references()<CR>',
+    { noremap = true, desc = "LSP References" })
 
 -- Autoremove trailing spaces on insert leave
 vim.api.nvim_create_autocmd("InsertLeave", {
