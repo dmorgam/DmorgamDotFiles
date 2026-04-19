@@ -107,9 +107,12 @@ vim.api.nvim_set_keymap('n','<leader>lr',':lua vim.lsp.buf.references()<CR>',
 vim.api.nvim_create_autocmd("InsertLeave", {
     pattern = "*",
     callback = function()
-        local view = vim.fn.winsaveview()
-        vim.cmd([[%s/\s\+$//e]])
-        vim.fn.winrestview(view)
+        if vim.bo.modifiable
+        then
+            local view = vim.fn.winsaveview()
+            vim.cmd([[%s/\s\+$//e]])
+            vim.fn.winrestview(view)
+        end
     end,
 })
 
