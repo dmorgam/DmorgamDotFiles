@@ -5,7 +5,17 @@ return {
     {"nvim-neotest/nvim-nio"},
 
     -- Webdev icons
-    {'nvim-tree/nvim-web-devicons'},
+    {
+        'nvim-tree/nvim-web-devicons',
+        config = function()
+            local devicons = require('nvim-web-devicons')
+            devicons.setup({})
+            devicons.set_icon_by_filetype({
+                helm = 'yaml',
+                ['yaml.ansible'] = 'yaml',
+            })
+        end,
+    },
 
     -- Todo plugin
     {

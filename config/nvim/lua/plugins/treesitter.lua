@@ -50,6 +50,7 @@ return {
           'gitcommit',
           'gitignore',
           'html',
+          'helm',
           'http',
           'javascript',
           'json',
