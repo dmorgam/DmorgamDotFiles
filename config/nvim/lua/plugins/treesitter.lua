@@ -24,6 +24,12 @@ return {
     local parsers_pending = {}
     local parsers_failed = {}
 
+    -- Set of parsers nvim-treesitter knows how to install
+    local parsers_available = {}
+    for _, lang in ipairs(ts.get_available() or {}) do
+      parsers_available[lang] = true
+    end
+
     local ns = vim.api.nvim_create_namespace('treesitter.async')
 
     -- Helper to start highlighting and indentation
@@ -116,6 +122,12 @@ return {
         local buf = event.buf
 
         if parsers_failed[lang] then
+          return
+        end
+
+        -- Skip filetypes without a known parser (e.g. NeogitStatus)
+        if not parsers_available[lang] then
+          parsers_failed[lang] = true
           return
         end
 

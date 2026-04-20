@@ -18,6 +18,7 @@ vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
+vim.o.cmdheight = 0
 
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
@@ -58,7 +59,7 @@ vim.opt.foldtext = ""
 vim.o.foldlevelstart = 20
 
 -- Easy terminal exit
-vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
+vim.keymap.set("t", "<leader><Esc>", [[<C-\><C-n>]], { desc = "Salir terminal mode" })
 
 -- Toggle Oil
 vim.api.nvim_set_keymap('n','<leader>o',':Oil<CR>',
