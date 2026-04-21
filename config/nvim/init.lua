@@ -89,6 +89,10 @@ vim.api.nvim_set_keymap('n','<leader>fs',':Telescope lsp_document_symbols<CR>',{
 -- Snacks mappings
 vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end, { desc = "Terminal" })
 vim.keymap.set("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen mode" })
+vim.keymap.set("n", "<leader>sb", function() require("snacks").scratch() end,
+    { desc = "Scratch Buffer" })
+vim.keymap.set("n", "<leader>ss", function() require("snacks").scratch.select() end,
+    { desc = "Select Scratch Buffer" })
 
 -- Git mappings
 vim.api.nvim_set_keymap('n','<leader>gg',':Neogit<CR>',{ noremap = true })

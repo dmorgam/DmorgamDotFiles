@@ -25,6 +25,9 @@ return {
             bigfile = {
                 enabled = true
             },
+            scratch = {
+                enabled = true
+            },
             words = {
                 enabled = true
             },
