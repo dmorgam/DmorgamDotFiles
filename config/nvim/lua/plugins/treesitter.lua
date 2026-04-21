@@ -125,9 +125,15 @@ return {
           return
         end
 
-        -- Skip filetypes without a known parser (e.g. NeogitStatus)
+        -- Custom parser registered in runtimepath (e.g. kulala_http): start directly
         if not parsers_available[lang] then
-          parsers_failed[lang] = true
+          if #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.so', true) > 0 then
+            if not start(buf, lang) then
+              parsers_failed[lang] = true
+            end
+          else
+            parsers_failed[lang] = true
+          end
           return
         end
 
