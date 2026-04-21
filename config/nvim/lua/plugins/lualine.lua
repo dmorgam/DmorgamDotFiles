@@ -21,12 +21,15 @@ return {
                     lualine_z = { { 'tabs', separator = { right = '' } } }
                 },
                 winbar = {
-                    lualine_c = { 'filetype', 'filename' },
-                    lualine_x = { 'lsp_status' },
+                    lualine_b = { 'filetype' },
+                    lualine_c = { 'filename' },
+                    lualine_y = { 'lsp_status' },
                 },
                 inactive_winbar = {
-                    lualine_c = { {'filename', path = 1} },
-                }
+                    lualine_b = { 'filetype' },
+                    lualine_c = { 'filename' },
+                    lualine_y = { 'lsp_status' },
+                },
             })
 
         end

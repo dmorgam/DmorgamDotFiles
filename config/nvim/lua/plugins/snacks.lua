@@ -8,7 +8,9 @@ return {
         opts = {
             terminal = {
                 direction = "horizontal",
-                size = 15,
+                win = {
+                    height = 0.3
+                }
             },
             notifier = {
                 enabled = true
@@ -41,42 +43,13 @@ return {
 
                 preset = {
                     keys = {
-                        {
-                            icon   = '',
-                            key    = "e",
-                            desc   = "New file",
-                            action = ":ene | startinsert"
-                        },
-                        {
-                            icon   = '',
-                            key    = "f",
-                            desc   = "Find file",
-                            action = ":Telescope find_files"
-                        },
-                        {
-                            icon   = '',
-                            key    = "r",
-                            desc   = "Recent",
-                            action = ":Telescope oldfiles"
-                        },
-                        {
-                            icon   = '',
-                            key    = "l",
-                            desc   = "Lazy Packages",
-                            action = ":Lazy"
-                        },
-                        {
-                            icon   = '󰏔',
-                            key    = "m",
-                            desc   = "Mason Packages",
-                            action = ":Mason"
-                        },
-                        {
-                            icon   = '',
-                            key    = "q",
-                            desc   = "Quit NeoVim",
-                            action = ":qa"
-                        },
+                        { icon = '', key = "e", desc = "New file", action = ":ene | startinsert" },
+                        { icon = '', key = "f", desc = "Find file", action = ":Telescope find_files" },
+                        { icon = '', key = "r", desc = "Recent", action = ":Telescope oldfiles" },
+                        { icon = '󰈞', key = "g", desc = "Grep", action = ":Telescope live_grep" },
+                        { icon = '', key = "l", desc = "Lazy Packages", action = ":Lazy" },
+                        { icon = '󰏔', key = "m", desc = "Mason Packages", action = ":Mason" },
+                        { icon = '', key = "q", desc = "Quit NeoVim", action = ":confirm qa" },
                     },
 
                     header = table.concat({
@@ -91,6 +64,6 @@ return {
                     }, "\n")
                 }
             }
-        },
+        }
     }
 }
