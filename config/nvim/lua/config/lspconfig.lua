@@ -7,7 +7,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 vim.lsp.config.lua_ls = {
     capabilities = capabilities,
     cmd = {
-        vim.fn.expand("$MASON/packages/lua-language-server/lua-language-server")
+        vim.fn.expand("$MASON/bin/lua-language-server")
     },
     filetypes = { 'lua' },
     settings = {
@@ -47,29 +47,30 @@ vim.lsp.config.powershell_es = {
 }
 
 -- Python
-vim.lsp.config.pylsp = {
+vim.lsp.config.basedpyright = {
     capabilities = capabilities,
     cmd = {
-        vim.fn.expand("$MASON/packages/python-lsp-server/venv/bin/pylsp")
+        vim.fn.expand("$MASON/bin/basedpyright-langserver"),
+        "--stdio"
     },
     filetypes = { 'python' }
 }
 
 -- Typescript
-vim.lsp.config.ts_ls = {
+vim.lsp.config.vtsls = {
     capabilities = capabilities,
     cmd = {
-        vim.fn.expand("$MASON/packages/typescript-language-server/node_modules/typescript-language-server/lib/cli.mjs"),
+        vim.fn.expand("$MASON/bin/vtsls"),
         "--stdio"
     },
-    filetypes = { 'javascript', 'typescript' }
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
 }
 
 -- Terraform
 vim.lsp.config.terraformls = {
     capabilities = capabilities,
     cmd = {
-        vim.fn.expand("$MASON/packages/terraform-ls/terraform-ls"),
+        vim.fn.expand("$MASON/bin/terraform-ls"),
         "serve"
     },
     filetypes = { 'terraform' },
@@ -80,7 +81,7 @@ vim.lsp.config.terraformls = {
 vim.lsp.config.yamlls = {
     capabilities = capabilities,
     cmd = {
-        vim.fn.expand("$MASON/packages/yaml-language-server/node_modules/yaml-language-server/bin/yaml-language-server"),
+        vim.fn.expand("$MASON/bin/yaml-language-server"),
         "--stdio"
     },
     filetypes = { 'yaml' }
@@ -90,17 +91,27 @@ vim.lsp.config.yamlls = {
 vim.lsp.config.jsonls = {
     capabilities = capabilities,
     cmd = {
-        vim.fn.expand("$MASON/packages/json-lsp/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server"),
+        vim.fn.expand("$MASON/bin/vscode-json-language-server"),
         "--stdio"
     },
     filetypes = { "json" }
+}
+
+-- Bash
+vim.lsp.config.bashls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/bin/bash-language-server"),
+        "start"
+    },
+    filetypes = { 'sh', 'bash', 'zsh' }
 }
 
 -- Helm
 vim.lsp.config.helm_ls = {
     capabilities = capabilities,
     cmd = {
-        vim.fn.expand("$MASON/packages/helm-ls/helm_ls_linux_amd64"),
+        vim.fn.expand("$MASON/bin/helm_ls"),
         "serve",
         "--stdio"
     },
@@ -110,9 +121,10 @@ vim.lsp.config.helm_ls = {
 -- Enable servers
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('powershell_es')
-vim.lsp.enable('pylsp')
-vim.lsp.enable('ts_ls')
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('vtsls')
 vim.lsp.enable('terraformls')
 vim.lsp.enable('yamlls')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('helm_ls')
+vim.lsp.enable('bashls')

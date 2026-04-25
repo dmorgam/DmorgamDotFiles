@@ -61,9 +61,9 @@ vim.o.foldlevelstart = 20
 -- Easy terminal exit
 vim.keymap.set("t", "<leader><Esc>", [[<C-\><C-n>]], { desc = "Salir terminal mode" })
 
--- Toggle Oil
-vim.api.nvim_set_keymap('n','<leader>o',':Oil<CR>',
-    { noremap = true, desc = 'Oil File Manager' })
+-- Toggle Explorer
+vim.keymap.set('n','<leader>a',function() Snacks.explorer() end,
+    { desc = 'File Explorer' })
 
 -- Fast buffer movement
 vim.api.nvim_set_keymap('n','<leader>k',':bnext<CR>',
@@ -79,12 +79,14 @@ vim.api.nvim_set_keymap('n','<leader>bd',':bn|bw #<CR>',
 vim.api.nvim_set_keymap('n','<leader>d',':Diagnostics<CR>',
     { noremap = true, desc = 'Diagnostics' })
 
--- Telescope mappings
-vim.api.nvim_set_keymap('n','<leader>ff',':Telescope find_files<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>fg',':Telescope live_grep<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>fb',':Telescope buffers<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>fh',':Telescope help_tags<CR>',{ noremap = true })
-vim.api.nvim_set_keymap('n','<leader>fs',':Telescope lsp_document_symbols<CR>',{ noremap = true })
+-- Picker mappings (snacks)
+vim.keymap.set('n','<leader>ff',function() Snacks.picker.files() end,        { desc = "Find Files" })
+vim.keymap.set('n','<leader>fg',function() Snacks.picker.grep() end,         { desc = "Live Grep" })
+vim.keymap.set('n','<leader>fb',function() Snacks.picker.buffers() end,      { desc = "Buffers" })
+vim.keymap.set('n','<leader>fh',function() Snacks.picker.help() end,         { desc = "Help Tags" })
+vim.keymap.set('n','<leader>fr',function() Snacks.picker.recent() end,       { desc = "Recent Files" })
+vim.keymap.set('n','<leader>fs',function() Snacks.picker.lsp_symbols() end,  { desc = "Document Symbols" })
+vim.keymap.set('n','<leader>fw',function() Snacks.picker.lsp_workspace_symbols() end, { desc = "Workspace Symbols" })
 
 -- Snacks mappings
 vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end, { desc = "Terminal" })

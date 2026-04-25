@@ -12,12 +12,13 @@ return {
     config = function ()
       require("mason-lspconfig").setup({
            ensure_installed = {
+               "bashls",
                "helm_ls",
                "lua_ls",
                "powershell_es",
-               "pylsp",
+               "basedpyright",
                "terraformls",
-               "ts_ls",
+               "vtsls",
                "yamlls",
                "jsonls"
            },
