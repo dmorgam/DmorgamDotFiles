@@ -10,6 +10,7 @@ vim.lsp.config.lua_ls = {
         vim.fn.expand("$MASON/bin/lua-language-server")
     },
     filetypes = { 'lua' },
+    root_markers = { '.luarc.json', '.luarc.jsonc', 'stylua.toml', '.stylua.toml', '.git' },
     settings = {
         Lua = {
             runtime = { version = 'LuaJIT' },
@@ -26,6 +27,7 @@ vim.lsp.config.lua_ls = {
 vim.lsp.config.powershell_es = {
     capabilities = capabilities,
     filetypes = { "ps1" },
+    root_markers = { '.git', '*.psd1', '*.psm1' },
     cmd = {
         "pwsh",
         "-NoLogo",
@@ -53,7 +55,16 @@ vim.lsp.config.basedpyright = {
         vim.fn.expand("$MASON/bin/basedpyright-langserver"),
         "--stdio"
     },
-    filetypes = { 'python' }
+    filetypes = { 'python' },
+    root_markers = {
+        'pyproject.toml',
+        'setup.py',
+        'setup.cfg',
+        'requirements.txt',
+        'Pipfile',
+        'pyrightconfig.json',
+        '.git'
+    }
 }
 
 -- Typescript
@@ -63,7 +74,8 @@ vim.lsp.config.vtsls = {
         vim.fn.expand("$MASON/bin/vtsls"),
         "--stdio"
     },
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' }
 }
 
 -- Terraform
@@ -74,7 +86,7 @@ vim.lsp.config.terraformls = {
         "serve"
     },
     filetypes = { 'terraform' },
-    root_dir = vim.loop.cwd()
+    root_markers = { '.terraform', '.terraform.lock.hcl', '.git' }
 }
 
 -- Yaml
@@ -84,7 +96,8 @@ vim.lsp.config.yamlls = {
         vim.fn.expand("$MASON/bin/yaml-language-server"),
         "--stdio"
     },
-    filetypes = { 'yaml' }
+    filetypes = { 'yaml' },
+    root_markers = { '.git' }
 }
 
 -- Json
@@ -94,7 +107,8 @@ vim.lsp.config.jsonls = {
         vim.fn.expand("$MASON/bin/vscode-json-language-server"),
         "--stdio"
     },
-    filetypes = { "json" }
+    filetypes = { "json" },
+    root_markers = { 'package.json', '.git' }
 }
 
 -- Bash
@@ -104,7 +118,8 @@ vim.lsp.config.bashls = {
         vim.fn.expand("$MASON/bin/bash-language-server"),
         "start"
     },
-    filetypes = { 'sh', 'bash', 'zsh' }
+    filetypes = { 'sh', 'bash', 'zsh' },
+    root_markers = { '.git' }
 }
 
 -- Helm
@@ -115,7 +130,8 @@ vim.lsp.config.helm_ls = {
         "serve",
         "--stdio"
     },
-    filetypes = { 'helm' }
+    filetypes = { 'helm' },
+    root_markers = { 'Chart.yaml', '.git' }
 }
 
 -- Enable servers

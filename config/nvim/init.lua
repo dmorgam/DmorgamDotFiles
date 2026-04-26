@@ -80,17 +80,28 @@ vim.api.nvim_set_keymap('n','<leader>d',':Diagnostics<CR>',
     { noremap = true, desc = 'Diagnostics' })
 
 -- Picker mappings (snacks)
-vim.keymap.set('n','<leader>ff',function() Snacks.picker.files() end,        { desc = "Find Files" })
-vim.keymap.set('n','<leader>fg',function() Snacks.picker.grep() end,         { desc = "Live Grep" })
-vim.keymap.set('n','<leader>fb',function() Snacks.picker.buffers() end,      { desc = "Buffers" })
-vim.keymap.set('n','<leader>fh',function() Snacks.picker.help() end,         { desc = "Help Tags" })
-vim.keymap.set('n','<leader>fr',function() Snacks.picker.recent() end,       { desc = "Recent Files" })
-vim.keymap.set('n','<leader>fs',function() Snacks.picker.lsp_symbols() end,  { desc = "Document Symbols" })
-vim.keymap.set('n','<leader>fw',function() Snacks.picker.lsp_workspace_symbols() end, { desc = "Workspace Symbols" })
+vim.keymap.set('n','<leader>ff',function() Snacks.picker.files() end,
+    { desc = "Find Files" })
+vim.keymap.set('n','<leader>fg',function() Snacks.picker.grep() end,
+    { desc = "Live Grep" })
+vim.keymap.set('n','<leader>fb',function() Snacks.picker.buffers() end,
+    { desc = "Buffers" })
+vim.keymap.set('n','<leader>fh',function() Snacks.picker.help() end,
+    { desc = "Help Tags" })
+vim.keymap.set('n','<leader>fr',function() Snacks.picker.recent() end,
+    { desc = "Recent Files" })
+vim.keymap.set('n','<leader>fs',function() Snacks.picker.lsp_symbols() end,
+    { desc = "Document Symbols" })
+vim.keymap.set('n','<leader>fw',function() Snacks.picker.lsp_workspace_symbols() end,
+    { desc = "Workspace Symbols" })
+vim.keymap.set('n','<leader>ft',function() Snacks.picker.todo_comments() end,
+    { desc = "TODO Comments" })
 
 -- Snacks mappings
-vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end, { desc = "Terminal" })
-vim.keymap.set("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen mode" })
+vim.keymap.set("n", "<leader>t", function() require("snacks").terminal.toggle() end,
+    { desc = "Terminal" })
+vim.keymap.set("n", "<leader>z", function() require("snacks").zen() end,
+    { desc = "Zen mode" })
 vim.keymap.set("n", "<leader>sb", function() require("snacks").scratch() end,
     { desc = "Scratch Buffer" })
 vim.keymap.set("n", "<leader>ss", function() require("snacks").scratch.select() end,
@@ -107,8 +118,14 @@ vim.api.nvim_set_keymap('n','<leader>ls',':lua vim.lsp.buf.signature_help()<CR>'
     { noremap = true, desc = "LSP Signature Help" })
 vim.api.nvim_set_keymap('n','<leader>ld',':lua vim.lsp.buf.definition()<CR>',
     { noremap = true, desc = "LSP Definition/Declaration" })
+vim.api.nvim_set_keymap('n','<leader>lc',':lua vim.lsp.buf.code_action()<CR>',
+    { noremap = true, desc = "LSP Code Action (Fixes/refactor del LSP)" })
 vim.api.nvim_set_keymap('n','<leader>lr',':lua vim.lsp.buf.references()<CR>',
     { noremap = true, desc = "LSP References" })
+vim.api.nvim_set_keymap('n','<leader>lR',':lua vim.lsp.buf.rename()<CR>',
+    { noremap = true, desc = "LSP Rename Object/Var in project" })
+vim.api.nvim_set_keymap('n','<leader>lf',':lua vim.lsp.buf.format()<CR>',
+    { noremap = true, desc = "LSP Format current buffer" })
 
 -- Autoremove trailing spaces on insert leave
 vim.api.nvim_create_autocmd("InsertLeave", {
@@ -131,7 +148,13 @@ vim.api.nvim_create_user_command('MarkdownView', function()
     -- WSL
     if vim.loop.os_uname().release:find("WSL") then
         local windows_filepath = vim.fn.system('wslpath -w "' .. filepath .. '"')
-        vim.fn.jobstart({'/mnt/c/Users/dmorenog/AppData/Local/Microsoft/WindowsApps/firefox.exe', windows_filepath}, { detach = true })
+        vim.fn.jobstart(
+            {
+                '/mnt/c/Users/dmorenog/AppData/Local/Microsoft/WindowsApps/firefox.exe',
+                windows_filepath
+            },
+            { detach = true }
+        )
 
     -- Linux
     elseif vim.loop.os_uname().sysname:find("Linux") then

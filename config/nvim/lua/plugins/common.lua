@@ -1,9 +1,6 @@
 -- Common tiny plugins
 
 return {
-    -- Nvim nio
-    {"nvim-neotest/nvim-nio"},
-
     -- Webdev icons
     {
         'nvim-tree/nvim-web-devicons',
