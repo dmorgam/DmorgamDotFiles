@@ -9,16 +9,16 @@ return {
                 options = {
                     theme = 'catppuccin-nvim',
                     component_separators = { left = '', right = '' },
-                    section_separators = { left = '', right = '' },
+                    section_separators = { left = '', right = '' },
                     globalstatus = true
                 },
                 sections = {
-                    lualine_a = { { 'mode', separator = { left = '' } } },
+                    lualine_a = { { 'mode', separator = { left = '', right = '' } } },
                     lualine_b = {'branch', 'diff', 'diagnostics'},
                     lualine_c = { {'filename', path = 1} },
                     lualine_x = {'encoding', 'fileformat', 'filetype'},
                     lualine_y = {'progress','location'},
-                    lualine_z = { { 'tabs', separator = { right = '' } } }
+                    lualine_z = { { 'tabs', separator = { left = '', right = '' } } }
                 },
                 winbar = {
                     lualine_b = { 'filetype' },

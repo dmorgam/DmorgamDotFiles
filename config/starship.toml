@@ -59,7 +59,7 @@ mantle = "#181825"
 crust = "#11111b"
 
 [username]
-format = '[](fg:mauve)[󱐋 ](bg:mauve fg:base)[ $user](bg:base fg:mauve)[](fg:base)'
+format = '[](fg:mauve)[󱐋](bg:mauve fg:base)[$user ](bg:base fg:mauve)[](fg:base)'
 
 disabled = false
 show_always = true
@@ -70,98 +70,98 @@ error_symbol = "[❯](fg:red)"
 vimcmd_symbol = "[❮](fg:green)"
 
 [directory]
-format = " [](fg:sapphire)[ ](bg:sapphire fg:base)[ $path ](bg:base fg:sapphire)[$read_only](bg:sapphire fg:yellow)[](fg:base)"
+format = "[](fg:sapphire)[](bg:sapphire fg:base)[$path ](bg:base fg:sapphire)[$read_only](bg:sapphire fg:yellow)[](fg:base)"
 truncation_length = 3
 truncation_symbol = "…/"
 truncate_to_repo = true
 read_only ="  "
 
 [cmd_duration]
-format = " [](fg:maroon)[ ](bg:maroon fg:base)[ $duration](bg:base fg:maroon)[](fg:base)"
+format = "[](fg:maroon)[](bg:maroon fg:base)[$duration ](bg:base fg:maroon)[](fg:base)"
 min_time = 500
 
 [git_branch]
-format = " [](fg:yellow)[ ](fg:base bg:yellow)[ $branch](fg:yellow bg:base)[](fg:base)"
+format = "[](fg:yellow)[](fg:base bg:yellow)[$branch ](fg:yellow bg:base)[](fg:base)"
 
 [git_status]
-format = '[ ](fg:peach)[ ](bg:peach fg:base)[ $all_status$ahead_behind ](bg:base fg:peach)[](fg:base)'
+format = '[](fg:peach)[](bg:peach fg:base)[$all_status$ahead_behind ](bg:base fg:peach)[](fg:base)'
 up_to_date = ''
 
 [java]
-format = "[ ](fg:flamingo)[$symbol](bg:flamingo fg:base)[ $version](bg:base fg:flamingo)[](fg:base)"
+format = "[](fg:flamingo)[$symbol](bg:flamingo fg:base)[$version ](bg:base fg:flamingo)[](fg:base)"
 version_format = "${raw}"
-symbol = " "
+symbol = ""
 disabled = false
 
 [nodejs]
-format = "[ ](fg:yellow)[$symbol](bg:yellow fg:base)[ $version](bg:base fg:yellow)[](fg:base)"
-symbol = " "
+format = "[](fg:yellow)[$symbol](bg:yellow fg:base)[$version ](bg:base fg:yellow)[](fg:base)"
+symbol = ""
 version_format = "${raw}"
 disabled=false
 
 [rust]
-format = "[ ](fg:red)[$symbol](bg:red fg:base)[ $version](bg:base fg:red)[](fg:base)"
-symbol = " "
+format = "[](fg:red)[$symbol](bg:red fg:base)[$version ](bg:base fg:red)[](fg:base)"
+symbol = ""
 version_format = "${raw}"
 disabled=false
 
 [python]
-format = '[ ](fg:green)[${symbol}](bg:green fg:base)[ ${pyenv_prefix}(${version} )(\($virtualenv\))](bg:base fg:green)[](fg:base)'
-symbol = " "
+format = '[](fg:green)[${symbol}](bg:green fg:base)[${pyenv_prefix}(${version} )(\($virtualenv\))](bg:base fg:green)[](fg:base)'
+symbol = ""
 version_format = "${raw}"
 disabled=false
 
 [c]
-format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ ($version(-$name) )](bg:base fg:blue)[](fg:base)"
-symbol = " "
+format = "[](fg:blue)[$symbol](bg:blue fg:base)[($version(-$name) )](bg:base fg:blue)[](fg:base)"
+symbol = ""
 version_format = "${raw}"
 disabled=true
 
 [golang]
-format = "[ ](fg:teal)[$symbol](bg:teal fg:base)[ $version](bg:base fg:teal)[](fg:base)"
-symbol = " "
+format = "[](fg:teal)[$symbol](bg:teal fg:base)[$version ](bg:base fg:teal)[](fg:base)"
+symbol = ""
 version_format = "${raw}"
 disabled=false
 
 [helm]
-format = "[ ](fg:sky)[$symbol](bg:sky fg:base)[ $version](bg:base fg:sky)[](fg:base)"
-symbol = " "
+format = "[](fg:sky)[$symbol](bg:sky fg:base)[$version ](bg:base fg:sky)[](fg:base)"
+symbol = ""
 version_format = "${raw}"
 disabled=false
 
 [lua]
-format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ $version](bg:base fg:blue)[](fg:base)"
-symbol = " "
+format = "[](fg:blue)[$symbol](bg:blue fg:base)[$version ](bg:base fg:blue)[](fg:base)"
+symbol = ""
 version_format = "${raw}"
 disabled=false
 
 [terraform]
-format = "[ ](fg:mauve)[$symbol](bg:mauve fg:base)[ $version $workspace](bg:base fg:mauve)[](fg:base)"
-symbol = " "
+format = "[](fg:mauve)[$symbol](bg:mauve fg:base)[$version $workspace ](bg:base fg:mauve)[](fg:base)"
+symbol = ""
 version_format = "${raw}"
 disabled=false
 
 [aws]
-format = "[ ](fg:peach)[$symbol](bg:peach fg:base)[ $region](bg:base fg:peach)[](fg:base)"
-symbol = " "
+format = "[](fg:peach)[$symbol](bg:peach fg:base)[$region ](bg:base fg:peach)[](fg:base)"
+symbol = ""
 disabled=false
 
 [azure]
-format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ $subscription](bg:base fg:blue)[](fg:base)"
-symbol = "󰠅 "
+format = "[](fg:blue)[$symbol](bg:blue fg:base)[$subscription ](bg:base fg:blue)[](fg:base)"
+symbol = "󰠅"
 disabled=false
 
 [kubernetes]
-format = "[ ](fg:blue)[$symbol](bg:blue fg:base)[ $context](bg:base fg:blue)[](fg:base)"
-symbol = "☸  "
+format = "[](fg:blue)[$symbol](bg:blue fg:base)[$context ](bg:base fg:blue)[](fg:base)"
+symbol = "☸ "
 disabled=false
 
 [status]
-format = '[ $symbol](fg:red)[ $status](fg:peach)'
+format = '[ $symbol](fg:red)[ $status ](fg:peach)'
 symbol = "✘"
 disabled = false
 
 [jobs]
-format = "[ $symbol $number](fg:peach)"
+format = "[ $symbol $number ](fg:peach)"
 symbol = ""
 threshold = 1
