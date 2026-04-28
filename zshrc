@@ -96,6 +96,24 @@ if (( ! IS_TTY ))
 then
   normalBanner
   eval "$(starship init zsh)"
+
+  typeset -g _LAST_CMD_STATUS=0
+  function _capture_status() { _LAST_CMD_STATUS=$? }
+  precmd_functions=(_capture_status ${precmd_functions:#_capture_status})
+
+  function _transient_accept_line() {
+    local saved_prompt=$PROMPT saved_rprompt=$RPROMPT
+    local color=green
+    (( _LAST_CMD_STATUS != 0 )) && color=red
+    PROMPT="%F{$color}❯%f "
+    RPROMPT=''
+    zle reset-prompt
+    PROMPT=$saved_prompt
+    RPROMPT=$saved_rprompt
+    zle .accept-line
+  }
+
+  zle -N accept-line _transient_accept_line
 else
   ttyBanner
   export PS1="%B%F{yellow}%n%f%b@%B%F{blue}%m%f%b %F{white}%~%  > "

@@ -46,7 +46,10 @@ return {
                     explorer = {
                         layout = {
                             preset = "sidebar",
-                            preview = true
+                            preview = true,
+                            layout = {
+                                width = 0.2
+                            }
                         },
                         hidden = true,
                     },
