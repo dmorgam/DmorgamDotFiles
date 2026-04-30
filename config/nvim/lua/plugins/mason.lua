@@ -15,6 +15,7 @@ return {
                "bashls",
                "helm_ls",
                "lua_ls",
+               "gopls",
                "powershell_es",
                "basedpyright",
                "terraformls",

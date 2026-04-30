@@ -67,6 +67,52 @@ vim.lsp.config.basedpyright = {
     }
 }
 
+-- Go
+vim.lsp.config.gopls = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/bin/gopls"),
+        "serve"
+    },
+    filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+    root_markers = { 'go.work', 'go.mod', 'go.sum', '.git' },
+    settings = {
+        gopls = {
+            gofumpt = true,
+            staticcheck = true,
+            usePlaceholders = true,
+            completeUnimported = true,
+            analyses = {
+                unusedparams = true,
+                unusedwrite = true,
+                unusedvariable = true,
+                shadow = true,
+                nilness = true,
+                useany = true,
+                fieldalignment = false,
+            },
+            hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+            },
+            codelenses = {
+                gc_details = true,
+                generate = true,
+                regenerate_cgo = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+            },
+        }
+    }
+}
+
 -- Typescript
 vim.lsp.config.vtsls = {
     capabilities = capabilities,
@@ -144,3 +190,4 @@ vim.lsp.enable('yamlls')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('helm_ls')
 vim.lsp.enable('bashls')
+vim.lsp.enable('gopls')
