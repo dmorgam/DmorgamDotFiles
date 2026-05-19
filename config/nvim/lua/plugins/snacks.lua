@@ -45,13 +45,14 @@ return {
                 sources = {
                     explorer = {
                         layout = {
-                            preset = "sidebar",
+                            preset = "dropdown",
                             preview = true,
                             layout = {
                                 width = 0.2
                             }
                         },
                         hidden = true,
+                        auto_close = true,
                     },
                 },
             },

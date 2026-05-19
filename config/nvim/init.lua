@@ -90,6 +90,8 @@ vim.keymap.set('n','<leader>fh',function() Snacks.picker.help() end,
     { desc = "Help Tags" })
 vim.keymap.set('n','<leader>fr',function() Snacks.picker.recent() end,
     { desc = "Recent Files" })
+vim.keymap.set('n','<leader>o',function() Snacks.picker.lsp_symbols() end,
+    { desc = "Document Symbols" })
 vim.keymap.set('n','<leader>fs',function() Snacks.picker.lsp_symbols() end,
     { desc = "Document Symbols" })
 vim.keymap.set('n','<leader>fw',function() Snacks.picker.lsp_workspace_symbols() end,
