@@ -64,7 +64,42 @@ vim.lsp.config.basedpyright = {
         'Pipfile',
         'pyrightconfig.json',
         '.git'
-    }
+    },
+    settings = {
+        basedpyright = {
+            analysis = {
+                typeCheckingMode = "standard",
+                diagnosticSeverityOverrides = {
+                    reportMissingTypeStubs = false,
+                    reportUnknownMemberType = false,
+                    reportUnknownArgumentType = false,
+                    reportUnknownVariableType = false,
+                    reportUnknownParameterType = false,
+                    reportAny = false,
+                    reportExplicitAny = false,
+                    reportUnusedCallResult = false,
+                    reportImplicitOverride = false,
+                },
+            },
+            disableOrganizeImports = true,
+        },
+    },
+}
+
+-- Ruff (Python lint + format)
+vim.lsp.config.ruff = {
+    capabilities = capabilities,
+    cmd = {
+        vim.fn.expand("$MASON/bin/ruff"),
+        "server"
+    },
+    filetypes = { 'python' },
+    root_markers = {
+        'pyproject.toml',
+        'ruff.toml',
+        '.ruff.toml',
+        '.git'
+    },
 }
 
 -- Go
@@ -184,6 +219,7 @@ vim.lsp.config.helm_ls = {
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('powershell_es')
 vim.lsp.enable('basedpyright')
+vim.lsp.enable('ruff')
 vim.lsp.enable('vtsls')
 vim.lsp.enable('terraformls')
 vim.lsp.enable('yamlls')

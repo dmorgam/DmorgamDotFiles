@@ -7,7 +7,6 @@ return {
 
       require('lint').linters_by_ft = {
         yaml      = {'yamllint'},
-        python    = {'pylint'},
         sh        = {'shellcheck'},
         markdown  = {'markdownlint'},
         groovy    = {'npm-groovy-lint'},

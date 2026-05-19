@@ -17,8 +17,8 @@ return {
         config = function ()
 
             require('neogit').setup({
-                kind = 'split',
-                graph_style = 'unicode'
+                kind = 'tab',
+                graph_style = 'unicode',
             })
 
         end

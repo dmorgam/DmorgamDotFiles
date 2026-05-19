@@ -18,6 +18,7 @@ return {
                "gopls",
                "powershell_es",
                "basedpyright",
+               "ruff",
                "terraformls",
                "vtsls",
                "yamlls",
