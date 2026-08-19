@@ -74,6 +74,26 @@ mkdir -p "${HOME}/.config/ranger/"
 # Hyprland
 cp -r "$HYPR_BASEDIR/../config/hypr/" "${HOME}/.config/"
 
+# Hyprland 0.56+ carga hyprland.lua; el formato .conf pierde soporte en 0.57.
+# Limpia el hyprland.conf que dejaron las instalaciones previas a la migracion
+# (`cp -r` no borra, y tenerlo suelto confunde: Hyprland lo ignora si hay .lua).
+#
+# OJO: si Hyprland esta corriendo y arranco con el .conf, borrarlo en caliente
+# hace que regenere un stub por defecto y recargue con el -> te quedas sin
+# keybinds hasta el siguiente login. El formato (.conf vs .lua) se decide una
+# sola vez al arrancar el compositor, no en `hyprctl reload`. Por eso solo se
+# borra con Hyprland parado.
+#
+# theme.conf NO se toca: hyprlock sigue en formato .conf y hace `source` de el.
+if pgrep -x Hyprland > /dev/null 2>&1
+then
+  echo " ! Hyprland en ejecucion: dejo hyprland.conf en su sitio."
+  echo "   Cierra sesion y vuelve a entrar: se cargara hyprland.lua."
+  echo "   Despues ya puedes borrar ~/.config/hypr/hyprland.conf"
+else
+  rm -f "${HOME}/.config/hypr/hyprland.conf"
+fi
+
 # Waybar
 cp -r "$HYPR_BASEDIR/../config/waybar/" "${HOME}/.config/"
 
