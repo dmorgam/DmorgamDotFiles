@@ -55,7 +55,7 @@
         "timezone": "Europe/Madrid",
         "tooltip-format": "<tt><big>{calendar}</big></tt>",
         "format": "{:%H:%M  %d/%m}",
-        "on-click": "firefox --new-tab https://calendar.google.com/calendar/u/0/r && hyprctl dispatch workspace 2"
+        "on-click": "firefox --new-tab https://calendar.google.com/calendar/u/0/r && hyprctl dispatch 'hl.dsp.focus({workspace=2})'"
     },
     "backlight": {
         "device": "intel_backlight",
