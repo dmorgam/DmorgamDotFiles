@@ -1,11 +1,13 @@
 -- LSP Config with internal api
 
--- cmp integration
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Capabilities de blink.cmp para todos los servidores (nvim >= 0.11).
+-- Sustituye a repetir capabilities en cada vim.lsp.config.
+vim.lsp.config('*', {
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
+})
 
 -- Lua LS
 vim.lsp.config.lua_ls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/lua-language-server")
     },
@@ -17,7 +19,6 @@ vim.lsp.config.lua_ls = {
             diagnostics = {
                 globals = {'vim'},
             },
-            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
             telemetry = { enable = false },
         },
     },
@@ -25,7 +26,6 @@ vim.lsp.config.lua_ls = {
 
 -- Powershell LSP
 vim.lsp.config.powershell_es = {
-    capabilities = capabilities,
     filetypes = { "ps1" },
     root_markers = { '.git', '*.psd1', '*.psm1' },
     cmd = {
@@ -50,7 +50,6 @@ vim.lsp.config.powershell_es = {
 
 -- Python
 vim.lsp.config.basedpyright = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/basedpyright-langserver"),
         "--stdio"
@@ -88,7 +87,6 @@ vim.lsp.config.basedpyright = {
 
 -- Ruff (Python lint + format)
 vim.lsp.config.ruff = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/ruff"),
         "server"
@@ -104,7 +102,6 @@ vim.lsp.config.ruff = {
 
 -- Go
 vim.lsp.config.gopls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/gopls"),
         "serve"
@@ -150,7 +147,6 @@ vim.lsp.config.gopls = {
 
 -- Typescript
 vim.lsp.config.vtsls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/vtsls"),
         "--stdio"
@@ -161,7 +157,6 @@ vim.lsp.config.vtsls = {
 
 -- Terraform
 vim.lsp.config.terraformls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/terraform-ls"),
         "serve"
@@ -172,7 +167,6 @@ vim.lsp.config.terraformls = {
 
 -- Yaml
 vim.lsp.config.yamlls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/yaml-language-server"),
         "--stdio"
@@ -183,7 +177,6 @@ vim.lsp.config.yamlls = {
 
 -- Json
 vim.lsp.config.jsonls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/vscode-json-language-server"),
         "--stdio"
@@ -194,7 +187,6 @@ vim.lsp.config.jsonls = {
 
 -- Bash
 vim.lsp.config.bashls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/bash-language-server"),
         "start"
@@ -205,7 +197,6 @@ vim.lsp.config.bashls = {
 
 -- Helm
 vim.lsp.config.helm_ls = {
-    capabilities = capabilities,
     cmd = {
         vim.fn.expand("$MASON/bin/helm_ls"),
         "serve",

@@ -7,10 +7,22 @@ local diagnostic_signs = {
     [vim.diagnostic.severity.HINT] = "󰌵",
 }
 
+-- Los diagnostics de plugins (lazy.nvim, mason, ...) no traen source ni code:
+-- sin este fallback string.format los imprime como "nil (nil)".
 local function diagnostic_format(diagnostic)
+    local icon = diagnostic_signs[diagnostic.severity] or ""
+
+    if not diagnostic.source then
+        return string.format("%s %s", icon, diagnostic.message)
+    end
+
+    if not diagnostic.code then
+        return string.format("%s %s", icon, diagnostic.source)
+    end
+
     return string.format(
         "%s %s (%s)",
-        diagnostic_signs[diagnostic.severity],
+        icon,
         diagnostic.source,
         diagnostic.code
     )

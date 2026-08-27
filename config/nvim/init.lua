@@ -20,6 +20,9 @@ vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
 vim.o.cmdheight = 0
 
+-- Bordes por defecto en todas las ventanas flotantes (hover, diagnostics, ...)
+vim.o.winborder = "rounded"
+
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
@@ -126,8 +129,9 @@ vim.api.nvim_set_keymap('n','<leader>lr',':lua vim.lsp.buf.references()<CR>',
     { noremap = true, desc = "LSP References" })
 vim.api.nvim_set_keymap('n','<leader>lR',':lua vim.lsp.buf.rename()<CR>',
     { noremap = true, desc = "LSP Rename Object/Var in project" })
-vim.api.nvim_set_keymap('n','<leader>lf',':lua vim.lsp.buf.format()<CR>',
-    { noremap = true, desc = "LSP Format current buffer" })
+vim.keymap.set({ 'n', 'v' }, '<leader>lf', function()
+    require('conform').format({ async = true })
+end, { desc = "Format current buffer (conform, fallback al LSP)" })
 
 -- Autoremove trailing spaces on insert leave
 vim.api.nvim_create_autocmd("InsertLeave", {

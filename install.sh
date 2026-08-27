@@ -18,7 +18,7 @@ showHelp () {
 
 installNvim () {
     echo "Copiando config..."
-    rm -rf "$HOME/config/nvim"
+    rm -rf "$HOME/.config/nvim"
     mkdir -p ~/.config/nvim
     cp -rf "$BASEDIR/config/nvim" "$HOME/.config/"
 

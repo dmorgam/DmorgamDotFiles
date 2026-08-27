@@ -55,7 +55,8 @@ source "$HOME/.zsh/zsh-syntax-highlighting-theme.zsh"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # Default editor
-EDITOR=nvim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # Bat theme
 export BAT_THEME='ansi'
