@@ -49,6 +49,7 @@ installZsh () {
   echo "Copiando config..."
 
   cp -f "$BASEDIR/zshrc" "$HOME/.zshrc"
+  cp -f "$BASEDIR/zshenv" "$HOME/.zshenv"
   mkdir -p "$HOME/.zsh"
   cp -rf "$BASEDIR"/zsh/* "$HOME/.zsh"
   cp -f "$BASEDIR/config/starship.toml" "$HOME/.config/starship.toml"

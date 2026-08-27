@@ -42,7 +42,8 @@ fi
 
 # -- Local vars --------------------------------------------
 
-PATH="$PATH:/$HOME/.local/bin"
+# PATH se define en ~/.zshenv, no aqui: .zshrc no se lee en shells no
+# interactivos y la sesion de Hyprland que lanza SDDM es una de ellas.
 
 # Enable vi mode
 bindkey -v
