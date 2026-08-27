@@ -46,6 +46,11 @@ packages:
       - mtpfs
       - gvfs-mtp
 
+      # Screenshot
+      - grim
+      - swappy
+      - slurp
+
       # Other deps
       - kitty
       - rofi-wayland
