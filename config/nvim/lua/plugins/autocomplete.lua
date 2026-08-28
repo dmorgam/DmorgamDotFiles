@@ -11,8 +11,15 @@ return {
                 paths = vim.fn.stdpath("config") .. "/lua/snippets"
             })
 
-            -- For toggle choice nodes
-            vim.keymap.set({ "i", "s" }, "<C-e>", "<Plug>luasnip-next-choice", {})
+            -- For toggle choice nodes.
+            -- Sin <Plug>: vim.keymap.set no remapea por defecto (noremap=1) y el
+            -- <Plug> quedaria sin resolver.
+            vim.keymap.set({ "i", "s" }, "<C-e>", function()
+                local luasnip = require("luasnip")
+                if luasnip.choice_active() then
+                    luasnip.change_choice(1)
+                end
+            end, { desc = "LuaSnip: siguiente opcion del choice node" })
 
         end
     },
@@ -38,6 +45,9 @@ return {
                 ['<C-Space>'] = { 'show', 'show_documentation', 'hide_documentation', 'fallback' },
                 ['<C-e>']     = { 'hide', 'fallback' },
                 ['<CR>']      = { 'accept', 'fallback' },
+                -- No meter funciones custom que llamen a luasnip.jump/expand aqui:
+                -- blink registra estos keymaps con expr=true y el textlock rompe la
+                -- sesion de LuaSnip. snippet_forward/backward ya lo hacen bien.
                 ['<Tab>']     = { 'select_next', 'snippet_forward', 'fallback' },
                 ['<S-Tab>']   = { 'select_prev', 'snippet_backward', 'fallback' },
             },
