@@ -1,4 +1,4 @@
--- Snippets para MarkDown
+-- Snippets para ShCompliant
 
 local ls = require("luasnip")
 

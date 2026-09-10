@@ -1,4 +1,4 @@
--- Snippets para MarkDown
+-- Snippets para Lua
 
 local ls = require("luasnip")
 

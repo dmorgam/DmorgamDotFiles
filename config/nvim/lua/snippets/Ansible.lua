@@ -1,4 +1,4 @@
--- Snippets para Python
+-- Snippets para Ansible
 
 local ls = require("luasnip")
 
