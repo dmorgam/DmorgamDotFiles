@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# commit-msg - enforce Conventional Commits. Scope is mandatory.
+set -euo pipefail
+
+msg_file="$1"
+
+types='build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test'
+scope_re='[a-z0-9._/-]+'
+
+# This hook lives in a global core.hooksPath, which shadows .git/hooks for
+# every repo. Run the repo's own hook first so it is not silently skipped,
+# and so we validate whatever message it may have rewritten.
+# NOTE: --git-path honours core.hooksPath and would resolve back to this very
+# file, so build the path from the git dir instead. The realpath guard covers
+# repos that symlink their hook here.
+repo_hook="$(git rev-parse --absolute-git-dir)/hooks/commit-msg"
+canon() { realpath -- "$1" 2>/dev/null || printf '%s' "$1"; }
+if [ -x "$repo_hook" ] && [ "$(canon "$repo_hook")" != "$(canon "$0")" ]; then
+    "$repo_hook" "$@" || exit $?
+fi
+
+comment_char="$(git config --get core.commentChar 2>/dev/null || true)"
+case "$comment_char" in ''|auto) comment_char='#' ;; esac
+
+# First non-comment, non-blank line is the subject.
+subject="$(grep -v "^[${comment_char}]" -- "$msg_file" | grep -m1 -v '^[[:space:]]*$' || true)"
+
+# Empty message: let git abort with its own error.
+[ -z "$subject" ] && exit 0
+
+# Never touch git-generated subjects.
+case "$subject" in
+    "Merge "*|"Revert "*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;
+esac
+
+if printf '%s\n' "$subject" | grep -qE "^(${types})\(${scope_re}\)!?: .+$"; then
+    exit 0
+fi
+
+cat >&2 <<EOF
+
+  Commit rejected: subject is not a valid Conventional Commit.
+
+    got:      ${subject}
+    expected: <type>(<scope>): <description>
+
+  Types: ${types//|/, }
+  Scope: mandatory, must match ${scope_re}
+  Break: put '!' before the colon -> feat(api)!: drop v1 endpoint
+
+  Examples:
+    feat(nvim): add conventional commit hook
+    fix(hyprland): correct dpms dispatch args
+    chore(deps)!: bump treesitter to main branch
+
+EOF
+exit 1

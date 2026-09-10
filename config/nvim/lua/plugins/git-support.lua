@@ -19,6 +19,7 @@ return {
             require('neogit').setup({
                 kind = 'tab',
                 graph_style = 'unicode',
+                auto_show_console_on = 'error',
             })
 
         end

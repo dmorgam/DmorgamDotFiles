@@ -1,0 +1,21 @@
+
+# <type>(<scope>): <description>
+#
+#   feat(nvim): add neogit commit hook
+#   fix(hyprland): correct dpms dispatch args
+#   docs(readme): document the --git install flag
+#   style(zsh): align the aliases block
+#   refactor(waybar): extract workspace module config
+#   perf(nvim): lazy-load treesitter parsers
+#   test(install): cover the --git flag
+#   build(nvim): pin lazy-lock to the working set
+#   ci(actions): pin runner image to 24.04
+#   chore(deps): bump starship to 1.23
+#   revert(kitty): undo the font size change
+#
+#   scope  mandatory, lowercase: [a-z0-9._/-]
+#   !      before the colon marks a breaking change
+#          chore(deps)!: bump treesitter to main branch
+#
+# Body (optional, after a blank line): why, not what.
+# Footer (optional): BREAKING CHANGE: <what breaks>  |  Refs: #123

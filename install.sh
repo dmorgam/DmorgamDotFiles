@@ -10,6 +10,7 @@ showHelp () {
   echo "    --zsh            -  Instala la config de zsh."
   echo "    --tmux           -  Instala la config de tmux."
   echo "    --etc            -  Instala la config de etc del sistema."
+  echo "    --git            -  Instala los git hooks globales."
   echo "    --hyprland       -  Instala hyprland y su config."
   echo "    --mutt           -  Instala config de mutt."
   echo "    --kitty          -  Instala config de kitty."
@@ -92,6 +93,20 @@ installScripts () {
   cp -rf "$BASEDIR"/local/bin/* "$HOME/.local/bin/"
 }
 
+installGit () {
+  echo "Copiando git hooks globales ..."
+  mkdir -p "$HOME/.config/git/hooks"
+  cp -f "$BASEDIR"/config/git/hooks/* "$HOME/.config/git/hooks/"
+  chmod +x "$HOME"/.config/git/hooks/*
+
+  echo "Apuntando core.hooksPath a ~/.config/git/hooks ..."
+  git config --global core.hooksPath "$HOME/.config/git/hooks"
+
+  echo "Copiando plantilla de commit ..."
+  cp -f "$BASEDIR/config/git/commit-template" "$HOME/.config/git/commit-template"
+  git config --global commit.template "$HOME/.config/git/commit-template"
+}
+
 installHyprland () {
   echo "Saltando al instalador de hyprland ..."
   sh "$BASEDIR/hyprland/install.sh"
@@ -114,6 +129,9 @@ case $1 in
     ;;
   '--etc')
     installEtc
+    ;;
+  '--git')
+    installGit
     ;;
   '--hyprland')
     installHyprland
