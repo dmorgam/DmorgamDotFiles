@@ -50,7 +50,7 @@ vim.opt.colorcolumn = "80"
 vim.opt.showtabline = 0
 
 -- Colorscheme
-vim.cmd('colorscheme catppuccin-macchiato')
+vim.cmd('colorscheme catppuccin')
 
 -- Color completion menu with normal float for clarity
 vim.api.nvim_set_hl(0, "Pmenu", { bg = vim.api.nvim_get_hl(0, { name = "NormalFloat" }).bg })

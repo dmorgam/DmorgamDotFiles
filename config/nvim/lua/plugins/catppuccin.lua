@@ -6,7 +6,14 @@ return {
     name = "catppuccin",
     priority = 1000,
     opts = {
-      transparent_background = false
+      flavour = "macchiato",
+      transparent_background = false,
+      custom_highlights = function(C)
+        return {
+          StatusLine = { bg = C.none },
+          StatusLineNC = { bg = C.none },
+        }
+      end,
     }
   },
 }

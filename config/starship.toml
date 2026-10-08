@@ -1,30 +1,26 @@
 format = """\
-[╭╴](fg:lavender)\
 $username\
 $directory\
-(\
-    $git_branch\
-    $git_status\
-)\
-(\
-    $python\
-    $nodejs\
-    $java\
-    $golang\
-    $helm\
-    $rust\
-    $lua\
-    $terraform\
-    $aws\
-    $azure\
-    $kubernetes\
-)
-[╰─](fg:lavender)$status$jobs$character\
+$git_branch\
+$git_status\
+$python\
+$nodejs\
+$java\
+$golang\
+$rust\
+$lua\
+$helm\
+$terraform\
+$aws\
+$azure\
+$kubernetes\
+$line_break\
+$status\
+$jobs\
+$character\
 """
 
-right_format = """\
-$cmd_duration\
-"""
+right_format = "$cmd_duration"
 
 add_newline = true
 
@@ -59,109 +55,109 @@ mantle = "#181825"
 crust = "#11111b"
 
 [username]
-format = '[](fg:mauve)[󱐋](bg:mauve fg:base)[$user ](bg:base fg:mauve)[](fg:base)'
-
-disabled = false
+format = "[󱐋 $user](fg:mauve)[ · ](fg:overlay0)"
 show_always = true
+disabled = false
+
+[directory]
+format = "[ $path](fg:sapphire)[$read_only](fg:yellow)"
+truncation_length = 1
+fish_style_pwd_dir_length = 1
+truncation_symbol = "…/"
+truncate_to_repo = true
+read_only = " "
+
+[git_branch]
+format = "[ · ](fg:overlay0)[ $branch](fg:yellow)"
+
+[git_status]
+format = "[ · ](fg:overlay0)[ $all_status$ahead_behind](fg:peach)"
+up_to_date = ""
+
+[java]
+format = "[ · ](fg:overlay0)[$symbol $version](fg:flamingo)"
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[nodejs]
+format = "[ · ](fg:overlay0)[$symbol $version](fg:yellow)"
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[rust]
+format = "[ · ](fg:overlay0)[$symbol $version](fg:red)"
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[python]
+format = '[ · ](fg:overlay0)[${symbol} ${pyenv_prefix}(${version})( \($virtualenv\))](fg:green)'
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[c]
+format = "[ · ](fg:overlay0)[$symbol ($version(-$name))](fg:blue)"
+symbol = ""
+version_format = "${raw}"
+disabled = true
+
+[golang]
+format = "[ · ](fg:overlay0)[$symbol $version](fg:teal)"
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[helm]
+format = "[ · ](fg:overlay0)[$symbol $version](fg:sky)"
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[lua]
+format = "[ · ](fg:overlay0)[$symbol $version](fg:blue)"
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[terraform]
+format = "[ · ](fg:overlay0)[$symbol $version $workspace](fg:mauve)"
+symbol = ""
+version_format = "${raw}"
+disabled = false
+
+[aws]
+format = "[ · ](fg:overlay0)[$symbol $region](fg:peach)"
+symbol = ""
+disabled = false
+
+[azure]
+format = "[ · ](fg:overlay0)[$symbol $subscription](fg:blue)"
+symbol = "󰠅"
+disabled = false
+
+[kubernetes]
+format = "[ · ](fg:overlay0)[$symbol $context](fg:blue)"
+symbol = "☸ "
+disabled = false
+
+[cmd_duration]
+format = "[ $duration](fg:maroon)"
+min_time = 500
+
+[status]
+format = "[$symbol](fg:red)[ $status ](fg:peach)"
+symbol = "✘"
+disabled = false
+
+[jobs]
+format = "[$symbol $number ](fg:peach)"
+symbol = ""
+threshold = 1
 
 [character]
 success_symbol = "[❯](fg:green)"
 error_symbol = "[❯](fg:red)"
 vimcmd_symbol = "[❮](fg:green)"
-
-[directory]
-format = "[](fg:sapphire)[](bg:sapphire fg:base)[$path ](bg:base fg:sapphire)[$read_only](bg:sapphire fg:yellow)[](fg:base)"
-truncation_length = 3
-truncation_symbol = "…/"
-truncate_to_repo = true
-read_only ="  "
-
-[cmd_duration]
-format = "[](fg:maroon)[](bg:maroon fg:base)[$duration ](bg:base fg:maroon)[](fg:base)"
-min_time = 500
-
-[git_branch]
-format = "[](fg:yellow)[](fg:base bg:yellow)[$branch ](fg:yellow bg:base)[](fg:base)"
-
-[git_status]
-format = '[](fg:peach)[](bg:peach fg:base)[$all_status$ahead_behind ](bg:base fg:peach)[](fg:base)'
-up_to_date = ''
-
-[java]
-format = "[](fg:flamingo)[$symbol](bg:flamingo fg:base)[$version ](bg:base fg:flamingo)[](fg:base)"
-version_format = "${raw}"
-symbol = ""
-disabled = false
-
-[nodejs]
-format = "[](fg:yellow)[$symbol](bg:yellow fg:base)[$version ](bg:base fg:yellow)[](fg:base)"
-symbol = ""
-version_format = "${raw}"
-disabled=false
-
-[rust]
-format = "[](fg:red)[$symbol](bg:red fg:base)[$version ](bg:base fg:red)[](fg:base)"
-symbol = ""
-version_format = "${raw}"
-disabled=false
-
-[python]
-format = '[](fg:green)[${symbol}](bg:green fg:base)[${pyenv_prefix}(${version} )(\($virtualenv\))](bg:base fg:green)[](fg:base)'
-symbol = ""
-version_format = "${raw}"
-disabled=false
-
-[c]
-format = "[](fg:blue)[$symbol](bg:blue fg:base)[($version(-$name) )](bg:base fg:blue)[](fg:base)"
-symbol = ""
-version_format = "${raw}"
-disabled=true
-
-[golang]
-format = "[](fg:teal)[$symbol](bg:teal fg:base)[$version ](bg:base fg:teal)[](fg:base)"
-symbol = ""
-version_format = "${raw}"
-disabled=false
-
-[helm]
-format = "[](fg:sky)[$symbol](bg:sky fg:base)[$version ](bg:base fg:sky)[](fg:base)"
-symbol = ""
-version_format = "${raw}"
-disabled=false
-
-[lua]
-format = "[](fg:blue)[$symbol](bg:blue fg:base)[$version ](bg:base fg:blue)[](fg:base)"
-symbol = ""
-version_format = "${raw}"
-disabled=false
-
-[terraform]
-format = "[](fg:mauve)[$symbol](bg:mauve fg:base)[$version $workspace ](bg:base fg:mauve)[](fg:base)"
-symbol = ""
-version_format = "${raw}"
-disabled=false
-
-[aws]
-format = "[](fg:peach)[$symbol](bg:peach fg:base)[$region ](bg:base fg:peach)[](fg:base)"
-symbol = ""
-disabled=false
-
-[azure]
-format = "[](fg:blue)[$symbol](bg:blue fg:base)[$subscription ](bg:base fg:blue)[](fg:base)"
-symbol = "󰠅"
-disabled=false
-
-[kubernetes]
-format = "[](fg:blue)[$symbol](bg:blue fg:base)[$context ](bg:base fg:blue)[](fg:base)"
-symbol = "☸ "
-disabled=false
-
-[status]
-format = '[ $symbol](fg:red)[ $status ](fg:peach)'
-symbol = "✘"
-disabled = false
-
-[jobs]
-format = "[ $symbol $number ](fg:peach)"
-symbol = ""
-threshold = 1
