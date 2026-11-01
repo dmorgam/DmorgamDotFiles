@@ -2,8 +2,8 @@
 <interface>
   <object class="GtkMenu" id="menu">
     <child>
-		<object class="GtkMenuItem" id="wg-raspi">
-			<property name="label">󰯄 WireGuard Raspberry</property>
+		<object class="GtkMenuItem" id="wg-pozo">
+			<property name="label">󰯄 AmneziaWG Pozo A.</property>
         </object>
     </child>
   </object>
