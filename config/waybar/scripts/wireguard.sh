@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 VPN_DIR="${HOME}/VPN"
-IFACES="amnesiawg-pozo wg0"
+IFACES="amnesiawg-pozo aguad-onprem wg0"
 TOOLTIP="󰦜 Disconnected"
 
 # AmneziaWG usa claves de obfuscacion (Jc, Jmin, Jmax, S1, S2, H1-H4) que
@@ -48,15 +48,20 @@ then
     fi
 fi
 
-# Show mode
+# Show mode: lista todos los tuneles levantados (puede haber varios a la vez)
+CONNECTED=""
 for IFACE in $IFACES; do
   if ip link show "$IFACE" >/dev/null 2>&1
   then
-    TOOLTIP=$(ip -br addr show "$IFACE")
-
-    echo '{"text": "󰯄", "tooltip": "󰯄 '"${TOOLTIP}"'", "class": "connected"}'
-    exit 0
+    LINE=$(ip -br addr show "$IFACE" | tr -s ' ')
+    CONNECTED="${CONNECTED:+${CONNECTED}\\n}󰯄 ${LINE}"
   fi
 done
+
+if test -n "$CONNECTED"
+then
+    echo '{"text": "󰯄", "tooltip": "'"${CONNECTED}"'", "class": "connected"}'
+    exit 0
+fi
 
 echo '{"text": "󰦜", "tooltip": "'"$TOOLTIP"'", "class": "disconnected"}'

@@ -118,7 +118,8 @@
         "menu": "on-click",
         "menu-file": "~/.config/waybar/wg_menu.xml",
         "menu-actions": {
-            "wg-pozo": "~/.config/waybar/scripts/wireguard.sh toggle amnesiawg-pozo"
+            "wg-pozo": "~/.config/waybar/scripts/wireguard.sh toggle amnesiawg-pozo",
+            "wg-aguad": "~/.config/waybar/scripts/wireguard.sh toggle aguad-onprem"
         }
     },
     "custom/separator": {

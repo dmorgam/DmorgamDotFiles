@@ -6,5 +6,10 @@
 			<property name="label">󰯄 AmneziaWG Pozo A.</property>
         </object>
     </child>
+    <child>
+		<object class="GtkMenuItem" id="wg-aguad">
+			<property name="label">󰯄 WireGuard Aguad On-Prem</property>
+        </object>
+    </child>
   </object>
 </interface>
