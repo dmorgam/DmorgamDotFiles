@@ -14,4 +14,7 @@ typeset -U path PATH
 
 path+=("$HOME/.local/bin")
 
+# OpenCode (instalador oficial deja el binario aqui)
+path+=("$HOME/.opencode/bin")
+
 export PATH

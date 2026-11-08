@@ -88,6 +88,10 @@ installHerdr () {
   cp -f "$BASEDIR"/config/herdr-app/themes/*.json "$HERDR_HOME/themes/"
   rm -rf "$HERDR_HOME/mods/leader"
   cp -rf "$BASEDIR/config/herdr-app/mods/leader" "$HERDR_HOME/mods/"
+
+  echo "Copiando plugin de opencode para herdr ..."
+  mkdir -p "$HOME/.config/opencode/plugin"
+  cp -f "$BASEDIR/config/opencode/plugin/herdr.js" "$HOME/.config/opencode/plugin/herdr.js"
 }
 
 installEtc () {
