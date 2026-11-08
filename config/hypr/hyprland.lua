@@ -58,7 +58,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("sleep 2 && hyprctl reload")
 
     -- Auto apps
-    hl.exec_cmd("kitty --title 'Developer' tmux-coding-session.sh", { workspace = "1 silent" })
+    -- Herdr restaura solo sus spaces/tabs/splits (viven en herdr-core)
+    hl.exec_cmd("herdr-app", { workspace = "1 silent" })
+    -- hl.exec_cmd("kitty --title 'Developer' tmux-coding-session.sh", { workspace = "1 silent" })
     -- hl.exec_cmd("kitty --title 'Neomutt' ~/.config/mutt/tmux.sh", { workspace = "4 silent" })
     hl.exec_cmd("firefox", { workspace = "2 silent" })
 end)

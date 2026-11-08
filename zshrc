@@ -91,6 +91,9 @@ source "$HOME/.zsh/fzf.zsh"
 ## Eza
 source "$HOME/.zsh/eza.zsh"
 
+## Herdr (C-h/j/k/l entre panes)
+source "$HOME/.zsh/herdr.zsh"
+
 # -- User config -------------------------------------------
 
 

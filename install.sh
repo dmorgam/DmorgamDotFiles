@@ -9,6 +9,7 @@ showHelp () {
   echo "    --nvim --nodeps  -  Instala la config de nvim, sin dependencias."
   echo "    --zsh            -  Instala la config de zsh."
   echo "    --tmux           -  Instala la config de tmux."
+  echo "    --herdr          -  Instala config de herdr (keys tmux, catppuccin, font)."
   echo "    --etc            -  Instala la config de etc del sistema."
   echo "    --git            -  Instala los git hooks globales."
   echo "    --hyprland       -  Instala hyprland y su config."
@@ -70,6 +71,25 @@ installTmux () {
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 }
 
+installHerdr () {
+  HERDR_HOME="${HERDR_APP_HOME:-$HOME/.config/herdr-app}"
+  mkdir -p "$HERDR_HOME/mods"
+
+  if test -f "$HERDR_HOME/keys.json"
+  then
+    echo "Backup de keys.json ..."
+    cp -f "$HERDR_HOME/keys.json" "$HERDR_HOME/keys.json.bak"
+  fi
+
+  echo "Copiando config de herdr ..."
+  mkdir -p "$HERDR_HOME/themes"
+  cp -f "$BASEDIR/config/herdr-app/keys.json" "$HERDR_HOME/keys.json"
+  cp -f "$BASEDIR/config/herdr-app/settings.json" "$HERDR_HOME/settings.json"
+  cp -f "$BASEDIR"/config/herdr-app/themes/*.json "$HERDR_HOME/themes/"
+  rm -rf "$HERDR_HOME/mods/leader"
+  cp -rf "$BASEDIR/config/herdr-app/mods/leader" "$HERDR_HOME/mods/"
+}
+
 installEtc () {
   echo "Saltando al instalador de etc ..."
   sh "$BASEDIR/etc/install.sh"
@@ -126,6 +146,9 @@ case $1 in
     ;;
   '--tmux')
     installTmux
+    ;;
+  '--herdr')
+    installHerdr
     ;;
   '--etc')
     installEtc
