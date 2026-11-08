@@ -72,6 +72,14 @@ hl.env("HYPRCURSOR_SIZE", "16")
 hl.env("EDITOR", "nvim")
 hl.env("GTK_THEME", "Adwaita:dark")
 
+-- Workaround Hyprland 0.57: el realtime via rtkit (SCHED_RR + RLIMIT_RTTIME
+-- 200ms) hace que, si el hilo principal corre >200ms sin bloquear, el kernel
+-- lo mate con SIGKILL (sin crash report ni coredump) y start-hyprland lo
+-- relance en safe mode. Upstream quito el RT en main; 0.57.1 aun lo trae.
+-- Borrar esta linea cuando el paquete incluya el fix.
+-- Ref: https://github.com/hyprwm/Hyprland/pull/16843
+hl.env("HYPRLAND_NO_RT", "1")
+
 -- -- Look and feel -----------------------------
 
 hl.config({
