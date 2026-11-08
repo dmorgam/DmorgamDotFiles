@@ -10,6 +10,7 @@ showHelp () {
   echo "    --zsh            -  Instala la config de zsh."
   echo "    --tmux           -  Instala la config de tmux."
   echo "    --herdr          -  Instala config de herdr (keys tmux, catppuccin, font)."
+  echo "    --herdr-win      -  Desde WSL: copia config de herdr al herdr desktop de Windows."
   echo "    --etc            -  Instala la config de etc del sistema."
   echo "    --git            -  Instala los git hooks globales."
   echo "    --hyprland       -  Instala hyprland y su config."
@@ -94,6 +95,11 @@ installHerdr () {
   cp -f "$BASEDIR/config/opencode/plugin/herdr.js" "$HOME/.config/opencode/plugin/herdr.js"
 }
 
+installHerdrWin () {
+  echo "Saltando a la config de herdr para Windows ..."
+  sh "$BASEDIR/herdr-win/install.sh"
+}
+
 installEtc () {
   echo "Saltando al instalador de etc ..."
   sh "$BASEDIR/etc/install.sh"
@@ -153,6 +159,9 @@ case $1 in
     ;;
   '--herdr')
     installHerdr
+    ;;
+  '--herdr-win')
+    installHerdrWin
     ;;
   '--etc')
     installEtc
