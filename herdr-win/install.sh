@@ -7,6 +7,8 @@
 # Reutiliza ../install.sh --herdr con HERDR_APP_HOME apuntando al Home de
 # Windows.
 #
+# Ademas copia herdr-win/*.zsh a ~/.zsh de WSL (zshrc sourcea ~/.zsh/*.zsh).
+#
 # HERDR_WIN_HOME=<ruta WSL> fuerza el Home de herdr en Windows.
 #
 
@@ -82,3 +84,11 @@ HERDR_WIN_HOME=$(herdrHome)
 echo " + Home de herdr en Windows: $HERDR_WIN_HOME"
 
 HERDR_APP_HOME="$HERDR_WIN_HOME" sh "$REPO_DIR/install.sh" --herdr
+
+echo " + Copiando zsh de herdr para WSL ..."
+mkdir -p "$HOME/.zsh"
+cp -f "$HERDR_WIN_BASEDIR"/*.zsh "$HOME/.zsh/"
+
+echo
+echo "Falta a mano: WSLENV=HC_TERMINAL_ID/u en las variables de usuario de Windows"
+echo "(luego cerrar herdr y 'hc server stop' para que el core la coja)."

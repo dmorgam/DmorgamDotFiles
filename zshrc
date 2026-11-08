@@ -50,9 +50,6 @@ bindkey -v
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
-# Custom colors for prompt commands
-source "$HOME/.zsh/zsh-syntax-highlighting-theme.zsh"
-
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # Default editor
@@ -70,29 +67,15 @@ type batcat &> /dev/null && alias bat="batcat"
 
 # -- Tools -------------------------------------------------
 
-# Banner functions
-source "$HOME/.zsh/banner.zsh"
-
-# Man config
-source "$HOME/.zsh/man.zsh"
-
-# K8s tools
-source "$HOME/.zsh/k8s.zsh"
-
-# Cloud cli tools
-source "$HOME/.zsh/cloud.zsh"
-
-# Terraform
-source "$HOME/.zsh/terraform.zsh"
-
-## Fuzzy finder
-source "$HOME/.zsh/fzf.zsh"
-
-## Eza
-source "$HOME/.zsh/eza.zsh"
-
-## Herdr (C-h/j/k/l entre panes)
-source "$HOME/.zsh/herdr.zsh"
+# Todo ~/.zsh/*.zsh (tema de syntax highlighting, banner, man, k8s, cloud,
+# terraform, fzf, eza, herdr, y lo que copien otros installs como herdr-win).
+# Va despues de los aliases: man.zsh y fzf.zsh miran `type bat` (alias de
+# batcat) y eza.zsh usa IS_TTY.
+for zsh_file in "$HOME"/.zsh/*.zsh(N)
+do
+  source "$zsh_file"
+done
+unset zsh_file
 
 # -- User config -------------------------------------------
 
