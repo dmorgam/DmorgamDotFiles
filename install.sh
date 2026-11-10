@@ -9,7 +9,7 @@ showHelp () {
   echo "    --nvim --nodeps  -  Instala la config de nvim, sin dependencias."
   echo "    --zsh            -  Instala la config de zsh."
   echo "    --tmux           -  Instala la config de tmux."
-  echo "    --herdr          -  Instala config de herdr (keys tmux, catppuccin, font)."
+  echo "    --herdr          -  Instala config de herdr (keys tmux, catppuccin, font, hooks opencode/copilot)."
   echo "    --herdr-win      -  Desde WSL: copia config de herdr al herdr desktop de Windows."
   echo "    --etc            -  Instala la config de etc del sistema."
   echo "    --git            -  Instala los git hooks globales."
@@ -93,6 +93,11 @@ installHerdr () {
   echo "Copiando plugin de opencode para herdr ..."
   mkdir -p "$HOME/.config/opencode/plugin"
   cp -f "$BASEDIR/config/opencode/plugin/herdr.js" "$HOME/.config/opencode/plugin/herdr.js"
+
+  echo "Copiando hooks de copilot para herdr ..."
+  COPILOT_HOOKS="${COPILOT_HOME:-$HOME/.copilot}/hooks"
+  mkdir -p "$COPILOT_HOOKS"
+  cp -f "$BASEDIR"/config/copilot/hooks/herdr.json "$BASEDIR"/config/copilot/hooks/herdr-status.sh "$COPILOT_HOOKS/"
 }
 
 installHerdrWin () {

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "hooks": {
+    "userPromptSubmitted": [
+      { "type": "command", "bash": "sh \"${COPILOT_HOME:-$HOME/.copilot}/hooks/herdr-status.sh\" working", "timeoutSec": 5 }
+    ],
+    "postToolUse": [
+      { "type": "command", "bash": "sh \"${COPILOT_HOME:-$HOME/.copilot}/hooks/herdr-status.sh\" working", "timeoutSec": 5 }
+    ],
+    "postToolUseFailure": [
+      { "type": "command", "bash": "sh \"${COPILOT_HOME:-$HOME/.copilot}/hooks/herdr-status.sh\" working", "timeoutSec": 5 }
+    ],
+    "notification": [
+      { "type": "command", "bash": "sh \"${COPILOT_HOME:-$HOME/.copilot}/hooks/herdr-status.sh\" notification", "timeoutSec": 5 }
+    ],
+    "errorOccurred": [
+      { "type": "command", "bash": "sh \"${COPILOT_HOME:-$HOME/.copilot}/hooks/herdr-status.sh\" error", "timeoutSec": 5 }
+    ],
+    "agentStop": [
+      { "type": "command", "bash": "sh \"${COPILOT_HOME:-$HOME/.copilot}/hooks/herdr-status.sh\" done", "timeoutSec": 5 }
+    ],
+    "sessionEnd": [
+      { "type": "command", "bash": "sh \"${COPILOT_HOME:-$HOME/.copilot}/hooks/herdr-status.sh\" clear", "timeoutSec": 5 }
+    ]
+  }
+}
