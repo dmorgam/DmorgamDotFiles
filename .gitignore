@@ -1,0 +1,3 @@
+# Herdr: tipos y jsconfig que la app escribe en cada mod
+config/herdr-app/mods/*/gpui-kit.d.ts
+config/herdr-app/mods/*/jsconfig.json
