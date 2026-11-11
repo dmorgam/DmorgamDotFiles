@@ -1,0 +1,100 @@
+# herdr TUI (~/.config/herdr/config.toml)
+#
+# Espejo de la app (config/herdr-app): mismos atajos y catppuccin macchiato.
+#   - keys.json global       -> atajos directos (alt+..., ctrl+shift+...)
+#   - mods/leader (C-a)      -> prefix + tecla, como ~/.tmux.conf
+#   - themes/catppuccin-macchiato.json -> [theme.custom]
+#
+# tmux -> herdr:  window = tab,  session = workspace (space),  pane = pane.
+# Sin equivalente en la TUI: app.palette (C-a :, C-S-p), layout.switch (C-S-l),
+# zoom de la app (C-+/-/0), C-a ] pegar y C-a 0 (tab 10). Copy/paste y
+# ctrl+left/right los hace el terminal (kitty), no herdr.
+#
+# Comprobar:  herdr config check
+# Aplicar:    herdr server reload-config   (o C-a r)
+
+onboarding = false
+
+[theme]
+name = "catppuccin"
+
+# catppuccin macchiato (mismos colores que la app y kitty)
+[theme.custom]
+panel_bg = "reset"          # fondo de kitty (#24273a con su opacidad)
+sidebar_bg = "#1e2030"      # chrome
+active_row_bg = "#363a4f"   # border / surface0
+selection_bg = "#5b6078"    # selection
+surface0 = "#363a4f"
+surface1 = "#494d64"
+surface_dim = "#181926"     # canvas
+overlay0 = "#6e738d"
+overlay1 = "#8087a2"        # dim
+text = "#cad3f5"
+subtext0 = "#a5adcb"        # muted
+accent = "#c6a0f6"
+mauve = "#c6a0f6"
+green = "#a6da95"
+yellow = "#eed49f"
+red = "#ed8796"
+blue = "#8aadf4"
+teal = "#8bd5ca"
+peach = "#f5a97f"
+
+[ui]
+accent = "#c6a0f6"
+tab_bar_position = "top"    # status-position top de tmux
+
+[ui.sound]
+enabled = true
+
+[keys]
+# ---- Leader (mods/leader/main.js) ----
+prefix = "ctrl+a"
+
+# Splits: '"' a la derecha, '%' abajo (+ C-S-o / C-S-e de keys.json)
+split_vertical = ['prefix+"', "ctrl+shift+o"]
+split_horizontal = ["prefix+%", "ctrl+shift+e"]
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# Tabs (windows de tmux)
+new_tab = ["prefix+c", "ctrl+shift+t"]
+next_tab = ["prefix+n", "ctrl+tab", "alt+]"]
+previous_tab = ["prefix+p", "ctrl+shift+tab", "alt+["]
+rename_tab = ["prefix+comma", "f2"]
+close_tab = ["prefix+&", "ctrl+shift+w"]
+switch_tab = ["prefix+1..9", "ctrl+1..9"]
+
+# Workspaces (sessions de tmux)
+workspace_picker = ["prefix+w", "ctrl+shift+k"]
+goto = ["prefix+s", "prefix+g"]
+rename_workspace = ["prefix+$", "shift+f2"]
+previous_workspace = "prefix+("
+next_workspace = "prefix+)"
+switch_workspace = "alt+1..9"
+new_workspace = ["prefix+shift+n", "ctrl+shift+n"]
+detach = "prefix+d"
+
+# Panes
+close_pane = ["prefix+x", "ctrl+shift+x"]
+zoom = ["prefix+z", "ctrl+shift+z"]
+cycle_pane_next = ["prefix+o", "prefix+tab"]
+open_notification_target = "prefix+shift+o"
+focus_pane_left = ["prefix+h", "prefix+left", "alt+h", "alt+left"]
+focus_pane_down = ["prefix+j", "prefix+down", "alt+j"]
+focus_pane_up = ["prefix+k", "prefix+up", "alt+k"]
+focus_pane_right = ["prefix+l", "prefix+right", "alt+l", "alt+right"]
+swap_pane_left = ["prefix+{", "alt+shift+h"]
+swap_pane_down = "alt+shift+j"
+swap_pane_up = "alt+shift+k"
+swap_pane_right = ["prefix+}", "alt+shift+l"]
+copy_mode = "prefix+["
+
+# Agentes
+next_agent = "alt+down"
+previous_agent = "alt+up"
+
+# App
+help = ["prefix+?", "ctrl+shift+?"]
+settings = "ctrl+comma"
+toggle_sidebar = ["prefix+b", "ctrl+shift+b"]

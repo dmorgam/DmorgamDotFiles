@@ -9,7 +9,7 @@ showHelp () {
   echo "    --nvim --nodeps  -  Instala la config de nvim, sin dependencias."
   echo "    --zsh            -  Instala la config de zsh."
   echo "    --tmux           -  Instala la config de tmux."
-  echo "    --herdr          -  Instala config de herdr (keys tmux, catppuccin, font, hooks opencode/copilot)."
+  echo "    --herdr          -  Instala config de herdr (app + TUI: keys tmux, catppuccin, font, hooks opencode/copilot)."
   echo "    --herdr-win      -  Desde WSL: copia config de herdr al herdr desktop de Windows."
   echo "    --etc            -  Instala la config de etc del sistema."
   echo "    --git            -  Instala los git hooks globales."
@@ -89,6 +89,12 @@ installHerdr () {
   cp -f "$BASEDIR"/config/herdr-app/themes/*.json "$HERDR_HOME/themes/"
   rm -rf "$HERDR_HOME/mods/leader"
   cp -rf "$BASEDIR/config/herdr-app/mods/leader" "$HERDR_HOME/mods/"
+
+  echo "Copiando config de herdr TUI ..."
+  HERDR_TUI_CONFIG="${HERDR_CONFIG_PATH:-$HOME/.config/herdr/config.toml}"
+  mkdir -p "$(dirname "$HERDR_TUI_CONFIG")"
+  test -f "$HERDR_TUI_CONFIG" && cp -f "$HERDR_TUI_CONFIG" "$HERDR_TUI_CONFIG.bak"
+  cp -f "$BASEDIR/config/herdr/config.toml" "$HERDR_TUI_CONFIG"
 
   echo "Copiando plugin de opencode para herdr ..."
   mkdir -p "$HOME/.config/opencode/plugin"

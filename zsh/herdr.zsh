@@ -3,13 +3,22 @@
 #
 # Herdr: C-h/j/k/l mueven entre panes, como vim-tmux-navigator en tmux.
 # Nvim hace lo mismo desde su lado (plugins/vim-tmux-navigator.lua).
-# Solo dentro de un terminal de herdr y fuera de tmux.
+# Solo dentro de un terminal de herdr (app: $HC_TERMINAL_ID, TUI: $HERDR_ENV)
+# y fuera de tmux.
 #
 
-if [[ -n "$HC_TERMINAL_ID" && -z "$TMUX" ]] && (( $+commands[herdr-app] ))
+if [[ -z "$TMUX" ]] && {
+  { [[ -n "$HC_TERMINAL_ID" ]] && (( $+commands[herdr-app] )) } ||
+  { [[ "$HERDR_ENV" == 1 ]] && (( $+commands[herdr] )) }
+}
 then
   _herdr_pane_go () {
-    herdr-app do pane.go --direction "$1" &> /dev/null
+    if [[ -n "$HC_TERMINAL_ID" ]]
+    then
+      herdr-app do pane.go --direction "$1" &> /dev/null
+    else
+      herdr pane focus --direction "$1" &> /dev/null
+    fi
   }
 
   herdr-pane-left ()  { _herdr_pane_go left }
