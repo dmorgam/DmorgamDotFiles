@@ -90,6 +90,19 @@ installHerdr () {
   rm -rf "$HERDR_HOME/mods/leader"
   cp -rf "$BASEDIR/config/herdr-app/mods/leader" "$HERDR_HOME/mods/"
 
+  # Tab bar con numeros: clon de tabs (mods/tabs-num) + clon de main que lo usa
+  mkdir -p "$HERDR_HOME/layouts"
+  rm -rf "$HERDR_HOME/mods/tabs-num"
+  cp -rf "$BASEDIR/config/herdr-app/mods/tabs-num" "$HERDR_HOME/mods/"
+  cp -f "$BASEDIR/config/herdr-app/layouts/main-num.json" "$HERDR_HOME/layouts/"
+  if test -z "$HERDR_APP_HOME" && command -v herdr-app > /dev/null &&
+    herdr-app do layout.switch '{"name":"main-num"}' > /dev/null 2>&1
+  then
+    echo "Layout main-num activado."
+  else
+    echo "Elegir layout main-num en herdr (ctrl+shift+l o Settings)."
+  fi
+
   echo "Copiando config de herdr TUI ..."
   HERDR_TUI_CONFIG="${HERDR_CONFIG_PATH:-$HOME/.config/herdr/config.toml}"
   mkdir -p "$(dirname "$HERDR_TUI_CONFIG")"
