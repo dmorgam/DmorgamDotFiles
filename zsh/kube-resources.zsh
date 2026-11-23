@@ -21,6 +21,10 @@ def lim($v): if $v == 0 then "-" else ($v | tostring) end;
 
 | [.items[] | select(.kind == "Pod")
     | {name: .metadata.name,
+       owner: ((.metadata.ownerReferences[0] // null)
+         | if . == null then null
+           elif .kind == "ReplicaSet" then {kind: "Deployment", name: (.name | sub("-[^-]+$"; ""))}
+           else {kind, name} end),
        status: (([.status.containerStatuses[]?.state.waiting.reason // empty] | first) // .status.phase),
        ready: "\([.status.containerStatuses[]? | select(.ready)] | length)/\(.spec.containers | length)",
        restarts: ([.status.containerStatuses[]?.restartCount] | add // 0),
@@ -32,7 +36,12 @@ def lim($v): if $v == 0 then "-" else ($v | tostring) end;
     | {kind: .kind, name: .metadata.name, n: $n,
        ready: (.status.readyReplicas // .status.numberReady // 0),
        cr: ($n * (.spec.template | sumc("requests"; "cpu"; cpu))),
-       mr: ($n * (.spec.template | sumc("requests"; "memory"; mem)) | mi)}] as $wl
+       cl: ($n * (.spec.template | sumc("limits"; "cpu"; cpu))),
+       mr: ($n * (.spec.template | sumc("requests"; "memory"; mem)) | mi),
+       ml: ($n * (.spec.template | sumc("limits"; "memory"; mem)) | mi)}
+    | . as $w
+    | . + {uc: ([$pods[] | select(.owner.kind == $w.kind and .owner.name == $w.name) | ($use[.name].c // empty)] | add),
+           um: ([$pods[] | select(.owner.kind == $w.kind and .owner.name == $w.name) | ($use[.name].m // empty)] | add)}] as $wl
 
 | def pct($u; $l): if $u != null and $l > 0 then ($u * 100 / $l | round) else null end;
   def tok($p): if $p == null then "---" else ("000" + ([$p, 999] | min | tostring))[-3:] end;
@@ -51,8 +60,12 @@ def lim($v): if $v == 0 then "-" else ($v | tostring) end;
       "\(.mr)Mi", (lim(.ml) | if . == "-" then . else "\(.)Mi" end),
       "m\(tok(pct($um; .ml)))_"] | @tsv)
 elif $sec == "wl" then
-  (["KIND", "NAME", "READY/DESIRED", "CPU-REQ", "MEM-REQ"] | @tsv),
-  ($wl[] | [.kind, .name, "\(.ready)/\(.n)", "\(.cr)m", "\(.mr)Mi"] | @tsv)
+  (["KIND", "NAME", "READY/DESIRED", "CPU-USE", "CPU-REQ", "CPU-LIM", "CPU-%", "MEM-USE", "MEM-REQ", "MEM-LIM", "MEM-%"] | @tsv),
+  ($wl[] | [.kind, .name, "\(.ready)/\(.n)",
+    (.uc | if . == null then "-" else "\(.)m" end), "\(.cr)m",
+    (lim(.cl) | if . == "-" then . else "\(.)m" end), "g\(tok(pct(.uc; .cl)))_",
+    (.um | if . == null then "-" else "\(.)Mi" end), "\(.mr)Mi",
+    (lim(.ml) | if . == "-" then . else "\(.)Mi" end), "m\(tok(pct(.um; .ml)))_"] | @tsv)
 else
   ($pods | map($use[.name].c // empty) | add) as $uc
   | ($pods | map($use[.name].m // empty) | add) as $um
@@ -80,9 +93,9 @@ kube-resources () {
 
   printf '%sNamespace:%s %s%s%s\n' "$b" "$r" "$c" "$ns" "$r"
   local sec title mode
-  for sec title in pods PODS wl "WORKLOADS (requests = replicas x request por pod)" total TOTAL
+  for sec title in pods PODS wl "WORKLOADS (requests/limits = replicas x valor por pod)" total TOTAL
   do
-    mode=0; [[ $sec == pods ]] && mode=1; [[ $sec == total ]] && mode=2
+    mode=0; [[ $sec == pods ]] && mode=1; [[ $sec == (wl|total) ]] && mode=2
     printf '\n%s%s%s\n' "$c" "$title" "$r"
     jq -r --arg top "$top" --arg sec "$sec" "$_KUBE_RESOURCES_JQ" <<< "$json" |
       column -t -s $'\t' |
@@ -90,9 +103,10 @@ kube-resources () {
         function rep(ch, n,   o) { while (n-- > 0) o = o ch; return o }
         function bar(p,   n, fill) {
           if (p == "---") return b == "" ? "-----" : "\033[38;5;240m" rep("▬", 5) r
+          p += 0
           n = int(p * 5 / 100 + 0.5); if (p > 0 && n < 1) n = 1; if (n > 5) n = 5
           if (b == "") return rep("#", n) rep(".", 5 - n)
-          fill = (p < 70) ? 32 : (p < 90) ? 33 : 31
+          fill = (p > 80) ? 31 : (p > 60) ? 33 : 32
           return "\033[" fill "m" rep("▬", n) "\033[38;5;240m" rep("▬", 5 - n) r
         }
         NR == 1 { print b $0 r; next }
