@@ -35,12 +35,19 @@ def lim($v): if $v == 0 then "-" else ($v | tostring) end;
        mr: ($n * (.spec.template | sumc("requests"; "memory"; mem)) | mi)}] as $wl
 
 | if $sec == "pods" then
-  (["POD", "STATUS", "READY", "RESTARTS", "CPU-USE", "CPU-REQ", "CPU-LIM", "MEM-USE", "MEM-REQ", "MEM-LIM"] | @tsv),
-  ($pods[] | [.name, .status, .ready, .restarts,
+  (["POD", "RESTARTS", "CPU-USE", "CPU-REQ", "CPU-LIM", "MEM-USE", "MEM-REQ", "MEM-LIM", "MEM-USE/LIM"] | @tsv),
+  ($pods[] | ($use[.name].m // null) as $um
+    | (.ready | split("/") | .[0] == .[1]) as $rdy
+    | (if (.status | IN("Completed", "Succeeded")) or (.status == "Running" and $rdy) then "g"
+       elif .status | test("^(Running|Pending|ContainerCreating|PodInitializing|Terminating|Init:.*)$") then "y"
+       else "r" end) as $cls
+    | (if $um != null and .ml > 0 then ($um * 100 / .ml | round) else null end) as $pct
+    | [.name, .restarts,
       (($use[.name].c // null) | if . == null then "-" else "\(.)m" end),
       "\(.cr)m", (lim(.cl) | if . == "-" then . else "\(.)m" end),
-      (($use[.name].m // null) | if . == null then "-" else "\(.)Mi" end),
-      "\(.mr)Mi", (lim(.ml) | if . == "-" then . else "\(.)Mi" end)] | @tsv)
+      ($um | if . == null then "-" else "\(.)Mi" end),
+      "\(.mr)Mi", (lim(.ml) | if . == "-" then . else "\(.)Mi" end),
+      "p\($cls)\(if $pct == null then "---" else ("000" + ([$pct, 999] | min | tostring))[-3:] end)\("_" * 15)"] | @tsv)
 elif $sec == "wl" then
   (["KIND", "NAME", "READY/DESIRED", "CPU-REQ", "MEM-REQ"] | @tsv),
   ($wl[] | [.kind, .name, "\(.ready)/\(.n)", "\(.cr)m", "\(.mr)Mi"] | @tsv)
@@ -71,14 +78,27 @@ kube-resources () {
     jq -r --arg top "$top" --arg sec "$sec" "$_KUBE_RESOURCES_JQ" <<< "$json" |
       column -t -s $'\t' |
       awk -v b="$b" -v r="$r" -v pods=$([[ $sec == pods ]] && echo 1 || echo 0) '
+        function rep(ch, n,   o) { while (n-- > 0) o = o ch; return o }
         NR == 1 { print b $0 r; next }
-        pods && b != "" {
-          s = $2
-          col = "\033[31m"
-          if (s ~ /^(Running|Completed|Succeeded)$/) col = "\033[32m"
-          else if (s ~ /^(Pending|ContainerCreating|PodInitializing|Terminating|Init:.*)$/) col = "\033[33m"
-          i = length($1) + index(substr($0, length($1) + 1), s)
-          $0 = substr($0, 1, i - 1) col s r substr($0, i + length(s))
+        pods && match($0, /p[gyr]([0-9]{3}|---)_{15}/) {
+          cls = substr($0, RSTART + 1, 1); p = substr($0, RSTART + 2, 3)
+          bar = " " rep(" ", 19)
+          if (b == "") {
+            n = (p == "---") ? 0 : int(p * 20 / 100 + 0.5); if (n > 20) n = 20
+            bar = rep("#", n) rep(".", 20 - n)
+          } else if (p == "---") bar = "\033[48;5;238m" rep(" ", 20) r
+          else {
+            n = int(p * 20 / 100 + 0.5); if (n > 20) n = 20
+            fill = (p < 70) ? 42 : (p < 90) ? 43 : 41
+            bar = "\033[" fill "m" rep(" ", n) "\033[48;5;238m" rep(" ", 20 - n) r
+          }
+          txt = (p == "---") ? " -" : " " (p + 0) "%"
+          line = substr($0, 1, RSTART - 1) bar txt
+          if (b != "" && cls != "g") {
+            nm = $1; col = (cls == "y") ? "\033[33m" : "\033[31m"
+            line = col nm r substr(line, length(nm) + 1)
+          }
+          print line; next
         }
         { print }'
   done
