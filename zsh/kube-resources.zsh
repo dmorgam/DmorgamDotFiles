@@ -60,12 +60,27 @@ kube-resources () {
   json=$(kubectl get pods,deployments,statefulsets,daemonsets -n "$ns" -o json) || return 1
   top=$(kubectl top pods -n "$ns" --no-headers 2> /dev/null)
 
-  echo "Namespace: $ns"
+  local b= c= r=
+  [[ -t 1 ]] && { b=$'\e[1m'; c=$'\e[1;36m'; r=$'\e[0m' }
+
+  printf '%sNamespace:%s %s%s%s\n' "$b" "$r" "$c" "$ns" "$r"
   local sec title
   for sec title in pods PODS wl "WORKLOADS (requests = replicas x request por pod)" total TOTAL
   do
-    printf '\n%s\n' "$title"
-    jq -r --arg top "$top" --arg sec "$sec" "$_KUBE_RESOURCES_JQ" <<< "$json" | column -t -s $'\t'
+    printf '\n%s%s%s\n' "$c" "$title" "$r"
+    jq -r --arg top "$top" --arg sec "$sec" "$_KUBE_RESOURCES_JQ" <<< "$json" |
+      column -t -s $'\t' |
+      awk -v b="$b" -v r="$r" -v pods=$([[ $sec == pods ]] && echo 1 || echo 0) '
+        NR == 1 { print b $0 r; next }
+        pods && b != "" {
+          s = $2
+          col = "\033[31m"
+          if (s ~ /^(Running|Completed|Succeeded)$/) col = "\033[32m"
+          else if (s ~ /^(Pending|ContainerCreating|PodInitializing|Terminating|Init:.*)$/) col = "\033[33m"
+          i = length($1) + index(substr($0, length($1) + 1), s)
+          $0 = substr($0, 1, i - 1) col s r substr($0, i + length(s))
+        }
+        { print }'
   done
 }
 
