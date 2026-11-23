@@ -89,11 +89,11 @@ kube-resources () {
       awk -v b="$b" -v r="$r" -v mode=$mode '
         function rep(ch, n,   o) { while (n-- > 0) o = o ch; return o }
         function bar(p,   n, fill) {
-          if (p == "---") return b == "" ? "-----" : "\033[48;5;238m     " r
-          n = int(p * 5 / 100 + 0.5); if (n > 5) n = 5
+          if (p == "---") return b == "" ? "-----" : "\033[38;5;240m" rep("▬", 5) r
+          n = int(p * 5 / 100 + 0.5); if (p > 0 && n < 1) n = 1; if (n > 5) n = 5
           if (b == "") return rep("#", n) rep(".", 5 - n)
-          fill = (p < 70) ? 42 : (p < 90) ? 43 : 41
-          return "\033[" fill "m" rep(" ", n) "\033[48;5;238m" rep(" ", 5 - n) r
+          fill = (p < 70) ? 32 : (p < 90) ? 33 : 31
+          return "\033[" fill "m" rep("▬", n) "\033[38;5;240m" rep("▬", 5 - n) r
         }
         NR == 1 { print b $0 r; next }
         mode {
