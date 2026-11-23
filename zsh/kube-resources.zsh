@@ -34,28 +34,36 @@ def lim($v): if $v == 0 then "-" else ($v | tostring) end;
        cr: ($n * (.spec.template | sumc("requests"; "cpu"; cpu))),
        mr: ($n * (.spec.template | sumc("requests"; "memory"; mem)) | mi)}] as $wl
 
-| if $sec == "pods" then
-  (["POD", "RESTARTS", "CPU-USE", "CPU-REQ", "CPU-LIM", "MEM-USE", "MEM-REQ", "MEM-LIM", "MEM-USE/LIM"] | @tsv),
-  ($pods[] | ($use[.name].m // null) as $um
+| def pct($u; $l): if $u != null and $l > 0 then ($u * 100 / $l | round) else null end;
+  def tok($p): if $p == null then "---" else ("000" + ([$p, 999] | min | tostring))[-3:] end;
+  if $sec == "pods" then
+  (["POD", "RESTARTS", "CPU-USE", "CPU-REQ", "CPU-LIM", "CPU-%", "MEM-USE", "MEM-REQ", "MEM-LIM", "MEM-%"] | @tsv),
+  ($pods[] | ($use[.name].c // null) as $uc | ($use[.name].m // null) as $um
     | (.ready | split("/") | .[0] == .[1]) as $rdy
     | (if (.status | IN("Completed", "Succeeded")) or (.status == "Running" and $rdy) then "g"
        elif .status | test("^(Running|Pending|ContainerCreating|PodInitializing|Terminating|Init:.*)$") then "y"
        else "r" end) as $cls
-    | (if $um != null and .ml > 0 then ($um * 100 / .ml | round) else null end) as $pct
     | [.name, .restarts,
-      (($use[.name].c // null) | if . == null then "-" else "\(.)m" end),
+      ($uc | if . == null then "-" else "\(.)m" end),
       "\(.cr)m", (lim(.cl) | if . == "-" then . else "\(.)m" end),
+      "\($cls)\(tok(pct($uc; .cl)))_",
       ($um | if . == null then "-" else "\(.)Mi" end),
       "\(.mr)Mi", (lim(.ml) | if . == "-" then . else "\(.)Mi" end),
-      "p\($cls)\(if $pct == null then "---" else ("000" + ([$pct, 999] | min | tostring))[-3:] end)\("_" * 15)"] | @tsv)
+      "m\(tok(pct($um; .ml)))_"] | @tsv)
 elif $sec == "wl" then
   (["KIND", "NAME", "READY/DESIRED", "CPU-REQ", "MEM-REQ"] | @tsv),
   ($wl[] | [.kind, .name, "\(.ready)/\(.n)", "\(.cr)m", "\(.mr)Mi"] | @tsv)
 else
-  (["PODS", "REPLICAS", "CPU-REQ", "CPU-LIM", "MEM-REQ", "MEM-LIM"] | @tsv),
-  ([($pods | length), ($wl | map(.n) | add // 0),
-    "\($pods | map(.cr) | add // 0)m", "\($pods | map(.cl) | add // 0)m",
-    "\($pods | map(.mr) | add // 0)Mi", "\($pods | map(.ml) | add // 0)Mi"] | @tsv)
+  ($pods | map($use[.name].c // empty) | add) as $uc
+  | ($pods | map($use[.name].m // empty) | add) as $um
+  | ($pods | map(.cr) | add // 0) as $cr | ($pods | map(.cl) | add // 0) as $cl
+  | ($pods | map(.mr) | add // 0) as $mr | ($pods | map(.ml) | add // 0) as $ml
+  | (["PODS", "REPLICAS", "CPU-USE", "CPU-REQ", "CPU-LIM", "CPU-%", "MEM-USE", "MEM-REQ", "MEM-LIM", "MEM-%"] | @tsv),
+    ([($pods | length), ($wl | map(.n) | add // 0),
+      ($uc | if . == null then "-" else "\(.)m" end), "\($cr)m",
+      (lim($cl) | if . == "-" then . else "\(.)m" end), "g\(tok(pct($uc; $cl)))_",
+      ($um | if . == null then "-" else "\(.)Mi" end), "\($mr)Mi",
+      (lim($ml) | if . == "-" then . else "\(.)Mi" end), "m\(tok(pct($um; $ml)))_"] | @tsv)
 end
 '
 
@@ -71,33 +79,33 @@ kube-resources () {
   [[ -t 1 ]] && { b=$'\e[1m'; c=$'\e[1;36m'; r=$'\e[0m' }
 
   printf '%sNamespace:%s %s%s%s\n' "$b" "$r" "$c" "$ns" "$r"
-  local sec title
+  local sec title mode
   for sec title in pods PODS wl "WORKLOADS (requests = replicas x request por pod)" total TOTAL
   do
+    mode=0; [[ $sec == pods ]] && mode=1; [[ $sec == total ]] && mode=2
     printf '\n%s%s%s\n' "$c" "$title" "$r"
     jq -r --arg top "$top" --arg sec "$sec" "$_KUBE_RESOURCES_JQ" <<< "$json" |
       column -t -s $'\t' |
-      awk -v b="$b" -v r="$r" -v pods=$([[ $sec == pods ]] && echo 1 || echo 0) '
+      awk -v b="$b" -v r="$r" -v mode=$mode '
         function rep(ch, n,   o) { while (n-- > 0) o = o ch; return o }
+        function bar(p,   n, fill) {
+          if (p == "---") return b == "" ? "-----" : "\033[48;5;238m     " r
+          n = int(p * 5 / 100 + 0.5); if (n > 5) n = 5
+          if (b == "") return rep("#", n) rep(".", 5 - n)
+          fill = (p < 70) ? 42 : (p < 90) ? 43 : 41
+          return "\033[" fill "m" rep(" ", n) "\033[48;5;238m" rep(" ", 5 - n) r
+        }
         NR == 1 { print b $0 r; next }
-        pods && match($0, /p[gyr]([0-9]{3}|---)_{15}/) {
-          cls = substr($0, RSTART + 1, 1); p = substr($0, RSTART + 2, 3)
-          bar = " " rep(" ", 19)
-          if (b == "") {
-            n = (p == "---") ? 0 : int(p * 20 / 100 + 0.5); if (n > 20) n = 20
-            bar = rep("#", n) rep(".", 20 - n)
-          } else if (p == "---") bar = "\033[48;5;238m" rep(" ", 20) r
-          else {
-            n = int(p * 20 / 100 + 0.5); if (n > 20) n = 20
-            fill = (p < 70) ? 42 : (p < 90) ? 43 : 41
-            bar = "\033[" fill "m" rep(" ", n) "\033[48;5;238m" rep(" ", 20 - n) r
+        mode {
+          nm = $1; line = $0
+          if (match(line, /m([0-9]{3}|---)_/))
+            line = substr(line, 1, RSTART - 1) bar(substr(line, RSTART + 1, 3)) substr(line, RSTART + 5)
+          if (match(line, /[gyr]([0-9]{3}|---)_/)) {
+            cls = substr(line, RSTART, 1)
+            line = substr(line, 1, RSTART - 1) bar(substr(line, RSTART + 1, 3)) substr(line, RSTART + 5)
           }
-          txt = (p == "---") ? " -" : " " (p + 0) "%"
-          line = substr($0, 1, RSTART - 1) bar txt
-          if (b != "" && cls != "g") {
-            nm = $1; col = (cls == "y") ? "\033[33m" : "\033[31m"
-            line = col nm r substr(line, length(nm) + 1)
-          }
+          if (mode == 1 && b != "" && cls != "g")
+            line = (cls == "y" ? "\033[33m" : "\033[31m") nm r substr(line, length(nm) + 1)
           print line; next
         }
         { print }'
