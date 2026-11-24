@@ -2,12 +2,13 @@
 
 #
 # kube-resources [namespace]: resources por pod y resumen del namespace.
+# kube-resources nodes: requests y uso real por nodo.
 # Requiere kubectl y jq. CPU en millicores, memoria en Mi.
 #
 
 (( $+commands[kubectl] && $+commands[jq] )) || return 0
 
-_KUBE_RESOURCES_JQ='
+_KUBE_RESOURCES_DEFS='
 def cpu: tostring | if endswith("m") then .[:-1] | tonumber else tonumber * 1000 end;
 def mem: tostring | capture("^(?<n>[0-9.]+)(?<u>[A-Za-z]*)$") as $c
   | ($c.n | tonumber) * ({"Ki":1024,"Mi":1048576,"Gi":1073741824,"Ti":1099511627776,
@@ -16,6 +17,11 @@ def mi: . / 1048576 | round;
 def sumc($sec; $res; conv): [.spec.containers[] | (.resources[$sec][$res]? // empty) | conv] | add // 0;
 def lim($v): if $v == 0 then "-" else ($v | tostring) end;
 
+def pct($u; $l): if $u != null and $l > 0 then ($u * 100 / $l | round) else null end;
+def tok($p): if $p == null then "---" else ("000" + ([$p, 999] | min | tostring))[-3:] end;
+'
+
+_KUBE_RESOURCES_JQ='
 ($top | split("\n") | map(select(length > 0) | [splits(" +")] | select(length > 2)
   | {(.[0]): {c: (.[1] | cpu), m: (.[2] | mem | mi)}}) | add // {}) as $use
 
@@ -43,9 +49,7 @@ def lim($v): if $v == 0 then "-" else ($v | tostring) end;
     | . + {uc: ([$pods[] | select(.owner.kind == $w.kind and .owner.name == $w.name) | ($use[.name].c // empty)] | add),
            um: ([$pods[] | select(.owner.kind == $w.kind and .owner.name == $w.name) | ($use[.name].m // empty)] | add)}] as $wl
 
-| def pct($u; $l): if $u != null and $l > 0 then ($u * 100 / $l | round) else null end;
-  def tok($p): if $p == null then "---" else ("000" + ([$p, 999] | min | tostring))[-3:] end;
-  if $sec == "pods" then
+| if $sec == "pods" then
   (["POD", "RESTARTS", "CPU-USE", "CPU-REQ", "CPU-LIM", "CPU-%", "MEM-USE", "MEM-REQ", "MEM-LIM", "MEM-%"] | @tsv),
   ($pods[] | ($use[.name].c // null) as $uc | ($use[.name].m // null) as $um
     | (.ready | split("/") | .[0] == .[1]) as $rdy
@@ -80,26 +84,36 @@ else
 end
 '
 
-kube-resources () {
-  local ns=${1:-$(kubectl config view --minify -o jsonpath='{..namespace}')}
-  ns=${ns:-default}
+_KUBE_RESOURCES_NODES_JQ='
+($top | split("\n") | map(select(length > 0) | [splits(" +")] | select(length > 3)
+  | {(.[0]): {c: (.[1] | cpu), m: (.[3] | mem | mi)}}) | add // {}) as $use
 
-  local json top
-  json=$(kubectl get pods,deployments,statefulsets,daemonsets -n "$ns" -o json) || return 1
-  top=$(kubectl top pods -n "$ns" --no-headers 2> /dev/null)
+| [.items[] | select(.kind == "Pod" and .spec.nodeName != null and (.status.phase | IN("Succeeded", "Failed") | not))
+    | {node: .spec.nodeName, cr: sumc("requests"; "cpu"; cpu), mr: (sumc("requests"; "memory"; mem) | mi)}] as $pods
 
-  local b= c= r=
-  [[ -t 1 ]] && { b=$'\e[1m'; c=$'\e[1;36m'; r=$'\e[0m' }
+| [.items[] | select(.kind == "Node") | . as $n
+    | ([.status.conditions[]? | select(.type == "Ready") | .status == "True"] | first // false) as $ready
+    | [$pods[] | select(.node == $n.metadata.name)] as $np
+    | {name: .metadata.name, ready: $ready,
+       pods: ($np | length), ap: (.status.allocatable.pods | tonumber),
+       ac: (.status.allocatable.cpu | cpu), am: (.status.allocatable.memory | mem | mi),
+       cr: ($np | map(.cr) | add // 0), mr: ($np | map(.mr) | add // 0),
+       uc: ($use[.metadata.name].c // null), um: ($use[.metadata.name].m // null)}] as $nodes
 
-  printf '%sNamespace:%s %s%s%s\n' "$b" "$r" "$c" "$ns" "$r"
-  local sec title mode
-  for sec title in pods PODS wl "WORKLOADS (requests/limits = replicas x valor por pod)" total TOTAL
-  do
-    mode=0; [[ $sec == pods ]] && mode=1; [[ $sec == (wl|total) ]] && mode=2
-    printf '\n%s%s%s\n' "$c" "$title" "$r"
-    jq -r --arg top "$top" --arg sec "$sec" "$_KUBE_RESOURCES_JQ" <<< "$json" |
-      column -t -s $'\t' |
-      awk -v b="$b" -v r="$r" -v mode=$mode '
+| def row($name; $ok; $n; $p; $ac; $cr; $uc; $am; $mr; $um):
+    [$name, $p, "\($ac)m", "\($cr)m", "\(if $ok then "g" else "r" end)\(tok(pct($cr; $ac)))_",
+     ($uc | if . == null then "-" else "\(.)m" end), "b\(tok(pct($uc; $ac)))_",
+     "\($am)Mi", "\($mr)Mi", "c\(tok(pct($mr; $am)))_",
+     ($um | if . == null then "-" else "\(.)Mi" end), "d\(tok(pct($um; $am)))_"] | @tsv;
+  (["NODE", "PODS", "CPU-ALLOC", "CPU-REQ", "CPU-R%", "CPU-USE", "CPU-U%", "MEM-ALLOC", "MEM-REQ", "MEM-R%", "MEM-USE", "MEM-U%"] | @tsv),
+  ($nodes[] | row(.name; .ready; .pods; "\(.pods)/\(.ap)"; .ac; .cr; .uc; .am; .mr; .um)),
+  ([$nodes[] | select(.uc != null)] as $m
+   | row("TOTAL"; true; 0; "\($nodes | map(.pods) | add // 0)/\($nodes | map(.ap) | add // 0)";
+         ($nodes | map(.ac) | add // 0); ($nodes | map(.cr) | add // 0); ($m | map(.uc) | add);
+         ($nodes | map(.am) | add // 0); ($nodes | map(.mr) | add // 0); ($m | map(.um) | add)))
+'
+
+_KUBE_RESOURCES_AWK='
         function rep(ch, n,   o) { while (n-- > 0) o = o ch; return o }
         function bar(p,   n, fill) {
           if (p == "---") return b == "" ? "-----" : "\033[38;5;240m" rep("▬", 5) r
@@ -110,6 +124,16 @@ kube-resources () {
           return "\033[" fill "m" rep("▬", n) "\033[38;5;240m" rep("▬", 5 - n) r
         }
         NR == 1 { print b $0 r; next }
+        mode == 3 {
+          line = $0; ready = 1
+          while (match(line, /[a-z]([0-9]{3}|---)_/)) {
+            if (substr(line, RSTART, 1) == "r") ready = 0
+            line = substr(line, 1, RSTART - 1) bar(substr(line, RSTART + 1, 3)) substr(line, RSTART + 5)
+          }
+          nm = $1
+          if (!ready && b != "") line = "\033[31m" nm r substr(line, length(nm) + 1)
+          print line; next
+        }
         mode {
           nm = $1; line = $0
           if (match(line, /m([0-9]{3}|---)_/))
@@ -122,7 +146,47 @@ kube-resources () {
             line = (cls == "y" ? "\033[33m" : "\033[31m") nm r substr(line, length(nm) + 1)
           print line; next
         }
-        { print }'
+        { print }
+'
+
+_kube_resources_render () {
+  column -t -s $'\t' | awk -v b="$b" -v r="$r" -v mode="$1" "$_KUBE_RESOURCES_AWK"
+}
+
+_kube_resources_nodes () {
+  local json top
+  json=$(kubectl get nodes,pods -A -o json) || return 1
+  top=$(kubectl top nodes --no-headers 2> /dev/null)
+
+  printf '%sNODES%s (requests y uso real sobre allocatable)\n\n' "$c" "$r"
+  jq -r --arg top "$top" "$_KUBE_RESOURCES_DEFS $_KUBE_RESOURCES_NODES_JQ" <<< "$json" | _kube_resources_render 3
+}
+
+kube-resources () {
+  local b= c= r=
+  [[ -t 1 ]] && { b=$'\e[1m'; c=$'\e[1;36m'; r=$'\e[0m' }
+
+  if [[ $1 == nodes ]]
+  then
+    _kube_resources_nodes
+    return
+  fi
+
+  local ns=${1:-$(kubectl config view --minify -o jsonpath='{..namespace}')}
+  ns=${ns:-default}
+
+  local json top
+  json=$(kubectl get pods,deployments,statefulsets,daemonsets -n "$ns" -o json) || return 1
+  top=$(kubectl top pods -n "$ns" --no-headers 2> /dev/null)
+
+  printf '%sNamespace:%s %s%s%s\n' "$b" "$r" "$c" "$ns" "$r"
+  local sec title mode
+  for sec title in pods PODS wl "WORKLOADS (requests/limits = replicas x valor por pod)" total TOTAL
+  do
+    mode=0; [[ $sec == pods ]] && mode=1; [[ $sec == (wl|total) ]] && mode=2
+    printf '\n%s%s%s\n' "$c" "$title" "$r"
+    jq -r --arg top "$top" --arg sec "$sec" "$_KUBE_RESOURCES_DEFS $_KUBE_RESOURCES_JQ" <<< "$json" |
+      _kube_resources_render $mode
   done
 }
 
@@ -130,5 +194,6 @@ kube-resources () {
 _kube_ns_complete () {
   local -a ns
   ns=(${(f)"$(kubectl get ns -o name 2> /dev/null | sed 's|.*/||')"})
+  compadd nodes
   compadd -a ns
 }
